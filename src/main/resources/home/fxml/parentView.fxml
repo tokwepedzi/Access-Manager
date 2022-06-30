@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.ParentViewController">
+   <left>
+      <VBox prefHeight="589.0" prefWidth="228.0" style="-fx-background-color: #005b96;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="322.0" prefWidth="228.0">
+               <children>
+                  <Label layoutX="28.0" layoutY="14.0" text="Xpressions" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+                  <Label layoutX="28.0" layoutY="41.0" text="Wellness Center" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="65.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../logo.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="mProfilePic" fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../user_icon.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="mUserLabel" layoutX="10.0" layoutY="242.0" text="username@email.com" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="mLogoutBtn" layoutX="40.0" layoutY="278.0" mnemonicParsing="false" onAction="#logOutUser" prefHeight="30.0" prefWidth="131.0" style="-fx-background-color: #FFFFFF;" text="LOGOUT" textFill="#002657">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane prefHeight="2.0" prefWidth="230.0" style="-fx-background-color: #60abd6;" />
+            <Button id="dashboardBtn" fx:id="dashboardBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openDashBoard" prefHeight="55.0" prefWidth="230.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="DASHBOARD" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../dashboardicon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="dashboardBtn" fx:id="accessControlBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openAccessControl" prefHeight="55.0" prefWidth="230.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="ACCESS CONTROL" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../accessctrl.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="dashboardBtn" fx:id="membershipBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openMembershipModule" prefHeight="55.0" prefWidth="230.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="MEMBERSHIP" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../membership.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="dashboardBtn" fx:id="usersBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openUsersModule" prefHeight="55.0" prefWidth="230.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="USERS" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../users.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="dashboardBtn" fx:id="settingsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openSettingsModule" prefHeight="55.0" prefWidth="230.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="SETTINGS" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../settings.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button id="dashboardBtn" fx:id="systemBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openSystemModule" prefHeight="55.0" prefWidth="230.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="SYSTEM" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../system.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <AnchorPane style="-fx-background-color: #60abd6;" BorderPane.alignment="CENTER">
+         <children>
+            <StackPane fx:id="contentArea" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </AnchorPane>
+   </center>
+   <top>
+      <Pane prefHeight="40.0" prefWidth="367.0" style="-fx-background-color: #005b96;" BorderPane.alignment="CENTER">
+         <children>
+            <Label id="moduleHeadingLabel" fx:id="moduleHeadingLabel" alignment="CENTER_RIGHT" layoutX="577.0" layoutY="-3.0" text="Label" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </top>
+</BorderPane>

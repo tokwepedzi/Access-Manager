@@ -1,0 +1,82 @@
+.menu_bar_button
+{
+-fx-background-color :  #005b96;
+}
+.menu_bar_button:hover
+{
+-fx-background-color :  #002657;
+}
+.menu_bar_button:pressed
+{
+-fx-background-color :  #60abd6;
+}
+.pane_background
+{
+-fx-background-color :  #60abd6;
+}
+.access_bg_card
+{
+-fx-background-color : #228B22;
+}
+.access_bg_card:hover
+{
+-fx-background-color : #D22B2B;
+}
+.global_button
+{
+-fx-background-color :  #ffffff;
+}
+.global_button:hover
+{
+-fx-background-color :  #002657;
+-fx-text-fill: #FFFFFF
+}
+.global_button:pressed
+{
+-fx-background-color :  #60abd6;
+}
+.tables{
+-fx-background-color :   #d4f7f6;
+-fx-font-size   :   14;
+}
+.dropdown{
+-fx-font-size   :   16;
+-fx-font-weight   :   Bold;
+}
+.dropdown_secondary{
+-fx-font-size   :   12;
+-fx-font-weight   :   Bold;
+}
+
+/*Aesthetics*/
+
+.modules_buttons{
+-fx-border-width : 3;
+-fx-background-color :  #005b96;
+-fx-border-radius :  7;
+-fx-background-radius : 7;
+-fx-border-color : #fff;
+-fx-font-weight : bold;
+-fx-text-fill : #fff;
+-fx-font-size : 18;
+}
+
+.modules_buttons:pressed{
+-fx-background-color :  #60abd6;
+}
+
+.modules_pane_background{
+-fx-border-width : 3;
+-fx-border-radius :  7;
+-fx-border-color : #005b96;
+}
+
+.modules_pane_heading_bg{
+-fx-background-color : #005b96;
+-fx-background-radius : 7;
+}
+.modules_pane_heading_txt{
+-fx-text-fill : #fff;
+-fx-font-weight : bold;
+-fx-font-size : 15;
+}

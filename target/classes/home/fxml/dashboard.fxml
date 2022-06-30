@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.DashBoardController">
+   <children>
+      <Pane layoutX="74.0" layoutY="34.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-background-color: #d4f7f6;">
+         <children>
+            <Label layoutX="38.0" layoutY="37.0" text="CURRENT MEMBERS" textFill="#005b96">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="mCurrentMemberLabel" alignment="CENTER" layoutX="6.0" layoutY="77.0" prefHeight="113.0" prefWidth="237.0" text="000" textFill="#005b96">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <Pane layoutX="395.0" layoutY="34.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-background-color: #d4f7f6;">
+         <children>
+            <Label layoutX="18.0" layoutY="37.0" text="EXPIRING MEMBERSHIPS" textFill="#005b96">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="mNearExpireMemberships" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="73.0" prefHeight="113.0" prefWidth="237.0" text="000" textAlignment="CENTER" textFill="#005b96">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="74.0" layoutY="283.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-background-color: #d4f7f6;">
+         <children>
+            <Label layoutX="65.0" layoutY="38.0" text="VISITS TODAY" textFill="#005b96">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="mVisitsTodayLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="73.0" prefHeight="113.0" prefWidth="237.0" text="000" textFill="#005b96">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="395.0" layoutY="283.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-background-color: #d4f7f6;">
+         <children>
+            <Label layoutX="38.0" layoutY="37.0" text="OVERRIDES TODAY" textFill="#005b96">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="mOverridesLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="7.0" layoutY="73.0" prefHeight="113.0" prefWidth="237.0" text="000" textFill="#005b96">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

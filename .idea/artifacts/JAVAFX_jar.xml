@@ -1,0 +1,40 @@
+<component name="ArtifactManager">
+  <artifact name="JAVAFX:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/JAVAFX_jar</output-path>
+    <root id="root">
+      <element id="archive" name="JAVAFX.jar">
+        <element id="module-output" name="JAVAFX" />
+      </element>
+      <element id="library" level="project" name="Maven: org.kordamp.ikonli:ikonli-core:12.2.0" />
+      <element id="library" level="project" name="adaptive" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:15.0.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-web:win:15.0.1" />
+      <element id="library" level="project" name="GymProctor_jar" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:win:15.0.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:win:15.0.1" />
+      <element id="library" level="project" name="Maven: org.kordamp.ikonli:ikonli-javafx:12.2.0" />
+      <element id="library" level="project" name="Maven: com.dlsc.formsfx:formsfx-core:11.3.2" />
+      <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.2" />
+      <element id="library" level="project" name="barcode4j-2.1" />
+      <element id="library" level="project" name="Maven: org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-media:win:15.0.1" />
+      <element id="library" level="project" name="commons-7.2.1" />
+      <element id="library" level="project" name="layout-7.2.1" />
+      <element id="library" level="project" name="Maven: net.synedra:validatorfx:0.1.13" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:win:15.0.1" />
+      <element id="library" level="project" name="io-7.2.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:win:15.0.1" />
+      <element id="library" level="project" name="Maven: com.github.sarxos:webcam-capture:0.3.12" />
+      <element id="library" level="project" name="kernel-7.2.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-base:15.0.1" />
+      <element id="library" level="project" name="Maven: com.microsoft.sqlserver:mssql-jdbc:11.1.1.jre18-preview" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-web:15.0.1" />
+      <element id="library" level="project" name="Maven: com.nativelibs4java:bridj:0.7.0" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:15.0.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:15.0.1" />
+      <element id="library" level="project" name="Maven: org.openjfx:javafx-media:15.0.1" />
+      <element id="library" level="project" name="Maven: org.controlsfx:controlsfx:11.1.0" />
+      <element id="library" level="project" name="Maven: eu.hansolo:tilesfx:11.48" />
+    </root>
+  </artifact>
+</component>

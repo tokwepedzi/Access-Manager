@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="709.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.AccessControlController">
+    <Tab style="-fx-font-size: 20; -fx-font-weight: Bold;" text="LONG TERM ACCOUNTS">
+        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" stylesheets="@../../css/style.css">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #60abd6;">
+                    <children>
+                        <Pane fx:id="mParentBg" layoutX="14.0" layoutY="137.0" prefHeight="313.0" prefWidth="400.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #FFFFFF;">
+                     <children>
+                        <ImageView fx:id="mSubscribermImage" fitHeight="150.0" fitWidth="150.0" layoutX="125.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../user_icon.png" />
+                           </image>
+                        </ImageView>
+                        <Rectangle fx:id="mSubscriberImageRectangle" arcHeight="15.0" arcWidth="15.0" fill="#ffffff00" height="260.0" layoutX="25.0" layoutY="27.0" stroke="#fafafab3" strokeType="INSIDE" strokeWidth="4.0" width="350.0" />
+                     </children>
+                        </Pane>
+                        <Pane layoutX="511.0" layoutY="90.0" prefHeight="507.0" prefWidth="551.0" style="-fx-background-color: #d4f7f6; -fx-border-radius: 10; -fx-background-radius: 10;">
+                            <children>
+                                <Pane layoutX="4.0" layoutY="39.0" prefHeight="38.0" prefWidth="546.0">
+                                    <children>
+                                        <Label fx:id="mNameField" layoutX="101.0" layoutY="13.0">
+                                            <font>
+                                                <Font name="System Bold" size="15.0" />
+                                            </font>
+                                        </Label>
+                                        <Separator layoutX="-2.0" layoutY="28.0" prefHeight="12.0" prefWidth="547.0" />
+                                    </children>
+                                </Pane>
+                        <Pane layoutX="3.0" layoutY="267.0" prefHeight="38.0" prefWidth="546.0">
+                           <children>
+                              <Label fx:id="mCellNumberField" layoutX="101.0" layoutY="13.0">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Separator layoutX="-2.0" layoutY="28.0" prefHeight="12.0" prefWidth="547.0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="3.0" layoutY="229.0" prefHeight="38.0" prefWidth="546.0">
+                           <children>
+                              <Label fx:id="mDueDateField" layoutX="101.0" layoutY="13.0">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Separator layoutX="-2.0" layoutY="28.0" prefHeight="12.0" prefWidth="547.0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="3.0" layoutY="191.0" prefHeight="38.0" prefWidth="546.0">
+                           <children>
+                              <Label fx:id="mPackkageNameField" layoutX="101.0" layoutY="13.0">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Separator layoutX="-2.0" layoutY="28.0" prefHeight="12.0" prefWidth="547.0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="3.0" layoutY="153.0" prefHeight="38.0" prefWidth="546.0">
+                           <children>
+                              <Label fx:id="mAccBalanceField" layoutX="101.0" layoutY="13.0">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Separator layoutX="-2.0" layoutY="28.0" prefHeight="12.0" prefWidth="547.0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="4.0" layoutY="115.0" prefHeight="38.0" prefWidth="546.0">
+                           <children>
+                              <Label fx:id="mAccountNumField" layoutX="101.0" layoutY="13.0">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Separator layoutX="-2.0" layoutY="28.0" prefHeight="12.0" prefWidth="547.0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="3.0" layoutY="77.0" prefHeight="38.0" prefWidth="546.0">
+                           <children>
+                              <Label fx:id="mAccessCountField" layoutX="101.0" layoutY="13.0">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Separator layoutX="-2.0" layoutY="28.0" prefHeight="12.0" prefWidth="547.0" />
+                           </children>
+                        </Pane>
+                        <Pane layoutX="4.0" layoutY="305.0" prefHeight="38.0" prefWidth="546.0">
+                           <children>
+                              <Label fx:id="mContractExpirationField" layoutX="101.0" layoutY="13.0">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Separator layoutX="-2.0" layoutY="28.0" prefHeight="12.0" prefWidth="547.0" />
+                           </children>
+                        </Pane>
+                            </children>
+                        </Pane>
+                        <Label layoutX="17.0" layoutY="26.0" text="SCAN/SEARCH ACCOUNT" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="mSearchAccount" layoutX="17.0" layoutY="53.0" onKeyTyped="#searchForAccount" prefHeight="42.0" prefWidth="394.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font></TextField>
+                        <ImageView fitHeight="32.0" fitWidth="53.0" layoutX="371.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../searchaccount.png" />
+                            </image>
+                        </ImageView>
+                        <Button fx:id="mOverrideBtn" layoutX="17.0" layoutY="486.0" mnemonicParsing="false" onAction="#overrideAction" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 10;" styleClass="global_button" stylesheets="@../../css/style.css" text="OVERRIDE" textFill="#60abd6">
+                            <graphic>
+                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../override.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="mCheckInBtn" layoutX="261.0" layoutY="486.0" mnemonicParsing="false" onAction="#checkInSubscriber" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 10;" styleClass="global_button" stylesheets="@../../css/style.css" text="CHECK IN" textFill="#60abd6">
+                            <graphic>
+                                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../checkin.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Button>
+                  <Label fx:id="mMessageOut" layoutX="629.0" layoutY="26.0" prefHeight="17.0" prefWidth="301.0" text="Label" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                    </children>
+                    <padding>
+                        <Insets top="20.0" />
+                    </padding>
+                </AnchorPane>
+            </content>
+            <padding>
+                <Insets top="20.0" />
+            </padding>
+        </ScrollPane>
+    </Tab>
+    <Tab style="-fx-font-size: 20; -fx-font-weight: Bold;" text="SHORT TERM ACCOUNTS">
+        <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="658.0" prefWidth="1104.0" style="-fx-background-color: #60abd6;">
+                <children>
+                    <TextField fx:id="m7SearchAccount" layoutX="24.0" layoutY="80.0" onKeyTyped="#searchForAccount" prefHeight="42.0" prefWidth="394.0">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font></TextField>
+                    <ScrollPane layoutX="418.0" layoutY="23.0" prefHeight="612.0" prefWidth="685.0" styleClass="tables" stylesheets="@../../css/style.css">
+                        <content>
+                            <TableView fx:id="weeklyMemberModelTableView" layoutX="2.0" layoutY="2.0" prefHeight="589.0" prefWidth="639.0" style="-fx-background-color: #d4f7f6;" stylesheets="@../../css/style.css">
+                                <columns>
+                                    <TableColumn fx:id="m7NameColumn" prefWidth="230.0" text="FULL NAME" />
+                                    <TableColumn fx:id="m7CellColumn" prefWidth="168.0" text="CELL NUMBER " />
+                                    <TableColumn fx:id="m7StarDateColumn" minWidth="0.0" prefWidth="119.0" text="START DATE" />
+                                    <TableColumn fx:id="m7EndDateColumn" prefWidth="120.0" text="END DATE" />
+                                </columns>
+                            </TableView>
+                        </content>
+                    </ScrollPane>
+                    <Button fx:id="m7CheckinBtn" layoutX="14.0" layoutY="245.0" mnemonicParsing="false" onAction="#checkInWeeklySubscriber" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 10;" styleClass="global_button" stylesheets="@../../css/style.css" text="CHECK IN" textFill="#60abd6">
+                        <graphic>
+                            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@../../checkin.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                        <font>
+                            <Font name="System Bold" size="14.0" />
+                        </font>
+                    </Button>
+                    <Button fx:id="m7DeleteBtn" layoutX="249.0" layoutY="245.0" mnemonicParsing="false" onAction="#deleteWeeklyMemberAccount" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 10;" styleClass="global_button" stylesheets="@../../css/style.css" text="     DELETE" textFill="#60abd6">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                        <padding>
+                            <Insets left="40.0" right="10.0" />
+                        </padding>
+                    </Button>
+                    <ImageView fx:id="mDeleteIcon" fitHeight="51.0" fitWidth="49.0" layoutX="269.0" layoutY="251.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../../delete.png" />
+                        </image>
+                    </ImageView>
+                    <Label layoutX="24.0" layoutY="135.0" text="SEARCH ACCOUNT NAME" textFill="WHITE">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+               <Button fx:id="m7RfershAccountsBtn" layoutX="318.0" layoutY="23.0" mnemonicParsing="false" onAction="#refreshWeeklyAccountsTable" text="REFRESH">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Button>
+               <ProgressBar fx:id="mWeeklyAccTableProgress" layoutX="-3.0" layoutY="-9.0" prefHeight="18.0" prefWidth="1107.0" progress="0.0" />
+               <Button fx:id="m7OverrideBtn" layoutX="14.0" layoutY="338.0" mnemonicParsing="false" onAction="#overrideWeekelyMember" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 10;" styleClass="global_button" stylesheets="@../../css/style.css" text="OVERRIDE" textFill="#60abd6">
+                  <graphic>
+                     <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../override.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Button>
+               <Label fx:id="m7OutputMsgLabel" layoutX="195.0" layoutY="523.0" textFill="#007912">
+                  <font>
+                     <Font name="System Bold Italic" size="15.0" />
+                  </font>
+               </Label>
+                </children>
+            </AnchorPane>
+        </content>
+    </Tab>
+    <padding>
+        <Insets top="20.0" />
+    </padding>
+</TabPane>

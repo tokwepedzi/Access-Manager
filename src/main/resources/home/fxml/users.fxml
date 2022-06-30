@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<TabPane fx:id="usersBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #60abd6;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.UsersController">
+   <tabs>
+      <Tab fx:id="mUsersTab" style="-fx-font-size: 20; -fx-font-weight: Bold;" text="MANAGE USERS">
+         <content>
+            <ScrollPane prefHeight="600.0" prefWidth="1100.0" style="-fx-background-color: #60abd6;" styleClass="tables" stylesheets="@../../css/style.css">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1080.0" style="-fx-background-color: #d4f7f6;" styleClass="tables" stylesheets="@../../css/style.css">
+                     <children>
+                        <HBox layoutX="42.0" layoutY="195.0" prefHeight="36.0" prefWidth="426.0">
+                           <children>
+                              <Label prefHeight="33.0" prefWidth="106.0" text="FULLNAME: ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="mFullname" prefHeight="35.0" prefWidth="321.0" style="-fx-background-color: #ffffff;">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></TextField>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="42.0" layoutY="316.0" prefHeight="36.0" prefWidth="426.0">
+                           <children>
+                              <Label prefHeight="33.0" prefWidth="106.0" text="ADDRESS: ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="mAddress" prefHeight="35.0" prefWidth="321.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></TextField>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="540.0" layoutY="255.0" prefHeight="36.0" prefWidth="426.0">
+                           <children>
+                              <Label prefHeight="33.0" prefWidth="106.0" text="DOB: ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="mDob" prefHeight="35.0" prefWidth="320.0" style="-fx-font-size: 14;" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="540.0" layoutY="195.0" prefHeight="36.0" prefWidth="426.0">
+                           <children>
+                              <Label prefHeight="33.0" prefWidth="106.0" text="CELL NUMBER:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="mCellnumber" prefHeight="35.0" prefWidth="321.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></TextField>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="42.0" layoutY="255.0" prefHeight="36.0" prefWidth="426.0">
+                           <children>
+                              <Label prefHeight="33.0" prefWidth="106.0" text="ID NUMBER: ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="mIdnumber" prefHeight="35.0" prefWidth="321.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></TextField>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="540.0" layoutY="316.0" prefHeight="36.0" prefWidth="426.0">
+                           <children>
+                              <Label prefHeight="33.0" prefWidth="106.0" text="GENDER">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <ChoiceBox fx:id="mGender" prefHeight="34.0" prefWidth="319.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
+                           </children>
+                        </HBox>
+                        <HBox layoutX="42.0" layoutY="378.0" prefHeight="36.0" prefWidth="426.0">
+                           <children>
+                              <Label prefHeight="33.0" prefWidth="106.0" text="EMAIL">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="mEmail" prefHeight="35.0" prefWidth="321.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></TextField>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="42.0" layoutY="430.0" prefHeight="36.0" prefWidth="426.0">
+                           <children>
+                              <Label prefHeight="33.0" prefWidth="106.0" text="PASSWORD: ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <PasswordField fx:id="mPassword" prefHeight="36.0" prefWidth="320.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></PasswordField>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="540.0" layoutY="430.0" prefHeight="36.0" prefWidth="426.0">
+                           <children>
+                              <Label prefHeight="33.0" prefWidth="149.0" text="REPEAT PASSWORD:">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <PasswordField fx:id="mConfirmpassword" prefHeight="36.0" prefWidth="273.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></PasswordField>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="540.0" layoutY="378.0" prefHeight="36.0" prefWidth="426.0">
+                           <children>
+                              <Label prefHeight="33.0" prefWidth="106.0" text="ACCESS LEVEL: ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <ChoiceBox fx:id="mAuthlevel" prefHeight="34.0" prefWidth="319.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
+                           </children>
+                        </HBox>
+                        <Button fx:id="mSaveBtn" layoutX="246.0" layoutY="542.0" mnemonicParsing="false" onAction="#mSaveBtnClicked" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 10;" styleClass="global_button" stylesheets="@../../css/style.css" text="SAVE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets left="-60.0" />
+                           </padding>
+                        </Button>
+                        <Button fx:id="mUploadProfilePic" layoutX="459.0" layoutY="105.0" mnemonicParsing="false" onAction="#uploadImageAction" prefHeight="40.0" prefWidth="110.0" text="UPLOAD" textFill="#005b96">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font></Button>
+                        <Button fx:id="mDeleteBtn" layoutX="761.0" layoutY="542.0" mnemonicParsing="false" onAction="#mDeleteBtnClicked" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 10;" styleClass="global_button" stylesheets="@../../css/style.css" text="DELETE">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <padding>
+                              <Insets left="-60.0" />
+                           </padding>
+                        </Button>
+                        <ImageView fx:id="mDeleteIcon" fitHeight="50.0" fitWidth="50.0" layoutX="845.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../delete.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="mSaveIcon" fitHeight="45.0" fitWidth="45.0" layoutX="337.0" layoutY="550.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../save.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="mCaptureImage" layoutX="668.0" layoutY="105.0" mnemonicParsing="false" onAction="#captureImageWithCam" prefHeight="40.0" prefWidth="110.0" text="CAPTURE" textFill="#005b96">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font></Button>
+                        <Rectangle fx:id="mUserPicRec" arcHeight="15.0" arcWidth="15.0" fill="#ffffff00" height="150.0" layoutX="155.0" layoutY="15.0" stroke="#005b96" strokeType="INSIDE" strokeWidth="4.0" width="220.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </content>
+      </Tab>
+      <Tab fx:id="mManageUsersTab" style="-fx-font-size: 20; -fx-font-weight: Bold;" text="USER ACCOUNTS">
+         <content>
+            <ScrollPane prefHeight="600.0" prefWidth="1100.0" style="-fx-background-color: #60abd6;">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1500.0" prefWidth="1080.0" style="-fx-background-color: #60abd6;">
+                     <children>
+                        <TableView fx:id="mUsersTable" layoutY="100.0" prefHeight="660.0" prefWidth="1081.0" styleClass="tables" stylesheets="@../../css/style.css">
+                          <columns>
+                            <TableColumn fx:id="mUidColumn" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" text="UID" />
+                            <TableColumn fx:id="mFullNameColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="FULL NAME" />
+                              <TableColumn fx:id="mCellNumColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="CELL " />
+                              <TableColumn fx:id="mIDColumn" maxWidth="100.0" prefWidth="100.0" text="ID NUMBER" />
+                              <TableColumn fx:id="mDobColumn" maxWidth="100.0" prefWidth="100.0" text="DOB" />
+                              <TableColumn fx:id="mAddressColumn" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" text="ADDRESS" />
+                              <TableColumn fx:id="mGenderColumn" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" text="GENDER" />
+                              <TableColumn fx:id="mEmailColumn" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="EMAIL" />
+                              <TableColumn fx:id="mAuthLevelColumn" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="AUTH LEVEL" />
+                              <TableColumn fx:id="mPasswordColumn" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="PASSWORD" />
+                              <TableColumn fx:id="mProfilePicColumn" maxWidth="134.0" prefWidth="134.0" text="PROFILE PICTURE" />
+                          </columns>
+                        </TableView>
+                        <Pane prefHeight="100.0" prefWidth="1080.0" style="-fx-background-color: #d4f7f6;" styleClass="tables" stylesheets="@../../css/style.css">
+                           <children>
+                              <Text fill="#005b96" layoutX="14.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USER DETAILS" wrappingWidth="325.13671875">
+                                 <font>
+                                    <Font name="SansSerif Bold" size="40.0" />
+                                 </font>
+                              </Text>
+                              <ImageView fx:id="mRefreshUsers" fitHeight="50.0" fitWidth="50.0" layoutX="463.0" layoutY="24.0" onMouseClicked="#refreshUsersTable" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../refresh.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+         </content>
+      </Tab>
+      <Tab style="-fx-font-size: 20; -fx-font-weight: Bold;" text="SECURITY LOGS">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #d4f7f6;">
+               <children>
+                  <Label alignment="CENTER" layoutX="14.0" layoutY="275.0" prefHeight="56.0" prefWidth="99.0" text="SEARCH" textFill="#005b96">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="mSearchLogs" layoutX="113.0" layoutY="283.0" prefHeight="40.0" prefWidth="500.0" />
+                  <ScrollPane layoutX="-2.0" layoutY="331.0" prefHeight="300.0" prefWidth="1100.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="1097.0" styleClass="tables" stylesheets="@../../css/style.css">
+                           <children>
+                              <TableView fx:id="mLogsTableView" layoutX="14.0" layoutY="14.0" prefHeight="300.0" prefWidth="1069.0" styleClass="tables" stylesheets="@../../css/style.css">
+                                <columns>
+                                  <TableColumn fx:id="mEventTableColumn" prefWidth="170.0" text="EVENT" />
+                                  <TableColumn fx:id="mEventOwnerTableColumn" prefWidth="174.0" text="EVENT OWNER" />
+                                    <TableColumn fx:id="mAccountTableColumn" prefWidth="112.0" text="ACCOUNT" />
+                                    <TableColumn fx:id="mTimeStampTableColumn" prefWidth="122.0" text="TIMESTAMP" />
+                                    <TableColumn fx:id="mDateTableColumn" prefWidth="115.0" text="DATE" />
+                                    <TableColumn fx:id="mCommentsTableColumn" prefWidth="293.0" text="COMMENTS" />
+                                    <TableColumn fx:id="mAttributesTableColumn" prefWidth="82.0" text="ATTRIBUTES" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+                  <Button fx:id="mRefereshLogsBtn" layoutX="745.0" layoutY="283.0" mnemonicParsing="false" onAction="#refreshSecurityLogs" prefHeight="45.0" prefWidth="160.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="REFRESH LOGS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="mDeleteLogBtn" layoutX="930.0" layoutY="283.0" mnemonicParsing="false" onAction="#deleteSelectedLogEntry" prefHeight="45.0" prefWidth="160.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="DELETE LOGS">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <ProgressBar fx:id="mLoadLogsProgress" layoutY="-5.0" prefHeight="18.0" prefWidth="1108.0" progress="0.0" />
+                  <Pane layoutX="24.0" layoutY="29.0" prefHeight="230.0" prefWidth="1066.0" styleClass="modules_pane_background" stylesheets="@../../css/style.css">
+                     <children>
+                        <HBox alignment="CENTER" layoutX="340.0" layoutY="-20.0" prefHeight="40.0" prefWidth="387.0" styleClass="modules_pane_heading_bg" stylesheets="@../../css/style.css">
+                           <children>
+                              <Label prefHeight="25.0" prefWidth="241.0" styleClass="modules_pane_heading_txt" stylesheets="@../../css/style.css" text="MANAGE OVERRIDE REASONS" textFill="#005b96">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <ScrollPane layoutX="38.0" layoutY="33.0" prefHeight="182.0" prefWidth="273.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="272.0">
+                                 <children>
+                                    <TableView fx:id="mReasonsTable" prefHeight="200.0" prefWidth="272.0" styleClass="tables" stylesheets="@../../css/style.css">
+                                      <columns>
+                                        <TableColumn fx:id="mOverrideReasonClmn" prefWidth="257.0" text="REASON" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
+                        <Button fx:id="mRefreshReasonsBtn" layoutX="319.0" layoutY="64.0" mnemonicParsing="false" onAction="#refreshOverrideReasonsTable" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="REFRESH" />
+                        <Button fx:id="mDeleteReasonBtn" layoutX="319.0" layoutY="149.0" mnemonicParsing="false" onAction="#deleteSelectedReason" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="DELETE" />
+                        <TextField fx:id="mReasonTextFld" layoutX="657.0" layoutY="58.0" prefHeight="38.0" prefWidth="365.0" />
+                        <Label layoutX="599.0" layoutY="64.0" prefHeight="27.0" prefWidth="48.0" text="REASON">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="mAddNewReasonBtn" layoutX="874.0" layoutY="149.0" mnemonicParsing="false" onAction="#addNewOverrideReason" prefHeight="45.0" prefWidth="148.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="ADD REASON" />
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+   </tabs>
+   <padding>
+      <Insets top="10.0" />
+   </padding>
+</TabPane>
