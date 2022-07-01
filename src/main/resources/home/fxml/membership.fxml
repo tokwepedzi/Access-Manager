@@ -25,7 +25,7 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="715.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" stylesheets="@../../css/style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.MembershipController">
     <tabs>
-        <Tab style="-fx-font-size: 20; -fx-font-weight: Bold;" text="ACCOUNTS">
+        <Tab style="-fx-font-size: 20; -fx-font-weight: Bold;" text="MEMBERS">
             <content>
                 <AnchorPane fx:id="mAccountsTableAPane" prefHeight="661.0" prefWidth="1075.0" styleClass="tables" stylesheets="@../../css/style.css">
                     <children>
@@ -905,7 +905,7 @@
                                         </Label>
                                     </children>
                                 </VBox>
-                                <Button fx:id="mDowloadIndemnity" layoutX="781.0" layoutY="855.0" mnemonicParsing="false" onAction="#generateIndemnityForm" prefHeight="60.0" prefWidth="197.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="DOWNLOAD INDEMNITY">
+                                <Button fx:id="mDowloadIndemnity" layoutX="777.0" layoutY="852.0" mnemonicParsing="false" onAction="#generateIndemnityForm" prefHeight="60.0" prefWidth="250.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="DOWNLOAD INDEMNITY">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -925,7 +925,7 @@
                                         <Image url="@../resources/femalecardbarcode.png" />
                                     </image>
                                 </ImageView>-->
-                                <Button fx:id="mDownloadMembershipCard" layoutX="777.0" layoutY="1182.0" mnemonicParsing="false" onAction="#generateMembershipCard" prefHeight="60.0" prefWidth="205.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="DOWNLOAD CARD">
+                                <Button fx:id="mDownloadMembershipCard" layoutX="777.0" layoutY="1182.0" mnemonicParsing="false" onAction="#generateMembershipCard" prefHeight="60.0" prefWidth="250.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="DOWNLOAD CARD">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font></Button>

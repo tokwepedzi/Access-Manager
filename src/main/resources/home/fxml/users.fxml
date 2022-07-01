@@ -151,7 +151,7 @@
                               <ChoiceBox fx:id="mAuthlevel" prefHeight="34.0" prefWidth="319.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
                            </children>
                         </HBox>
-                        <Button fx:id="mSaveBtn" layoutX="246.0" layoutY="542.0" mnemonicParsing="false" onAction="#mSaveBtnClicked" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 10;" styleClass="global_button" stylesheets="@../../css/style.css" text="SAVE">
+                        <Button fx:id="mSaveBtn" layoutX="210.0" layoutY="542.0" mnemonicParsing="false" onAction="#mSaveBtnClicked" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 10;" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="SAVE">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -159,11 +159,11 @@
                               <Insets left="-60.0" />
                            </padding>
                         </Button>
-                        <Button fx:id="mUploadProfilePic" layoutX="459.0" layoutY="105.0" mnemonicParsing="false" onAction="#uploadImageAction" prefHeight="40.0" prefWidth="110.0" text="UPLOAD" textFill="#005b96">
+                        <Button fx:id="mUploadProfilePic" layoutX="420.0" layoutY="22.0" mnemonicParsing="false" onAction="#uploadImageAction" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="UPLOAD" textFill="#005b96">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font></Button>
-                        <Button fx:id="mDeleteBtn" layoutX="761.0" layoutY="542.0" mnemonicParsing="false" onAction="#mDeleteBtnClicked" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 10;" styleClass="global_button" stylesheets="@../../css/style.css" text="DELETE">
+                        <Button fx:id="mDeleteBtn" layoutX="726.0" layoutY="542.0" mnemonicParsing="false" onAction="#deleteUserAccountFromDb" prefHeight="60.0" prefWidth="150.0" style="-fx-background-radius: 10;" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="DELETE">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -171,17 +171,17 @@
                               <Insets left="-60.0" />
                            </padding>
                         </Button>
-                        <ImageView fx:id="mDeleteIcon" fitHeight="50.0" fitWidth="50.0" layoutX="845.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="mDeleteIcon" fitHeight="50.0" fitWidth="50.0" layoutX="817.0" layoutY="547.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../delete.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="mSaveIcon" fitHeight="45.0" fitWidth="45.0" layoutX="337.0" layoutY="550.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="mSaveIcon" fitHeight="45.0" fitWidth="45.0" layoutX="299.0" layoutY="550.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../save.png" />
                            </image>
                         </ImageView>
-                        <Button fx:id="mCaptureImage" layoutX="668.0" layoutY="105.0" mnemonicParsing="false" onAction="#captureImageWithCam" prefHeight="40.0" prefWidth="110.0" text="CAPTURE" textFill="#005b96">
+                        <Button fx:id="mCaptureImage" layoutX="420.0" layoutY="108.0" mnemonicParsing="false" onAction="#captureImageWithCam" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="CAPTURE" textFill="#005b96">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font></Button>
@@ -220,11 +220,8 @@
                                     <Font name="SansSerif Bold" size="40.0" />
                                  </font>
                               </Text>
-                              <ImageView fx:id="mRefreshUsers" fitHeight="50.0" fitWidth="50.0" layoutX="463.0" layoutY="24.0" onMouseClicked="#refreshUsersTable" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../refresh.png" />
-                                 </image>
-                              </ImageView>
+                              <Button fx:id="mRefreshUsers" layoutX="403.0" layoutY="27.0" mnemonicParsing="false" onAction="#refreshUsersTable" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="REFRESH" />
+                              <Button fx:id="mDeleteUserfronUserAccsTab" layoutX="546.0" layoutY="28.0" mnemonicParsing="false" onAction="#deleteUserAccountFromDb" prefHeight="45.0" prefWidth="114.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="DELETE" />
                            </children>
                         </Pane>
                      </children>
@@ -237,12 +234,12 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #d4f7f6;">
                <children>
-                  <Label alignment="CENTER" layoutX="14.0" layoutY="275.0" prefHeight="56.0" prefWidth="99.0" text="SEARCH" textFill="#005b96">
+                  <Label alignment="CENTER" layoutX="14.0" layoutY="294.0" prefHeight="34.0" prefWidth="99.0" text="SEARCH" textFill="#005b96">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="mSearchLogs" layoutX="113.0" layoutY="283.0" prefHeight="40.0" prefWidth="500.0" />
+                  <TextField fx:id="mSearchLogs" layoutX="113.0" layoutY="291.0" prefHeight="40.0" prefWidth="500.0" />
                   <ScrollPane layoutX="-2.0" layoutY="331.0" prefHeight="300.0" prefWidth="1100.0">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="300.0" prefWidth="1097.0" styleClass="tables" stylesheets="@../../css/style.css">

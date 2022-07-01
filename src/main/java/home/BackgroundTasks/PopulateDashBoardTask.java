@@ -19,8 +19,9 @@ public class PopulateDashBoardTask extends Task<DashboardInfoModel> {
     @Override
     protected DashboardInfoModel call() throws Exception {
         System.out.println("Populate Dashboard Task Started");
-        dashboardInfoModel = new DashboardInfoModel(0,0,0,0);
+        dashboardInfoModel = new DashboardInfoModel(0, 0, 0, 0);
         LocalDate nowDate = LocalDate.now();
+        //Get Total visits today
         try {
             Connection connection = new DatabaseConnection().getDatabaseLinkConnection();
             String visitsTodayQuery = "SELECT COUNT(*) AS visits FROM " + SECURITY_LOGS_TABLE + " WHERE date = " + "'" + nowDate + "'";
@@ -32,7 +33,12 @@ public class PopulateDashBoardTask extends Task<DashboardInfoModel> {
 
             }
             dashboardInfoModel.setVisitstoday(visitstoday);
+            connection.close();
+            statement.close();
+            resultSet.close();
 
+
+            //Get current total members
             Connection connection1 = new DatabaseConnection().getDatabaseLinkConnection();
             String currententMembersQuery = "SELECT COUNT(*) AS curren FROM " + MEMBERSHIP_TABLE;
             Statement statement1 = connection1.createStatement();
@@ -43,11 +49,14 @@ public class PopulateDashBoardTask extends Task<DashboardInfoModel> {
 
             }
             dashboardInfoModel.setCurrentmembers(currentmembers);
+            connection1.close();
+            resultSet1.close();
+            statement1.close();
 
-
+            //Get overrides today
             Connection connection2 = new DatabaseConnection().getDatabaseLinkConnection();
-            String overridesTodayQuery = "SELECT COUNT(*) AS overr FROM " +SECURITY_LOGS_TABLE + " WHERE event = " + "'"
-                    +"Access Control Override"+"'" +" AND date = "+"'"+nowDate+"'";
+            String overridesTodayQuery = "SELECT COUNT(*) AS overr FROM " + SECURITY_LOGS_TABLE + " WHERE event = " + "'"
+                    + "Access Control Override" + "'" + " AND date = " + "'" + nowDate + "'";
             Statement statement2 = connection2.createStatement();
             ResultSet resultSet2 = statement2.executeQuery(overridesTodayQuery);
             int overridestoday = 0;
@@ -56,14 +65,14 @@ public class PopulateDashBoardTask extends Task<DashboardInfoModel> {
 
             }
             dashboardInfoModel.setOverridestoday(overridestoday);
-            dashboardInfoModel.setExpiringmembers(30);
+            //??dashboardInfoModel.setExpiringmembers(30);
+            connection2.close();
+            resultSet2.close();
+            statement2.close();
 
-
-
-
-
+            //Get expiring members
             Connection connection3 = new DatabaseConnection().getDatabaseLinkConnection();
-            String expiryQuery = "SELECT COUNT(*) AS expr FROM " +SUBSCRIPTIONS_TABLE + " WHERE DATEDIFF(day,enddate,"+"'"+nowDate+"'"+") < 30 " ;
+            String expiryQuery = "SELECT COUNT(*) AS expr FROM " + SUBSCRIPTIONS_TABLE + " WHERE DATEDIFF(day,enddate," + "'" + nowDate + "'" + ") < 30 ";
 
             Statement statement3 = connection3.createStatement();
             ResultSet resultSet3 = statement3.executeQuery(expiryQuery);
@@ -74,9 +83,9 @@ public class PopulateDashBoardTask extends Task<DashboardInfoModel> {
             }
             dashboardInfoModel.setExpiringmembers(expiring);
             updateValue(dashboardInfoModel);
-            connection.close();
-            connection1.close();
-            connection2.close();
+            connection3.close();
+            statement3.close();
+            resultSet3.close();
             System.out.println("Populate Dashboard Task Ended");
 
 

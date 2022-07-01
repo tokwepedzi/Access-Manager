@@ -31,6 +31,7 @@ public class Main extends Application {
         Image icon = new Image("/logoicon.png");
         primaryStage.getIcons().add(icon);
         primaryStage.setScene(new Scene(root, 650, 500));
+        //primaryStage.setResizable(false);
         primaryStage.show();
        /* try {
 

@@ -2294,6 +2294,13 @@ public class MembershipController extends Window implements Initializable {
             alert.setContentText("Please specify the member class in choice box above to proceed");
             alert.showAndWait();
 
+        }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR!");
+            alert.setHeaderText(null);
+            alert.setContentText("There was an error: code 1 : "+e.getMessage());
+            alert.showAndWait();
+
         }
 
 
@@ -2303,6 +2310,11 @@ public class MembershipController extends Window implements Initializable {
             canvasProvider.finish();
         } catch (IOException e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR!");
+            alert.setHeaderText(null);
+            alert.setContentText("There was an error: code 2 :  "+e.getMessage());
+            alert.showAndWait();
         }
 
         String barcodesFolderPath = "C:\\Gym Proctor\\Membership Barcodes";
@@ -2313,6 +2325,11 @@ public class MembershipController extends Window implements Initializable {
             } catch (Exception e) {
                 e.printStackTrace();
                 //  System.out.println("Error creating Directory: " + e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERROR!");
+                alert.setHeaderText(null);
+                alert.setContentText("There was an error: code 3 :  "+e.getMessage());
+                alert.showAndWait();
             }
         }
 
@@ -2388,8 +2405,24 @@ public class MembershipController extends Window implements Initializable {
             alert.showAndWait();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR!");
+            alert.setHeaderText(null);
+            alert.setContentText("There was an error: code 4 :  "+e.getMessage());
+            alert.showAndWait();
         } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR!");
+            alert.setHeaderText(null);
+            alert.setContentText("There was an error: code 5 :  "+e.getMessage());
+            alert.showAndWait();
             e.printStackTrace();
+        } catch ( Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR!");
+            alert.setHeaderText(null);
+            alert.setContentText("There was an error: code 6 :  "+e.getMessage());
+            alert.showAndWait();
         }
 
         mMaleCheckBox.setSelected(false);

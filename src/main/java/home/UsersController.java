@@ -68,7 +68,7 @@ public class UsersController implements Initializable {
     @FXML
     private Tab mManageUsersTab;
     @FXML
-    private ImageView mRefreshUsers;
+    private Button mRefreshUsers,mDeleteUserfronUserAccsTab;
     @FXML
     private TableView<SystemUser> mUsersTable;
     @FXML
@@ -351,9 +351,11 @@ public class UsersController implements Initializable {
                 mProfilePicImageView.setPreserveRatio(true);
                 mUserPicRec.setFill(new ImagePattern(image));
                 outputStream.hashCode();
-                inputStream.close();
-                connection.close();
+
             }
+
+            inputStream.close();
+            connection.close();
 
 
         } catch (SQLException throwables) {
@@ -499,7 +501,7 @@ public class UsersController implements Initializable {
         }
     }
 
-    public void mDeleteBtnClicked(ActionEvent event) {
+    public void deleteUserAccountFromDb(ActionEvent event) {
         if (isEditing == false) {//no record selected for editing
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm?");

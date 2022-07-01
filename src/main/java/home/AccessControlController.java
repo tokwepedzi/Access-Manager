@@ -267,7 +267,7 @@ public class AccessControlController implements Initializable {
         mPackkageNameField.setText("");
         mDueDateField.setText("");
         mParentBg.setStyle("-fx-background-color:  #FFFFFF;" + "-fx-background-radius: 20;");
-//        Image image = new Image("/user_icon.png");
+        //Image image = new Image("/user_icon.png");
         // mSubscriberImageRectangle.setFill(new ImagePattern(new Image(url.toExternalForm())));
         isAllowedToCheckIn = false;
         mMessageOut.setText("");
@@ -657,7 +657,9 @@ public class AccessControlController implements Initializable {
             row.setOnMouseClicked(event1 -> {
                 if (event1.getClickCount() == 1 && (!row.isEmpty())) {
                     String rowData = row.getItem().getFullname().toString();
+
                     setSelectedMember(row);
+
                 }
             });
             return row;
@@ -670,9 +672,13 @@ public class AccessControlController implements Initializable {
         globalWeeklyMemberModel = row.getItem();
         globalRow = row;
         // System.out.println("SELECTED 7 DAY ACCOUNT FOR " + globalWeeklyMemberModel.getFullname());
+        m7SearchAccount.setText(row.getItem().getFullname());
     }
 
     public void checkInWeeklySubscriber() {
+        try {
+
+
         // System.out.println("CHECKING IN WEEKLY MEMBER ");
         LocalDate todayDate = LocalDate.parse(GlobalMethods.getTodaysDateAsStringFromDb());
         LocalDate startDate = LocalDate.parse(globalWeeklyMemberModel.getStartdate());
@@ -685,7 +691,7 @@ public class AccessControlController implements Initializable {
 
             //  System.out.println("THE USER IS :" + systemUser.getFullname());
             SecurityClearanceEventModel securityClearanceEventModel = new SecurityClearanceEventModel(
-                    "Access Control Override", systemUser.getFullname(), globalWeeklyMemberModel.getFullname().toString()
+                    "Access Control Checkin", systemUser.getFullname(), globalWeeklyMemberModel.getFullname().toString()
                     , "", "", "7 Day account", "System allowed");
 
                     /*AccessCounterTask counterTask = new AccessCounterTask(accountnumber, memberIdentifier);
@@ -708,19 +714,29 @@ public class AccessControlController implements Initializable {
             //todo delay seconds
             GlobalMethods.delayWithSeconds(2);
             refreshWeeklyAccountsTable();
+            m7SearchAccount.clear();
 
         } else {
             // System.out.println("MEMBER DOES NOT QUALIFY ABANDONING ");
-            globalRow.setStyle("-fx-background-color: red ;");
+           // globalRow.setStyle("-fx-background-color: red ;");
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setTitle("WARMING!");
+            alert.setTitle("WARNING!");
             alert.setHeaderText(null);
             alert.setContentText("The selected account holder does not qualify for access. Expired access");
             alert.showAndWait();
             return;
            // overrideWeekelyMember(null);
 
+
+        }
+        }catch (NullPointerException e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.setTitle("ERROR!");
+            alert.setHeaderText(null);
+            alert.setContentText("Null selection: "+e.getMessage());
+            alert.showAndWait();
 
         }
     }
@@ -748,87 +764,16 @@ public class AccessControlController implements Initializable {
             stage.showAndWait();
             refreshWeeklyAccountsTable();
 
-        } catch (Exception e) {
+        } catch (NullPointerException e){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.setTitle("WARNING!");
+            alert.setHeaderText(null);
+            alert.setContentText("Null selection: "+e.getMessage());
+            alert.showAndWait();
+        }catch (Exception e) {
             e.printStackTrace();
         }
-        //  System.out.println("OVERRIDE WEEKLY MEMBER");
-        // System.out.println("Continue with Override");
-
-
-
-       /* Dialog textInputDialog = new Dialog();
-        textInputDialog.setResizable(true);
-        textInputDialog.getDialogPane().setMaxSize(200, 100);
-        //textInputDialog.setWidth(250);
-        //textInputDialog.setHeight(100);
-        textInputDialog.setTitle("Override Action");
-        textInputDialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-        TextField inputreason = new TextField();
-        //inputreason.setMinHeight(30);
-        //inputreason.setMaxWidth(220);
-        textInputDialog.getDialogPane().setContent(inputreason);
-
-        // Create an event filter that consumes the action if the text is empty
-        EventHandler<ActionEvent> filter = event -> {
-            if (inputreason.getText().isEmpty()) {
-                event.consume();
-              //  System.out.println("You must put a reason");
-            } else {
-                // lookup the buttons
-                Button okButton = (Button) textInputDialog.getDialogPane().lookupButton(ButtonType.OK);
-                Button cancelButton = (Button) textInputDialog.getDialogPane().lookupButton(ButtonType.CANCEL);
-
-                okButton.addEventFilter(ActionEvent.ACTION, event1 -> {
-
-                    m7OutputMsgLabel.setText("Check in successful");
-                    String reason = inputreason.getText().toString();
-                    // start log reason task in background
-                   // System.out.println("Logging reason PEDZI");
-                    SystemUser systemUser = UserSession.getUserSessionInstance(null).getSystemUser();
-
-                   // System.out.println("THE USER IS :" + systemUser.getFullname());
-                    SecurityClearanceEventModel securityClearanceEventModel = new SecurityClearanceEventModel(
-                            "Access Control Override ", systemUser.getFullname(), globalWeeklyMemberModel.getFullname().toString()
-                            , "", "", "7 Day account", reason);
-
-                    LogSecurityEventTask logSecurityEventTask = new LogSecurityEventTask(securityClearanceEventModel);
-                    Thread thread = new Thread(logSecurityEventTask);
-                    thread.setDaemon(true);
-                    thread.start();
-                  //  System.out.println("SETTING LABEL START:::::::::::::PEDZI");
-                    m7OutputMsgLabel.setText("Check in successful");
-                   // System.out.println("SETTING LABEL END:::::::::::::PEDZI");
-                    GlobalMethods.delayWithSeconds(5);
-                    globalRow.setStyle("-fx-background-color: #ffffff ;");
-                    refreshWeeklyAccountsTable();
-
-                });
-
-                cancelButton.addEventFilter(ActionEvent.ACTION, event1 -> {
-
-                    m7OutputMsgLabel.setText("Check in CANCELLED");
-                    String reason = inputreason.getText().toString();
-                    // start log reason task in background
-                  //  System.out.println("Logging reason PEDZI");
-                    SystemUser systemUser = UserSession.getUserSessionInstance(null).getSystemUser();
-
-                   // System.out.println("THE USER IS :" + systemUser.getFullname() + " BUT DECIDED TO CANCEL");
-                    refreshWeeklyAccountsTable();
-
-                });
-
-            }
-        };
-
-        // lookup the buttons
-        Button okButton = (Button) textInputDialog.getDialogPane().lookupButton(ButtonType.OK);
-        Button cancelButton = (Button) textInputDialog.getDialogPane().lookupButton(ButtonType.CANCEL);
-
-        // add the event-filter
-        okButton.addEventFilter(ActionEvent.ACTION, filter);
-        cancelButton.addEventFilter(ActionEvent.ACTION, filter);
-        textInputDialog.showAndWait();*/
 
 
     }
