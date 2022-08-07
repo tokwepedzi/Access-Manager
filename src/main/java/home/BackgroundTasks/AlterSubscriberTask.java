@@ -30,6 +30,7 @@ public class AlterSubscriberTask extends Task<SubscriptionModel> {
             String query1 = "SELECT * FROM " + SUBSCRIPTIONS_TABLE + " WHERE memberuid = " + "'" + subscriptionModel.getMemberuid() + "'";
             preparedStatement1 = connection1.prepareStatement(query1);
             resultSet1 = preparedStatement1.executeQuery();
+            //get a copy of the already stored subscription model
             while (resultSet1.next()) {
                 exixstingSubscriptionModel = new SubscriptionModel(
                         resultSet1.getString("memberuid"), resultSet1.getString("accountname"), resultSet1.getString("cellnum"),
@@ -40,16 +41,20 @@ public class AlterSubscriberTask extends Task<SubscriptionModel> {
                         resultSet1.getString("accesscount"), resultSet1.getString("accesscount1"), resultSet1.getString("accesscount2"),
                         resultSet1.getString("startdate"), resultSet1.getString("enddate"), resultSet1.getString("daysleft"),
                         resultSet1.getString("debitorderday"), resultSet1.getString("nextduedate"), resultSet1.getString("accountbalance"),
-                        resultSet1.getString("adjustmentdate"), resultSet1.getString("accountstatus"),
-                        resultSet1.getString("profpic"), resultSet1.getString("profpic1"),
-                        resultSet1.getString("profpic2")
+                        resultSet1.getString("adjustmentdate"), resultSet1.getString("accountstatus"), resultSet1.getString("profpic"),
+                        resultSet1.getString("profpic1"), resultSet1.getString("profpic2"),resultSet1.getString("monthsduration"),
+                        resultSet1.getString("monthselapsed"),resultSet1.getString("contractvalue"),resultSet1.getString("totalpaid")
+                        ,resultSet1.getString("elapsedamount")
                 );
             }
 
-            //These fields cannot be edited whe Altering an exixting account hence setting them to the current existing values //todo Add alter dialog to show this in membership on amount field click listener
+            //These fields cannot be edited whe Altering an existing account hence setting them to the current existing values //todo Add alter dialog to show this in membership on amount field click listener
             subscriptionModel1.setAccountbalance(exixstingSubscriptionModel.getAccountbalance());
             subscriptionModel1.setAdjustmentdate(exixstingSubscriptionModel.getAdjustmentdate());
             subscriptionModel1.setAccountstatus(exixstingSubscriptionModel.getAccountstatus());
+            subscriptionModel1.setMonthselapsed(exixstingSubscriptionModel.getMonthselapsed());
+            subscriptionModel1.setTotalpaid(exixstingSubscriptionModel.getTotalpaid());
+            subscriptionModel1.setElapsedamount(exixstingSubscriptionModel.getElapsedamount());
             resultSet1.close();
             preparedStatement1.close();
             connection1.close();
@@ -112,6 +117,7 @@ public class AlterSubscriberTask extends Task<SubscriptionModel> {
                     "nextduedate = " + "'" + subscriptionModel1.getNextduedate() + "' " + "," +
                     "accountbalance = " + "'" + exixstingSubscriptionModel.getAccountbalance() + "' " + "," +
                     "adjustmentdate = " + "'" + exixstingSubscriptionModel.getAdjustmentdate() + "' " + "," +
+                    "monthsduration = " + "'" + subscriptionModel1.getMonthsduration() + "' " + "," +
                     "accountstatus = " + "'" + exixstingSubscriptionModel.getAccountstatus() + "' " +
                     "WHERE memberuid = " + subscriptionModel1.getMemberuid() + ";";
 

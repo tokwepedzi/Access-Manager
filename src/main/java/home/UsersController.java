@@ -68,7 +68,7 @@ public class UsersController implements Initializable {
     @FXML
     private Tab mManageUsersTab;
     @FXML
-    private Button mRefreshUsers,mDeleteUserfronUserAccsTab;
+    private Button mRefreshUsers, mDeleteUserfronUserAccsTab;
     @FXML
     private TableView<SystemUser> mUsersTable;
     @FXML
@@ -98,11 +98,11 @@ public class UsersController implements Initializable {
     //-------------------------------------SECURITY LOGS TAB -------------------------------------------------
 
     @FXML
-    private Button mRefreshReasonsBtn,mDeleteReasonBtn,mAddNewReasonBtn;
+    private Button mRefreshReasonsBtn, mDeleteReasonBtn, mAddNewReasonBtn;
     @FXML
     private TableView<OverrideReasonModel> mReasonsTable;
     @FXML
-    TableColumn<OverrideReasonModel,String>mOverrideReasonClmn;
+    TableColumn<OverrideReasonModel, String> mOverrideReasonClmn;
     @FXML
     private TextField mReasonTextFld;
 
@@ -135,8 +135,8 @@ public class UsersController implements Initializable {
     private TextArea mCommentsTextArea;
 
     ObservableList<SecurityClearanceEventModel> clearanceEventModelObservableList = FXCollections.observableArrayList();
-    private String[] AuthLevelList = {"Select Access Level", "Administrator", "Supervisor", "Attendant"};
-    private String[] GenderList = {"Select Gender", "Male", "Female"};
+    private String[] AuthLevelList = {"ADMINISTRATOR", "SUPERVISOR", "ATTENDANT"};
+    private String[] GenderList = {"SELECT GENDER", "MALE", "FEMALE"};
     private FileInputStream fileInputStream;
     private Image image;
     private File selectedFile;
@@ -185,23 +185,17 @@ public class UsersController implements Initializable {
 
         //Initialize Table Columns for Override reasons table
         mOverrideReasonClmn.setCellValueFactory(new PropertyValueFactory<>("overridereason"));
-        mReasonsTable.setRowFactory(tv ->{
+        mReasonsTable.setRowFactory(tv -> {
             TableRow<OverrideReasonModel> row = new TableRow<>();
-            row.setOnMouseClicked(event ->{
-                if(event.getClickCount() == 1 && (!row.isEmpty())){
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1 && (!row.isEmpty())) {
                     selectedReasonid = row.getItem().getReasonid();
-                    System.out.println(" Selected reason is "+ row .getItem().getOverridereason()+ "with ID"+
+                    System.out.println(" Selected reason is " + row.getItem().getOverridereason() + "with ID" +
                             row.getItem().getReasonid());
                 }
             });
             return row;
         });
-
-        mReasonTextFld.setTextFormatter(new TextFormatter<>((change )-> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
 
 
         mEventTableColumn.setCellValueFactory(new PropertyValueFactory<>("event"));
@@ -213,10 +207,46 @@ public class UsersController implements Initializable {
         mAttributesTableColumn.setCellValueFactory(new PropertyValueFactory<>("attributes"));
         refreshOverrideReasonsTable(null);
         refreshSecurityLogs();
+        refreshUsersTable(null);
+
+        //-------------------------------------------- SET TEXT FIELDS TO CAPITALISE LETTERS----------------------------
+
+        mReasonTextFld.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+
+        mFullname.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mCellnumber.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mIdnumber.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mAddress.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+
+        mSearchLogs.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
     }
 
     //refresh override reasons table
-    public void refreshOverrideReasonsTable(ActionEvent event){
+    public void refreshOverrideReasonsTable(ActionEvent event) {
         System.out.println("Refreshing table");
         String query = null;
         PreparedStatement preparedStatement = null;
@@ -224,7 +254,7 @@ public class UsersController implements Initializable {
         OverrideReasonModel reasonModel = null;
         ObservableList<OverrideReasonModel> overrideReasonModelObservableList = FXCollections.observableArrayList();
         overrideReasonModelObservableList.clear();
-        query = "SELECT * FROM " + OVERRIDE_REASONS_TABLE ;
+        query = "SELECT * FROM " + OVERRIDE_REASONS_TABLE;
         try {
             connection = myDatabaseConnection.getDatabaseLinkConnection();
             preparedStatement = connection.prepareStatement(query);
@@ -244,9 +274,10 @@ public class UsersController implements Initializable {
         }
 
     }
+
     //delete the selected reason from the database from reasons table
-    public void deleteSelectedReason(ActionEvent event){
-        if(!selectedReasonid.isEmpty()) {
+    public void deleteSelectedReason(ActionEvent event) {
+        if (!selectedReasonid.isEmpty()) {
             System.out.println("Deleting reason");
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm?");
@@ -268,7 +299,7 @@ public class UsersController implements Initializable {
                 refreshOverrideReasonsTable(null);
                 return;
             }
-        }else if(selectedReasonid.isEmpty()){
+        } else if (selectedReasonid.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("WARNING!");
             alert.setHeaderText(null);
@@ -277,11 +308,12 @@ public class UsersController implements Initializable {
         }
 
     }
+
     // add new override reason to database in reasons table
-    public void addNewOverrideReason(ActionEvent event){
+    public void addNewOverrideReason(ActionEvent event) {
         System.out.println("Adding new reason");
 
-        if (!mReasonTextFld.getText().isEmpty() ) {
+        if (!mReasonTextFld.getText().isEmpty()) {
             // System.out.println("Membership Package saveClicks");
             String query = "INSERT INTO " + OVERRIDE_REASONS_TABLE + " (overridereason) " +
                     " VALUES(?);";
@@ -303,7 +335,7 @@ public class UsersController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR:");
                 alert.setHeaderText(null);
-                alert.setContentText("ERROR: "+throwables.getMessage());
+                alert.setContentText("ERROR: " + throwables.getMessage());
                 alert.showAndWait();
                 throwables.printStackTrace();
             }
@@ -350,6 +382,10 @@ public class UsersController implements Initializable {
                 mProfilePicImageView.setFitHeight(150);
                 mProfilePicImageView.setPreserveRatio(true);
                 mUserPicRec.setFill(new ImagePattern(image));
+                if(image.isError()){
+                    image = new Image(DEFAULT_USER_PIC.toString());
+                    mUserPicRec.setFill(new ImagePattern(image));
+                }
                 outputStream.hashCode();
 
             }
@@ -373,6 +409,14 @@ public class UsersController implements Initializable {
 
     public void mSaveBtnClicked(ActionEvent event) {
         //Validate text input fields
+        int authlevelint = 0;
+        if (mAuthlevel.getValue().equals("ADMINISTRATOR")) {
+            authlevelint = 1;
+        } else if (mAuthlevel.getValue().equals("SUPERVISOR")) {
+            authlevelint = 2;
+        } else if (mAuthlevel.getValue().equals("ATTENDANT")) {
+            authlevelint = 3;
+        }
         if (!validateFullNameInput() | !validateCellNumberInput() | !validateIdNumberInput() | !validateDobInput()
                 | !validateAddressInput() | !validateGenderInput() | !validateEmaiInput() | !validateAuthLevelInput()
                 | !validatePasswordInput() | !validatePasswordConfirmInput()) {
@@ -391,11 +435,11 @@ public class UsersController implements Initializable {
                 preparedStatement.setString(5, mAddress.getText());
                 preparedStatement.setString(6, mGender.getValue().toString());
                 preparedStatement.setString(7, mEmail.getText());
-                if (mAuthlevel.getValue().equals("Administrator")) {
+                if (mAuthlevel.getValue().equals("ADMINISTRATOR")) {
                     preparedStatement.setString(8, "1");
-                }else if(mAuthlevel.getValue().equals("Supervisor")){
+                } else if (mAuthlevel.getValue().equals("SUPERVISOR")) {
                     preparedStatement.setString(8, "2");
-                }else if(mAuthlevel.getValue().equals("Attendant")){
+                } else if (mAuthlevel.getValue().equals("ATTENDANT")) {
                     preparedStatement.setString(8, "3");
                 }
 
@@ -454,7 +498,7 @@ public class UsersController implements Initializable {
                         "address = " + "'" + mAddress.getText() + "' " + "," +
                         "gender = " + "'" + mGender.getValue() + "' " + "," +
                         "email = " + "'" + mEmail.getText() + "' " + "," +
-                        "authlevel = " + "'" + mAuthlevel.getValue() + "' " + "," +
+                        "authlevel = " + "'" + authlevelint + "' " + "," +
                         "password = " + "'" + mPassword.getText() + "' " +
                         "WHERE uid = " + uidSelectedforEdit + ";";
 
@@ -467,7 +511,7 @@ public class UsersController implements Initializable {
                         "address = " + "'" + mAddress.getText() + "' " + "," +
                         "gender = " + "'" + mGender.getValue() + "' " + "," +
                         "email = " + "'" + mEmail.getText() + "' " + "," +
-                        "authlevel = " + "'" + mAuthlevel.getValue() + "' " + "," +
+                        "authlevel = " + "'" + authlevelint + "' " + "," +
                         "profilepicture = " + "?" + "," +
                         "password = " + "'" + mPassword.getText() + "' " +
                         "WHERE uid = " + uidSelectedforEdit + ";";
@@ -549,7 +593,7 @@ public class UsersController implements Initializable {
     }
 
     public ImageView uploadImageAction(ActionEvent event) {
-       // mUserPicRec.setStroke(Color.TRANSPARENT);
+        // mUserPicRec.setStroke(Color.TRANSPARENT);
         try {
             FileChooser fileChooser = new FileChooser();
             selectedFile = fileChooser.showOpenDialog(null);
@@ -562,6 +606,11 @@ public class UsersController implements Initializable {
 
                 URL url = selectedFile.toURI().toURL();
                 mUserPicRec.setFill(new ImagePattern(new Image(url.toExternalForm())));
+                if((new Image(url.toExternalForm()).isError())){
+                    selectedFile = new File(DEFAULT_USER_PIC.toString());
+                    url = selectedFile.toURI().toURL();
+                    mUserPicRec.setFill(new ImagePattern(new Image(url.toExternalForm())));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -599,7 +648,7 @@ public class UsersController implements Initializable {
                         file.mkdirs();
                     } catch (Exception e) {
                         e.printStackTrace();
-                       // System.out.println("Error creating Directory: " + e.getMessage());
+                        // System.out.println("Error creating Directory: " + e.getMessage());
                     }
                 }
                 ImageIO.write(webcam.getImage(), "PNG", new File(path));
@@ -664,7 +713,7 @@ public class UsersController implements Initializable {
     }
 
     public void refreshSecurityLogs() {
-       // System.out.println("REFRESHING LOG ENTRIES");
+        // System.out.println("REFRESHING LOG ENTRIES");
         final GetSecurityLogsTask task = new GetSecurityLogsTask();
 
         mLoadLogsProgress.progressProperty().bind(task.progressProperty());
@@ -682,7 +731,7 @@ public class UsersController implements Initializable {
         thread.setDaemon(true);
         thread.start();
 
-        FilteredList<SecurityClearanceEventModel> filteredList = new FilteredList<>(clearanceEventModelObservableList,b ->true);
+        FilteredList<SecurityClearanceEventModel> filteredList = new FilteredList<>(clearanceEventModelObservableList, b -> true);
         mSearchLogs.textProperty().addListener((observable, oldValue, newvalue) -> {
             filteredList.setPredicate(securityClearanceEventModel -> {
                 //If there is no search value, display all  the members
@@ -711,7 +760,7 @@ public class UsersController implements Initializable {
         });
 
         //Set Table Row Item Click Listener
-        mLogsTableView.setRowFactory(tv -> {
+      /*  mLogsTableView.setRowFactory(tv -> {
             TableRow<SecurityClearanceEventModel> row = new TableRow<>();
             row.setOnMouseClicked(event1 -> {
                 if (event1.getClickCount() == 1 && (!row.isEmpty())) {
@@ -722,7 +771,7 @@ public class UsersController implements Initializable {
             });
             return row;
 
-        });
+        });*/
 
 
     }
@@ -736,14 +785,15 @@ public class UsersController implements Initializable {
         alert.setContentText("You are about to delete all system security logs. Are you certain you want to proceed?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            try{
-            String query = "DELETE FROM "+ SECURITY_LOGS_TABLE;
-             connection = myDatabaseConnection.getDatabaseLinkConnection();
-            PreparedStatement statement = null;
-            statement = connection.prepareStatement(query);
-            statement.execute();
-            connection.close();
-            statement.close();}catch (SQLException throwables){
+            try {
+                String query = "DELETE FROM " + SECURITY_LOGS_TABLE;
+                connection = myDatabaseConnection.getDatabaseLinkConnection();
+                PreparedStatement statement = null;
+                statement = connection.prepareStatement(query);
+                statement.execute();
+                connection.close();
+                statement.close();
+            } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
 
@@ -754,7 +804,7 @@ public class UsersController implements Initializable {
             alert.showAndWait();
             refreshSecurityLogs();
 
-        }else if (result.get() == ButtonType.CANCEL) {
+        } else if (result.get() == ButtonType.CANCEL) {
             //close and return
             return;
         }

@@ -1,13 +1,14 @@
 Manifest-Version: 1.0
 Main-Class: home.App
-Class-Path: ikonli-core-12.2.0.jar javafx-fxml-15.0.1.jar javafx-web-15.
- 0.1-win.jar javafx-graphics-15.0.1-win.jar javafx-fxml-15.0.1-win.jar i
- konli-javafx-12.2.0.jar formsfx-core-11.3.2.jar slf4j-api-1.7.2.jar bar
- code4j-2.1.jar bootstrapfx-core-0.4.0.jar javafx-media-15.0.1-win.jar c
- ommons-7.2.1.jar layout-7.2.1.jar validatorfx-0.1.13.jar javafx-base-15
- .0.1-win.jar io-7.2.1.jar javafx-controls-15.0.1-win.jar webcam-capture
- -0.3.12.jar kernel-7.2.1.jar javafx-base-15.0.1.jar mssql-jdbc-11.1.1.j
- re18-preview.jar javafx-web-15.0.1.jar bridj-0.7.0.jar javafx-controls-
- 15.0.1.jar javafx-graphics-15.0.1.jar javafx-media-15.0.1.jar controlsf
- x-11.1.0.jar tilesfx-11.48.jar
+Class-Path: ikonli-core-12.2.0.jar javafx-web-15.0.1-win.jar bcprov-jdk1
+ 5on-1.69.jar javafx-fxml-15.0.1-win.jar validatorfx-0.1.13.jar controls
+ fx-11.1.0.jar formsfx-core-11.3.2.jar mssql-jdbc-11.1.1.jre18-preview.j
+ ar layout-7.2.1.jar javafx-controls-15.0.1-win.jar javafx-web-15.0.1.ja
+ r webcam-capture-0.3.12.jar jcifs-ng-2.1.7.jar javafx-media-15.0.1.jar 
+ javafx-media-15.0.1-win.jar barcode4j-2.1.jar slf4j-api-1.7.2.jar javaf
+ x-base-15.0.1.jar bootstrapfx-core-0.4.0.jar javafx-graphics-15.0.1-win
+ .jar javafx-fxml-15.0.1.jar commons-7.2.1.jar io-7.2.1.jar ikonli-javaf
+ x-12.2.0.jar kernel-7.2.1.jar tilesfx-11.48.jar bridj-0.7.0.jar javafx-
+ controls-15.0.1.jar javafx-base-15.0.1-win.jar javafx-graphics-15.0.1.j
+ ar
 

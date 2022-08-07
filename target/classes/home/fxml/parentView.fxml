@@ -10,15 +10,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="709.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.ParentViewController">
    <left>
-      <VBox prefHeight="589.0" prefWidth="228.0" style="-fx-background-color: #005b96;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="679.0" prefWidth="228.0" style="-fx-background-color: #005b96;" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="322.0" prefWidth="228.0">
+            <Pane prefHeight="338.0" prefWidth="228.0">
                <children>
-                  <Label layoutX="28.0" layoutY="14.0" text="Xpressions" textFill="WHITE">
+                  <Label layoutX="28.0" layoutY="-1.0" text="X-pressions" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -26,7 +27,7 @@
                         <Insets left="5.0" />
                      </padding>
                   </Label>
-                  <Label layoutX="28.0" layoutY="41.0" text="Wellness Center" textFill="WHITE">
+                  <Label layoutX="28.0" layoutY="29.0" text="Wellness Centre" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -34,26 +35,27 @@
                         <Insets left="5.0" />
                      </padding>
                   </Label>
-                  <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="65.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="56.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../logo.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="mProfilePic" fitHeight="40.0" fitWidth="40.0" layoutX="14.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../user_icon.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="mUserLabel" layoutX="10.0" layoutY="242.0" text="username@email.com" textFill="WHITE">
+                  <Label fx:id="mUserLabel" layoutX="14.0" layoutY="229.0" text="username@email.com" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="mLogoutBtn" layoutX="40.0" layoutY="278.0" mnemonicParsing="false" onAction="#logOutUser" prefHeight="30.0" prefWidth="131.0" style="-fx-background-color: #FFFFFF;" text="LOGOUT" textFill="#002657">
+                  <Circle fx:id="mProfilePic" fill="#ffffff00" layoutX="44.0" layoutY="199.0" radius="30.0" stroke="#ffffff00" strokeType="INSIDE" />
+                  <ImageView fx:id="mLogoutBtn" fitHeight="45.0" fitWidth="45.0" layoutX="14.0" layoutY="264.0" onMouseClicked="#logOutUser" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../power.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="11.0" layoutY="309.0" text="LOG OUT" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font>
-                  </Button>
+                  </Label>
                </children>
             </Pane>
             <Pane prefHeight="2.0" prefWidth="230.0" style="-fx-background-color: #60abd6;" />
@@ -143,7 +145,7 @@
       </AnchorPane>
    </center>
    <top>
-      <Pane prefHeight="40.0" prefWidth="367.0" style="-fx-background-color: #005b96;" BorderPane.alignment="CENTER">
+      <Pane prefHeight="37.0" prefWidth="601.0" style="-fx-background-color: #005b96;" BorderPane.alignment="CENTER">
          <children>
             <Label id="moduleHeadingLabel" fx:id="moduleHeadingLabel" alignment="CENTER_RIGHT" layoutX="577.0" layoutY="-3.0" text="Label" textFill="WHITE">
                <font>

@@ -41,7 +41,7 @@ public class AccessOverrideController implements Initializable {
     private ChoiceBox<String> mOverrideReason;
     @FXML
     private Button mSubmitOverrideBtn;
-    private  Stage stage;
+    private Stage stage;
     private Connection connection;
     private ObservableList<OverrideReasonModel> overrideReasonModelObservableList;
 
@@ -52,7 +52,7 @@ public class AccessOverrideController implements Initializable {
             //Run query to fetch short term membership packages
             PreparedStatement preparedStatement = null;
             overrideReasonModelObservableList = FXCollections.observableArrayList();
-            String query = "SELECT * FROM " + OVERRIDE_REASONS_TABLE ;
+            String query = "SELECT * FROM " + OVERRIDE_REASONS_TABLE;
             connection = new DatabaseConnection().getDatabaseLinkConnection();
             preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = null;
@@ -68,42 +68,72 @@ public class AccessOverrideController implements Initializable {
             for (int i = 0; i < overrideReasonModelObservableList.size(); i++) {
                 mOverrideReason.getItems().add(overrideReasonModelObservableList.get(i).getOverridereason());
             }
-           //mOverrideReason.setValue(shortTermPackageList.get(0).getPackagename());
+            //mOverrideReason.setValue(shortTermPackageList.get(0).getPackagename());
             // Close connections to database for this query
             connection.close();
             preparedStatement.close();
             resultSet.close();
-        }catch (SQLException throwables){
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
 
         }
 
 
-
-
     }
 
     public void submitoverrideandgobacktoaccesscontroller(ActionEvent event) throws IOException {
-        stage =(Stage) mSubmitOverrideBtn.getScene().getWindow();
-        if(event.getTarget()==mSubmitOverrideBtn){
-            SecurityClearanceEventModel securityClearanceEventModel = (SecurityClearanceEventModel) stage.getUserData();
-            //attach comment from mOverrideReason Choice box
-            securityClearanceEventModel.setComments(mOverrideReason.getValue());
+        stage = (Stage) mSubmitOverrideBtn.getScene().getWindow();
+        try {
+            if (event.getTarget() == mSubmitOverrideBtn && !mOverrideReason.getValue().isEmpty()) {
+                // if(!(mOverrideReason.getValue().isEmpty()||mOverrideReason.getValue()==null||mOverrideReason.getValue().isBlank())){
+                try {
+                    SecurityClearanceEventModel securityClearanceEventModel = (SecurityClearanceEventModel) stage.getUserData();
+                    //attach comment from mOverrideReason Choice box
+                    securityClearanceEventModel.setComments(mOverrideReason.getValue());
 
-            LogSecurityEventTask logSecurityEventTask = new LogSecurityEventTask(securityClearanceEventModel);
-            Thread thread = new Thread(logSecurityEventTask);
-            thread.setDaemon(true);
-            thread.start();
-            stage.close();
-        }else if (event.getTarget().equals(ButtonType.CLOSE)){
+                    LogSecurityEventTask logSecurityEventTask = new LogSecurityEventTask(securityClearanceEventModel);
+                    Thread thread = new Thread(logSecurityEventTask);
+                    thread.setDaemon(true);
+                    thread.start();
+                    stage.close();
+                }
+                //}
+                catch (NullPointerException e) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("WARNING!");
+                    alert.setHeaderText(null);
+                    alert.setContentText("ACTION IS NOT ALLOWED,PLEASE LOG A REASON FOR THIS OVERRIDE");
+                    alert.showAndWait();
+                    return;
+
+                }
+            } else if (event.getTarget().equals(ButtonType.CLOSE)) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("WARNING!");
+                alert.setHeaderText(null);
+                alert.setContentText("ACTION IS NOT ALLOWED,PLEASE LOG A REASON FOR OVERRIDE");
+                //alert.showAndWait();
+                Optional<ButtonType> action = alert.showAndWait();
+                return;
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("WARNING (ELSE)!");
+                alert.setHeaderText(null);
+                alert.setContentText("ACTION IS NOT ALLOWED,PLEASE LOG A REASON FOR THIS OVERRIDE");
+                alert.showAndWait();
+                return;
+
+            }
+        } catch (NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("WARNING!");
             alert.setHeaderText(null);
-            alert.setContentText("ACTION IS NOT ALLOWED,PLEASE LOG A REASON FOR OVERRIDE");
-            Optional<ButtonType> action = alert.showAndWait();
+            alert.setContentText("ACTION IS NOT ALLOWED,PLEASE LOG A REASON FOR THIS OVERRIDE");
+            alert.showAndWait();
             return;
+
         }
     }
 }

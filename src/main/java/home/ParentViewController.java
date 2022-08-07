@@ -18,6 +18,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -34,9 +36,9 @@ public class ParentViewController implements Initializable {
     @FXML
     private Label mUserLabel;
     @FXML
-    private ImageView mProfilePic;
+    private Circle mProfilePic;
     @FXML
-    private Button mLogoutBtn;
+    private ImageView mLogoutBtn;
 
     private SystemUser systemUser;
     private boolean status;
@@ -77,7 +79,10 @@ public class ParentViewController implements Initializable {
         getProfilePicTask.valueProperty().addListener(new ChangeListener<Image>() {
             @Override
             public void changed(ObservableValue<? extends Image> observableValue, Image image, Image newvalue) {
-                mProfilePic.setImage(newvalue);
+                /*mProfilePic.setFitWidth(40);
+                mProfilePic.setFitHeight(40);
+                mProfilePic.setPreserveRatio(true);*/
+                mProfilePic.setFill(new ImagePattern(newvalue));
             }
         });
         Thread thread = new Thread(getProfilePicTask);
@@ -94,14 +99,14 @@ public class ParentViewController implements Initializable {
         user = user1;
     }*/
     //Logout Button Clicked
-    public void logOutUser(ActionEvent event) throws IOException {
+    public void logOutUser() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/home/fxml/login.fxml"));
         root = loader.load();
         LoginController loginController = loader.getController();
         // scene2Controller.displayName(username);
         //dashBoardController.setUser(null);
         UserSession.getUserSessionInstance(null);
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage = (Stage) mLogoutBtn.getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -130,7 +135,7 @@ public class ParentViewController implements Initializable {
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
-            logOutUser(event);
+            logOutUser();
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Info:");
@@ -179,7 +184,7 @@ public class ParentViewController implements Initializable {
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
-            logOutUser(event);
+            logOutUser();
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Info:");
@@ -210,7 +215,7 @@ public class ParentViewController implements Initializable {
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
-            logOutUser(event);
+            logOutUser();
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Info:");

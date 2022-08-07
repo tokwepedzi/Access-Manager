@@ -1,9 +1,11 @@
 package home.Models;
 
 public class SubscriptionModel {
-    private String memberuid,accountname, cellnum, idnumber, idnumber1, idnumber2, accountnum, subaccount1, subaccount2, packagename,
-            subscriptionfee, subscriptionfee1, subscriptionfee2, paymethod, dueday, accesscount, accesscount1, accesscount2,
-            startdate, enddate, daysleft, debitorderday, nextduedate, accountbalance,adjustmentdate,accountstatus,profilepic,profilepic1,profilepic2;
+    private String memberuid,accountname, cellnum, idnumber, idnumber1, idnumber2, accountnum, subaccount1, subaccount2,
+            packagename, subscriptionfee, subscriptionfee1, subscriptionfee2, paymethod, dueday, accesscount,
+            accesscount1, accesscount2, startdate, enddate, daysleft, debitorderday, nextduedate, accountbalance,
+            adjustmentdate,accountstatus,profilepic,profilepic1,profilepic2, monthsduration, monthselapsed,
+            contractvalue,totalpaid,elapsedamount;
 
     public SubscriptionModel(String memberuid, String accountname, String cellnum, String idnumber, String idnumber1, String idnumber2,
                              String accountnum, String subaccount1, String subaccount2, String packagename,
@@ -11,7 +13,9 @@ public class SubscriptionModel {
                              String paymethod, String dueday, String accesscount, String accesscount1,
                              String accesscount2, String startdate, String enddate, String daysleft,
                              String debitorderday, String nextduedate, String accountbalance, String adjustmentdate,
-                             String accountstatus,String profilepic, String profilepic1, String profilepic2) {
+                             String accountstatus,String profilepic, String profilepic1, String profilepic2,
+                             String monthsduration, String monthselapsed, String contractvalue,String totalpaid,
+                             String elapsedamount) {
         this.memberuid = memberuid;
         this.accountname = accountname;
         this.cellnum = cellnum;
@@ -41,6 +45,51 @@ public class SubscriptionModel {
         this.profilepic = profilepic;
         this.profilepic1 = profilepic1;
         this.profilepic2 = profilepic2;
+        this.monthsduration = monthsduration;
+        this.monthselapsed = monthselapsed;
+        this.contractvalue = contractvalue;
+        this.totalpaid = totalpaid;
+        this.elapsedamount = elapsedamount;
+    }
+
+    public String getElapsedamount() {
+        return elapsedamount;
+    }
+
+    public void setElapsedamount(String elapsedamount) {
+        this.elapsedamount = elapsedamount;
+    }
+
+    public String getMonthsduration() {
+        return monthsduration;
+    }
+
+    public void setMonthsduration(String monthsduration) {
+        this.monthsduration = monthsduration;
+    }
+
+    public String getMonthselapsed() {
+        return monthselapsed;
+    }
+
+    public void setMonthselapsed(String monthselapsed) {
+        this.monthselapsed = monthselapsed;
+    }
+
+    public String getContractvalue() {
+        return contractvalue;
+    }
+
+    public void setContractvalue(String contractvalue) {
+        this.contractvalue = contractvalue;
+    }
+
+    public String getTotalpaid() {
+        return totalpaid;
+    }
+
+    public void setTotalpaid(String totalpaid) {
+        this.totalpaid = totalpaid;
     }
 
     public String getAccountstatus() {

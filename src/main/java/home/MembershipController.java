@@ -34,10 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
@@ -67,7 +64,7 @@ import static home.Constants.*;
 import static home.GlobalMethods.nthDayOfFollowingMonth;
 
 public class MembershipController extends Window implements Initializable {
-    public static final String CO_NAME = "Xpressions Wellness Centre";
+    public static final String CO_NAME = "X-pressions Wellness Centre";
     //------------------------------------------------ Contracts Tab--------------------------------------------
     @FXML
     private ChoiceBox<String> mTitles;
@@ -91,7 +88,7 @@ public class MembershipController extends Window implements Initializable {
     @FXML
     private ChoiceBox<String> mDebitOrderDate;
     @FXML
-    private Button mSaveBtn;
+    private Button mSaveBtn, mPrintContractBtn;
     @FXML
     private Label mDeclaration, mTermsAndCs;
     @FXML
@@ -170,21 +167,21 @@ public class MembershipController extends Window implements Initializable {
     //------------------------------------------------ Membership Packages Tab--------------------------------------------
 
     @FXML
-    private Button mSavePackage, mDeletePackage,mRefreshPackages;
+    private Button mSavePackage, mDeletePackage, mRefreshPackages;
     @FXML
     private TextField mPackageName, mAmount, mAmount1, mAmount2;
     @FXML
-    private TextField mShortTermPckgName,mShortTermPckgFee;
-   @FXML
-    private ChoiceBox<String> mShortTermPckgSelector,mShortTermPckgDuration;
+    private TextField mShortTermPckgName, mShortTermPckgFee;
+    @FXML
+    private ChoiceBox<String> mShortTermPckgSelector, mShortTermPckgDuration;
     @FXML
     private Tab mPackagesTab;
     @FXML
     private TableView mPackagesTable;
     @FXML
     private TableColumn<MembershipPackageModel, String> mPackageNameColumn;
-   /* @FXML
-    private TableColumn<MembershipPackageModel, String> mCyclePeriodColumn;*/
+    /* @FXML
+     private TableColumn<MembershipPackageModel, String> mCyclePeriodColumn;*/
     @FXML
     private TableColumn<MembershipPackageModel, String> mAmountColumn;
     @FXML
@@ -205,20 +202,24 @@ public class MembershipController extends Window implements Initializable {
     private TableColumn<ShortTermPackageModel, String> mShortTermDurationDaysClmn;
 
 
-    //---------------------------------------- 7 DAY MEMBERSHIP Tab-----------------------------------------
+    //----------------------------------------Short Term Contracts and Packages Tab-----------------------------------------
 
     @FXML
     private TextField m7Fullaname, m7IdNUm, m7CellNum;
     @FXML
     private DatePicker m7DatePicker;
     @FXML
-    private Label m7EndDate,mShortFeesHint,mShortDaysHint;
+    private Label m7EndDate, mShortFeesHint, mShortDaysHint;
     @FXML
     private Button m7SaveBtn;
     @FXML
     private StackPane contentArea;
     @FXML
     private Label moduleHeadingLabel, mDurationText;
+    @FXML
+    private Tab mShortTermContractsTab;
+    @FXML
+    private Pane mManageSTPackagesPane;
    /* @FXML
     private ChoiceBox<String> mShortTermPckgSelector;*/
 
@@ -274,17 +275,21 @@ public class MembershipController extends Window implements Initializable {
     private boolean isShortTermPackage = false;
 
     private Image profileEditorImage;
+    private String authlevel = "";
+    private SystemUser systemUser;
 
 
-    File picfile, picfile1, picfile2;
+    File picfile, picfile1, picfile2,defaultPicFile;
     URL url = null;
     URL url1 = null;
     URL url2 = null;
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        systemUser = UserSession.getSystemUser();
+        authlevel = systemUser.getAuthlevel();
 
         mTitles.getItems().addAll(TitlesList);
         mTitles.setValue(TitlesList[0]);
@@ -339,7 +344,7 @@ public class MembershipController extends Window implements Initializable {
 
         try {
             //Run query to fetch short term membership packages
-            String query = "SELECT * FROM " + SHORT_TERM_PACKAGES_TABLE ;
+            String query = "SELECT * FROM " + SHORT_TERM_PACKAGES_TABLE;
             connection = new DatabaseConnection().getDatabaseLinkConnection();
             preparedStatement = connection.prepareStatement(query);
             ResultSet resultSet = null;
@@ -362,9 +367,9 @@ public class MembershipController extends Window implements Initializable {
             connection.close();
             preparedStatement.close();
             resultSet.close();
-        }catch (SQLException throwables){
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
 
         }
@@ -391,14 +396,248 @@ public class MembershipController extends Window implements Initializable {
         mAccountStatusColumn.setCellValueFactory(new PropertyValueFactory<>("accountstatus"));
 
 
-
         //rfreshAccountsTable(); (SUSPEND FUNCTION TO REFRESH TABLE AUTOMATICALLY)
+
 
         //Listen for Membership packages choice box clicks and get package from db and set global var selectedpackage on click
         mMembershipDesc.setOnAction(this::getMembershipPackage);
 
         mIndemnitySelector.setOnAction(this::updateMembershipDocumentsFields);
         mShortTermPckgSelector.setOnAction(this::setHintFields);
+        loadAllShortTermPackages();
+        rfreshAccountsTable();
+
+        defaultPicFile = new File("user_icon.png");
+
+        //-------------------------------------------- SET TEXT FIELDS TO CAPITALISE LETTERS----------------------------
+
+        mAccountSearch.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        m7Fullaname.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        m7IdNUm.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        m7CellNum.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mName.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mSurname.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mIdNumber.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mAddress.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mCellNumber.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mTelNumber.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mOccupation.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mEmail.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mContractNum.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mNextOfKin.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mAccNum.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mNextOfKinCell.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mMc.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mMember1FullName.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mMember2FullNames.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mMember1Id.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mMember2Id.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mMemberCardNum1.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mMemberCardNum2.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mTotAmntRec.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mCardFee.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mJoiningFee.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mUpFrontPayment.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mBankAccNumber.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mPayerDetails.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mPayerIdNum.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mPayerCellNum.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mPayerEmail.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mAccountSearch.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mDocumentsName.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mDocumentsSurname.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mDocumentsCell.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mMembershipCardName.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mMembershipCardSurname.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mMembershipCardAccount.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        ;
+        mPackageName.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mAmount.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mAmount1.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mAmount2.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+
+        mShortTermPckgName.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+        mShortTermPckgFee.setTextFormatter(new TextFormatter<>((change) -> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
     }
 
     public void getMembershipPackage(ActionEvent event) {
@@ -597,16 +836,26 @@ public class MembershipController extends Window implements Initializable {
         }
     }
 
-    private void updateMembershipFieldsForEditing(MembershipModel membershipModel) throws MalformedURLException {
+    private void updateMembershipFieldsForEditing(MembershipModel membershipModel) throws MalformedURLException{
+        try{
 
         if (!membershipModel.getProfilepicture().isEmpty()) {
             try {
                 picfile = new File(globalVarOfSelcetectedMember.getProfilepicture());
                 url = picfile.toURI().toURL();
                 mRectPic.setFill(new ImagePattern(new Image(url.toExternalForm())));
+                if((new Image(url.toExternalForm()).isError())){
+                    picfile = new File(defaultPicFile.toString());
+                    url = picfile.toURI().toURL();
+                    mRectPic.setFill(new ImagePattern(new Image(url.toExternalForm())));
+                    System.out.println("Images may be missing main pic");
+                   // return;
+                }
+
             } catch (Exception e) {
-                picfile = new File(PATH_TO_PICS);
-                mRectPic.setFill(new ImagePattern(null));
+                picfile = new File(defaultPicFile.toString());
+                url = picfile.toURI().toURL();
+                mRectPic.setFill(new ImagePattern(new Image(url.toExternalForm())));
                 e.printStackTrace();
                 System.out.println("Images may be missing main pic");
 
@@ -618,9 +867,17 @@ public class MembershipController extends Window implements Initializable {
                 picfile1 = new File(globalVarOfSelcetectedMember.getPic1());
                 url1 = picfile1.toURI().toURL();
                 mRectPic1.setFill(new ImagePattern(new Image(url1.toExternalForm())));
+                if((new Image(url1.toExternalForm()).isError())){
+                    picfile1 = new File(defaultPicFile.toString());
+                    url1 = picfile1.toURI().toURL();
+                    mRectPic1.setFill(new ImagePattern(new Image(url1.toExternalForm())));
+                    System.out.println("Images may be missing pic1");
+
+                }
             } catch (Exception e) {
-                picfile1 = new File(PATH_TO_PICS);
-                mRectPic1.setFill(new ImagePattern(null));
+                picfile1 = new File(defaultPicFile.toString());
+                url1 = picfile1.toURI().toURL();
+                mRectPic1.setFill(new ImagePattern(new Image(url1.toExternalForm())));
                 e.printStackTrace();
                 System.out.println("Images may be missing pic1");
             }
@@ -631,12 +888,22 @@ public class MembershipController extends Window implements Initializable {
                 picfile2 = new File(globalVarOfSelcetectedMember.getPic2());
                 url2 = picfile2.toURI().toURL();
                 mRectPic2.setFill(new ImagePattern(new Image(url2.toExternalForm())));
+                if((new Image(url2.toExternalForm()).isError())){
+                    picfile2 = new File(defaultPicFile.toString());
+                    url2 = picfile2.toURI().toURL();
+                    mRectPic2.setFill(new ImagePattern(new Image(url2.toExternalForm())));
+                    System.out.println("Images may be missing pic 2");
+                }
             } catch (Exception e) {
-                picfile2 = new File(PATH_TO_PICS);
-                mRectPic2.setFill(new ImagePattern(null));
+                picfile2 = new File(defaultPicFile.toString());
+                url2 = picfile2.toURI().toURL();
+                mRectPic2.setFill(new ImagePattern(new Image(url2.toExternalForm())));
                 e.printStackTrace();
                 System.out.println("Images may be missing pic 2");
             }
+
+        }}
+        catch (IllegalArgumentException e){
 
         }
         //Update Text fields
@@ -703,10 +970,14 @@ public class MembershipController extends Window implements Initializable {
                         if (!globalVarOfSelcetectedMember.getProfilepicture().isEmpty()) {
                             File picfile = new File(globalVarOfSelcetectedMember.getProfilepicture());
                             URL url = null;
-
                             url = picfile.toURI().toURL();
-
                             mDocumentsProfilePic.setFill(new ImagePattern(new Image(url.toExternalForm())));
+                            if((new Image(url.toExternalForm()).isError())){
+                                picfile = new File(defaultPicFile.toString());
+                                url = picfile.toURI().toURL();
+                                mDocumentsProfilePic.setFill(new ImagePattern(new Image(url.toExternalForm())));
+                                System.out.println("Images may be missing pic 2");
+                            }
                         }
                         mDocumentsName.setText(globalVarOfSelcetectedMember.getName());
                         mDocumentsSurname.setText(globalVarOfSelcetectedMember.getSurname());
@@ -734,6 +1005,12 @@ public class MembershipController extends Window implements Initializable {
 
                             url = picfile.toURI().toURL();
                             mDocumentsProfilePic.setFill(new ImagePattern(new Image(url.toExternalForm())));
+                            if((new Image(url.toExternalForm()).isError())){
+                                picfile = new File(defaultPicFile.toString());
+                                url = picfile.toURI().toURL();
+                                mDocumentsProfilePic.setFill(new ImagePattern(new Image(url.toExternalForm())));
+                                System.out.println("Images may be missing pic 2");
+                            }
                         }
                         mDocumentsName.setText(globalVarOfSelcetectedMember.getMember1name());
                         // mDocumentsSurname.setText(globalVarOfSelcetectedMember.getSurname());
@@ -761,6 +1038,12 @@ public class MembershipController extends Window implements Initializable {
 
                             url = picfile.toURI().toURL();
                             mDocumentsProfilePic.setFill(new ImagePattern(new Image(url.toExternalForm())));
+                            if((new Image(url.toExternalForm()).isError())){
+                                picfile = new File(defaultPicFile.toString());
+                                url = picfile.toURI().toURL();
+                                mDocumentsProfilePic.setFill(new ImagePattern(new Image(url.toExternalForm())));
+                                System.out.println("Images may be missing pic 2");
+                            }
                         }
                         mDocumentsName.setText(globalVarOfSelcetectedMember.getMember2name());
                         // mDocumentsSurname.setText(globalVarOfSelcetectedMember.getSurname());
@@ -1377,8 +1660,13 @@ public class MembershipController extends Window implements Initializable {
                                 , mMember1Id.getText(), mMember2Id.getText(), "", "", "",
                                 selectedPackage.getPackagename(), selectedPackage.getPackagefee(), selectedPackage.getPackagefee1(),
                                 selectedPackage.getPackagefee2(), mPaymentMethods.getValue(), mDebitOrderDate.getValue()
-                                , "", "", "", mStartDate.getValue().toString(), endDate.toString()
-                                , String.valueOf(daysLeft), mDebitOrderDate.getValue(), nextDueDate.toString(), "", "", "", "", "", "");
+                                , "", "", "", "mStartDate.getValue().toString()", endDate.toString()
+                                , String.valueOf(daysLeft), mDebitOrderDate.getValue(), nextDueDate.toString(),
+                                "", "", "", "", "", "",
+                                mMinDuration.getValue(),"",
+                                "",
+                                "","");
+                        //Must ignore empty fields when altering/updating the database
                         startAlterSubscriberService(subscriptionModel);
                     }
                     // clearFields(); todo create clear fields method, also call initialize method??? so as to refresh
@@ -1488,7 +1776,8 @@ public class MembershipController extends Window implements Initializable {
         }
 
     }
-    public void setHintFields(ActionEvent event){
+
+    public void setHintFields(ActionEvent event) {
 
         String shorttermpackagename = mShortTermPckgSelector.getValue();
         String query = "SELECT * FROM " + SHORT_TERM_PACKAGES_TABLE + " WHERE packagename = " + "'" + shorttermpackagename + "'";
@@ -1539,9 +1828,9 @@ public class MembershipController extends Window implements Initializable {
 
     }
 
-    public void saveNewShortTermPackage(ActionEvent event){
+    public void saveNewShortTermPackage(ActionEvent event) {
         System.out.println("Should save the package");
-        if (isEditingShortTermPackage == false && shortTermpackageIdSelectedForEdit == null ) {
+        if (isEditingShortTermPackage == false && shortTermpackageIdSelectedForEdit == null) {
             // System.out.println("Membership Package saveClicks");
             String query = "INSERT INTO " + SHORT_TERM_PACKAGES_TABLE + " (packagename,packagefee,daysduration) " +
                     " VALUES(?,?,?);";
@@ -1566,17 +1855,17 @@ public class MembershipController extends Window implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR:");
                 alert.setHeaderText(null);
-                alert.setContentText("ERROR: "+throwables.getMessage());
+                alert.setContentText("ERROR: " + throwables.getMessage());
                 alert.showAndWait();
                 throwables.printStackTrace();
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR:");
                 alert.setHeaderText(null);
                 alert.setContentText("ERROR: Please ensure all relative monetary fields have a valid numerical value ");
                 alert.showAndWait();
             }
-        } else if (isEditingShortTermPackage == true && shortTermpackageIdSelectedForEdit != null ) {
+        } else if (isEditingShortTermPackage == true && shortTermpackageIdSelectedForEdit != null) {
             //  System.out.println("We are Editing");
             try {
                 connection = myDatabaseConnection.getDatabaseLinkConnection();
@@ -1602,10 +1891,10 @@ public class MembershipController extends Window implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR:");
                 alert.setHeaderText(null);
-                alert.setContentText("ERROR: "+throwables.getMessage());
+                alert.setContentText("ERROR: " + throwables.getMessage());
                 alert.showAndWait();
                 throwables.printStackTrace();
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR:");
                 alert.setHeaderText(null);
@@ -1714,8 +2003,10 @@ public class MembershipController extends Window implements Initializable {
 
         try {
             // Get local project comapany logo Image and add to pdf
-            String defaultLogoImagepath = "src\\main\\resources\\logo_placeholder.png"; //todo make this a global variable
-            String localImagepath = "src\\main\\resources\\logo.png";
+           // String defaultLogoImagepath = "src\\main\\resources\\logo_placeholder.png"; //todo make this a global variable
+            String defaultLogoImagepath = "logo_placeholder.png";
+           // String localImagepath = "src\\main\\resources\\logo.png";
+            String localImagepath = "logo.png";
             com.itextpdf.layout.element.Image image = new com.itextpdf.layout.element.Image(ImageDataFactory.create(localImagepath));
 
             PdfWriter pdfWriter = new PdfWriter(membershipPdfDocPath);
@@ -1746,7 +2037,7 @@ public class MembershipController extends Window implements Initializable {
 
             //add cells to table
             //ROW 1 headingTable
-            headingTable.addCell(new Cell().add(new Paragraph(MEMBERSHIP_FORM_MAIN_HEADING_a + " XPRESSIONS WELLNESS CENTRE " + MEMBERSHIP_FORM_MAIN_HEADING_b).setBold().setFontSize(8)).setBorder(Border.NO_BORDER));
+            headingTable.addCell(new Cell().add(new Paragraph(MEMBERSHIP_FORM_MAIN_HEADING_a + " X-PRESSIONS WELLNESS CENTRE " + MEMBERSHIP_FORM_MAIN_HEADING_b).setBold().setFontSize(8)).setBorder(Border.NO_BORDER));
             headingTable.addCell(new Cell(4, 1).add(image.setAutoScale(true))).setBorder(Border.NO_BORDER);
             headingTable.addCell(new Cell(1, 1).add(new Paragraph("NEXT OF KIN: " + membershipModelObject.getNextofkin())).setBorder(Border.NO_BORDER)).setFontSize(7);
             headingTable.addCell(new Cell(1, 1).add(new Paragraph("CONTRACT NR: " + membershipModelObject.getContractnumber())).setBorder(Border.NO_BORDER)).setFontSize(7);
@@ -1855,7 +2146,7 @@ public class MembershipController extends Window implements Initializable {
             membershipTypeAndFessTable.addCell(new Cell().add(new Paragraph("CARD FEE :")).setFontSize(7).setBorder(Border.NO_BORDER).setBold());
             membershipTypeAndFessTable.addCell(new Cell().add(new Paragraph(membershipModelObject.getCardfee())).setFontSize(7).setBorder(Border.NO_BORDER));
             membershipTypeAndFessTable.addCell(new Cell().add(new Paragraph("MINIMUM DURATION")).setFontSize(7).setBorder(Border.NO_BORDER));
-            membershipTypeAndFessTable.addCell(new Cell().add(new Paragraph(membershipModelObject.getMinimumduration())).setFontSize(7).setBorder(Border.NO_BORDER));
+            membershipTypeAndFessTable.addCell(new Cell().add(new Paragraph(membershipModelObject.getMinimumduration()+" MONTHS")).setFontSize(7).setBorder(Border.NO_BORDER));
 
 
             //ROW 3 membershipTypeAndFessTable
@@ -1939,7 +2230,7 @@ public class MembershipController extends Window implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Info:");
             alert.setHeaderText(null);
-            alert.setContentText("Membership details saved successfully");
+            alert.setContentText("Membership details saved successfully,Click ok to proceed to print");
             alert.showAndWait();
 
             openPdf(membershipPdfDocPath);
@@ -1961,6 +2252,25 @@ public class MembershipController extends Window implements Initializable {
         //Open document from path
     }
 
+    public void printContract(ActionEvent event) {
+        if (isEditingContract == false) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Info:");
+            alert.setHeaderText(null);
+            alert.setContentText("No Membership account selected for this action. Please selected an account first " +
+                    "before you can print");
+            alert.showAndWait();
+            return;
+        } else {
+            try {
+                int selectedMemberUid = Integer.parseInt(globalVarOfSelcetectedMember.getMemberuid());
+                createMembershipPdfForm(selectedMemberUid);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void startAddSubscriberService(MembershipModel memberlist) {
         // todo calculate the following and set them on the Subscriptio model
         //  todo before entering the new Subscriber in table
@@ -1976,17 +2286,22 @@ public class MembershipController extends Window implements Initializable {
         LocalDate nowDate = LocalDate.now();
         LocalDate nextDueDate = nthDayOfFollowingMonth(Integer.parseInt(memberlist.getDebitorderdate()), nowDate);
         //account balance = cardfee + joining fee + upfrontPayment +
-        float accbalance = (((Float.parseFloat(memberlist.getCardfee())) + Float.parseFloat(memberlist.getJoiningfee())) - Float.parseFloat(memberlist.getUpfrontpayment()));
+      //  float accbalance = (((Float.parseFloat(memberlist.getCardfee())) + Float.parseFloat(memberlist.getJoiningfee()))
+              //  - Float.parseFloat(memberlist.getUpfrontpayment()));
 
 
         SubscriptionModel newSubscriber = new SubscriptionModel(memberlist.getMemberuid(),
-                memberlist.getName() + " " + memberlist.getSurname(), memberlist.getCellnumber(), memberlist.getIdnumber(), memberlist.getMember1idnumber()
-                , memberlist.getMember2idnumber(), memberlist.getMemberaccountnumber(),
-                memberlist.getMember1accountnumber(), memberlist.getMember2accountnumber(),
+                memberlist.getName() + " " + memberlist.getSurname(), memberlist.getCellnumber(),
+                memberlist.getIdnumber(), memberlist.getMember1idnumber(), memberlist.getMember2idnumber(),
+                memberlist.getMemberaccountnumber(), memberlist.getMember1accountnumber(), memberlist.getMember2accountnumber(),
                 selectedPackage.getPackagename(), selectedPackage.getPackagefee(), selectedPackage.getPackagefee1(),
                 selectedPackage.getPackagefee2(), memberlist.getPaymentmethod(), memberlist.getDebitorderdate(), "0"
-                , "0", "0", memberlist.getStartdate(), endDate.toString(), String.valueOf(daysLeft), memberlist.getDebitorderdate(),
-                nextDueDate.toString(), String.valueOf(accbalance), nowDate.toString(), memberlist.getAccountstatus(), memberlist.getProfilepicture(), memberlist.getPic1(), memberlist.getPic2()
+                , "0", "0", memberlist.getStartdate(), endDate.toString(), String.valueOf(daysLeft),
+                memberlist.getDebitorderdate(), nextDueDate.toString(), "0", nowDate.toString(),
+                memberlist.getAccountstatus(), memberlist.getProfilepicture(), memberlist.getPic1(), memberlist.getPic2(),
+                memberlist.getMinimumduration(),"0",
+                "0",
+               memberlist.getUpfrontpayment(),"0"
         );
 
         final AddSubscriberService addSubscriberService = new AddSubscriberService(newSubscriber);
@@ -2011,6 +2326,13 @@ public class MembershipController extends Window implements Initializable {
                 Desktop.getDesktop().open(myFile);
             } catch (IOException ex) {
                 // no application registered for PDFs
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERROR:");
+                alert.setHeaderText(null);
+                alert.setContentText("No suitable program has been set as the default printing program for this computer" +
+                        ". Please define a default program first.");
+                alert.showAndWait();
+                ex.printStackTrace();
             }
         }
 
@@ -2119,10 +2441,13 @@ public class MembershipController extends Window implements Initializable {
 
         try {
             // Get local project company logo Image and add to pdf
-            String defaultLogoImagepath = "src\\main\\resources\\logo_placeholder.png";
-            String defaultProfilePicImagepath = "src\\main\\resources\\user_icon.png";
+           // String defaultLogoImagepath = "src\\main\\resources\\logo_placeholder.png";
+            String defaultLogoImagepath = "logo_placeholder.png";
+            //String defaultProfilePicImagepath = "src\\main\\resources\\user_icon.png";
+            String defaultProfilePicImagepath = "user_icon.png";
             //String localImagepath = "src\\home\\resources\\logo.png";// todo change this to path to company logo stored in database
-            String localImagepath = "src\\main\\resources\\logo.png";
+            //String localImagepath = "src\\main\\resources\\logo.png";
+            String localImagepath = "logo.png";
             com.itextpdf.layout.element.Image image;
             com.itextpdf.layout.element.Image memberImage = null;
             //try using local image, if its null use default place holders
@@ -2191,9 +2516,10 @@ public class MembershipController extends Window implements Initializable {
 
             //Member Details
             headingTable.addCell(new Cell().add(new Paragraph("CELL :")).setBorder(Border.NO_BORDER).setBold());
-            headingTable.addCell(new Cell().add(new Paragraph(mDocumentsDate.getValue().toString())).setBorder(Border.NO_BORDER));
-            headingTable.addCell(new Cell().add(new Paragraph("DATE :")).setBorder(Border.NO_BORDER).setBold());
             headingTable.addCell(new Cell().add(new Paragraph(mDocumentsCell.getText().toUpperCase())).setBorder(Border.NO_BORDER));
+            headingTable.addCell(new Cell().add(new Paragraph("DATE :")).setBorder(Border.NO_BORDER).setBold());
+            headingTable.addCell(new Cell().add(new Paragraph(mDocumentsDate.getValue().toString())).setBorder(Border.NO_BORDER));
+
 
             //Empty Lines
             headingTable.addCell(new Cell(1, 4).add(new Paragraph("\n")).setBorder(Border.NO_BORDER));
@@ -2223,8 +2549,9 @@ public class MembershipController extends Window implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Info:");
             alert.setHeaderText(null);
-            alert.setContentText("Membership details saved successfully");
+            alert.setContentText("Membership details saved successfully, Click ok to print");
             alert.showAndWait();
+            openIndemnityPdfForPrinting(indemnityPdfPath);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -2240,6 +2567,25 @@ public class MembershipController extends Window implements Initializable {
 
         }
 
+
+    }
+
+    private void openIndemnityPdfForPrinting(String indemnityPdfPath) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File myFile = new File(indemnityPdfPath);
+                Desktop.getDesktop().open(myFile);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERROR:");
+                alert.setHeaderText(null);
+                alert.setContentText("No suitable program has been set as the default printing program for this computer" +
+                        ". Please define a default program first.");
+                alert.showAndWait();
+                ex.printStackTrace();
+            }
+        }
 
     }
 
@@ -2294,11 +2640,11 @@ public class MembershipController extends Window implements Initializable {
             alert.setContentText("Please specify the member class in choice box above to proceed");
             alert.showAndWait();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR!");
             alert.setHeaderText(null);
-            alert.setContentText("There was an error: code 1 : "+e.getMessage());
+            alert.setContentText("There was an error: code 1 : " + e.getMessage());
             alert.showAndWait();
 
         }
@@ -2313,11 +2659,11 @@ public class MembershipController extends Window implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR!");
             alert.setHeaderText(null);
-            alert.setContentText("There was an error: code 2 :  "+e.getMessage());
+            alert.setContentText("There was an error: code 2 :  " + e.getMessage());
             alert.showAndWait();
         }
 
-        String barcodesFolderPath = "C:\\Gym Proctor\\Membership Barcodes";
+        String barcodesFolderPath = File.listRoots()[0]+File.separator+"Gym Proctor"+File.separator+"Membership Barcodes";
         File file = new File(barcodesFolderPath);
         if (!file.exists()) {
             try {
@@ -2328,7 +2674,7 @@ public class MembershipController extends Window implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR!");
                 alert.setHeaderText(null);
-                alert.setContentText("There was an error: code 3 :  "+e.getMessage());
+                alert.setContentText("There was an error: code 3 :  " + e.getMessage());
                 alert.showAndWait();
             }
         }
@@ -2337,13 +2683,13 @@ public class MembershipController extends Window implements Initializable {
         try {
             FileOutputStream fileOutputStream = null;
             if (mIndemnitySelector.getValue().equals("MAIN MEMBER")) {
-                fileOutputStream = new FileOutputStream(barcodesFolderPath + "\\"
+                fileOutputStream = new FileOutputStream(barcodesFolderPath + File.separator
                         + globalVarOfSelcetectedMember.getMemberaccountnumber() + "_barcode.png");
             } else if (mIndemnitySelector.getValue().equals("MEMBER 1")) {
-                fileOutputStream = new FileOutputStream(barcodesFolderPath + "\\"
+                fileOutputStream = new FileOutputStream(barcodesFolderPath + File.separator
                         + globalVarOfSelcetectedMember.getMember1accountnumber() + "_barcode.png");
             } else if (mIndemnitySelector.getValue().equals("MEMBER 2")) {
-                fileOutputStream = new FileOutputStream(barcodesFolderPath + "\\"
+                fileOutputStream = new FileOutputStream(barcodesFolderPath + File.separator
                         + globalVarOfSelcetectedMember.getMember2accountnumber() + "_barcode.png");
             }
             fileOutputStream.write(byteArrayOutputStream.toByteArray());
@@ -2352,27 +2698,32 @@ public class MembershipController extends Window implements Initializable {
 
 
             // getting buffered image todo reconsider this working code
-            File path = new File("src\\main\\resources");
+            File path = new File("./src"+File.separator+"main"+File.separator+"resources");
+           // File path =  new File(File.listRoots()[0]+File.separator+"Gym Proctor"+File.separator+"resources");
+            // File path = new File(getClass());
+             //File path = new File("./src");
             //BufferedImage barcodeImage = canvasProvider.getBufferedImage();
             BufferedImage barcodeImage = null;
             if (mIndemnitySelector.getValue().equals("MAIN MEMBER")) {
-                barcodeImage = ImageIO.read((new File(barcodesFolderPath + "\\"
+                barcodeImage = ImageIO.read((new File(barcodesFolderPath + File.separator
                         + globalVarOfSelcetectedMember.getMemberaccountnumber() + "_barcode.png")));
             } else if (mIndemnitySelector.getValue().equals("MEMBER 1")) {
-                barcodeImage = ImageIO.read((new File(barcodesFolderPath + "\\"
+                barcodeImage = ImageIO.read((new File(barcodesFolderPath + File.separator
                         + globalVarOfSelcetectedMember.getMember1accountnumber() + "_barcode.png")));
 
             } else if (mIndemnitySelector.getValue().equals("MEMBER 2")) {
-                barcodeImage = ImageIO.read((new File(barcodesFolderPath + "\\"
+                barcodeImage = ImageIO.read((new File(barcodesFolderPath + File.separator
                         + globalVarOfSelcetectedMember.getMember2accountnumber() + "_barcode.png")));
 
             }
             if (globalVarOfSelcetectedMember.getGender().equals("Female") ||
                     globalVarOfSelcetectedMember.getGender().equals("FEMALE") || isFemaleGender == true) {
-                malebg = ImageIO.read(new File(path, "femalecardbarcode.png"));
+                malebg = ImageIO.read(new File("fcode.png"));
             } else if (globalVarOfSelcetectedMember.getGender().equals("Male") ||
                     globalVarOfSelcetectedMember.getGender().equals("MALE") || isMaleGender == true) {
-                malebg = ImageIO.read(new File(path, "malecardbarcode.png"));
+               // malebg = ImageIO.read(new BufferedImage(getClass().getResource("mcode.png"));
+                 malebg = ImageIO.read(new File("mcode.png"));
+
             }
             //int w = Math.max(barcodeImage.getWidth(), malebg.getWidth());
             //int h = Math.max(barcodeImage.getHeight(), malebg.getHeight());
@@ -2392,36 +2743,53 @@ public class MembershipController extends Window implements Initializable {
             g.dispose();
             if (mIndemnitySelector.getValue().equals("MAIN MEMBER")) {
                 ImageIO.write(combined, "PNG", new File(barcodesFolderPath, globalVarOfSelcetectedMember.getMemberaccountnumber() + "_IDCARD.png"));
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Info:");
+                alert.setHeaderText(null);
+                alert.setContentText("Barcode Generated succesfully");
+                alert.showAndWait();
+                String outputImagePath = barcodesFolderPath + File.separator + globalVarOfSelcetectedMember.getMemberaccountnumber() + "_IDCARD.png";
+                openOutputCardImageForPrinting(outputImagePath);
             } else if (mIndemnitySelector.getValue().equals("MEMBER 1")) {
                 ImageIO.write(combined, "PNG", new File(barcodesFolderPath, globalVarOfSelcetectedMember.getMember1accountnumber() + "_IDCARD.png"));
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Info:");
+                alert.setHeaderText(null);
+                alert.setContentText("Barcode Generated succesfully");
+                alert.showAndWait();
+                String outputImagePath = barcodesFolderPath + File.separator + globalVarOfSelcetectedMember.getMember1accountnumber() + "_IDCARD.png";
+                openOutputCardImageForPrinting(outputImagePath);
             } else if (mIndemnitySelector.getValue().equals("MEMBER 2")) {
                 ImageIO.write(combined, "PNG", new File(barcodesFolderPath, globalVarOfSelcetectedMember.getMember2accountnumber() + "_IDCARD.png"));
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Info:");
+                alert.setHeaderText(null);
+                alert.setContentText("Barcode Generated succesfully");
+                alert.showAndWait();
+                String outputImagePath = barcodesFolderPath + File.separator + globalVarOfSelcetectedMember.getMember2accountnumber() + "_IDCARD.png";
+                openOutputCardImageForPrinting(outputImagePath);
             }
 
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Info:");
-            alert.setHeaderText(null);
-            alert.setContentText("Barcode Generated succesfully");
-            alert.showAndWait();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR!");
             alert.setHeaderText(null);
-            alert.setContentText("There was an error: code 4 :  "+e.getMessage());
+            alert.setContentText("There was an error: code 4 :  " + e.getMessage());
             alert.showAndWait();
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR!");
             alert.setHeaderText(null);
-            alert.setContentText("There was an error: code 5 :  "+e.getMessage());
+            alert.setContentText("There was an error: code 5 :  " + e.getMessage()+"CAUSE: "+e.getCause());
             alert.showAndWait();
             e.printStackTrace();
-        } catch ( Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR!");
             alert.setHeaderText(null);
-            alert.setContentText("There was an error: code 6 :  "+e.getMessage());
+            alert.setContentText("There was an error: code 6 :  " + e.getMessage());
             alert.showAndWait();
         }
 
@@ -2431,9 +2799,27 @@ public class MembershipController extends Window implements Initializable {
 
     }
 
+    private void openOutputCardImageForPrinting(String outputImagePath) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                File myFile = new File(outputImagePath);
+                Desktop.getDesktop().open(myFile);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("ERROR:");
+                alert.setHeaderText(null);
+                alert.setContentText("No suitable program has been set as the default printing program for this computer" +
+                        ". Please define a default program first.");
+                alert.showAndWait();
+                ex.printStackTrace();
+            }
+        }
+    }
+
     public void saveMembershipPackage(ActionEvent event) {
 
-        if (isEditingPackage == false && packageIdSelectedForEdit == null ) {
+        if (isEditingPackage == false && packageIdSelectedForEdit == null) {
             // System.out.println("Membership Package saveClicks");
             String query = "INSERT INTO " + PACKAGES_TABLE + " (packagename,packagefee,packagefee1,packagefee2) " +
                     " VALUES(?,?,?,?);";
@@ -2444,7 +2830,7 @@ public class MembershipController extends Window implements Initializable {
                 preparedStatement.setFloat(2, Float.parseFloat(mAmount.getText().toString()));
                 preparedStatement.setFloat(3, Float.parseFloat(mAmount1.getText().toString()));
                 preparedStatement.setFloat(4, Float.parseFloat(mAmount2.getText().toString()));
-               // preparedStatement.setString(6, "");
+                // preparedStatement.setString(6, "");
 
                 preparedStatement.execute();
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -2459,26 +2845,26 @@ public class MembershipController extends Window implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR:");
                 alert.setHeaderText(null);
-                alert.setContentText("ERROR: "+throwables.getMessage());
+                alert.setContentText("ERROR: " + throwables.getMessage());
                 alert.showAndWait();
                 throwables.printStackTrace();
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR:");
                 alert.setHeaderText(null);
                 alert.setContentText("ERROR: Please ensure all relative monetary fields have a valid numerical value ");
                 alert.showAndWait();
             }
-        } else if (isEditingPackage == true && packageIdSelectedForEdit != null ) {
+        } else if (isEditingPackage == true && packageIdSelectedForEdit != null) {
             //  System.out.println("We are Editing");
             try {
-            connection = myDatabaseConnection.getDatabaseLinkConnection();
-            String query = "UPDATE " + PACKAGES_TABLE + " " +
-                    "SET packagename = " + "'" + mPackageName.getText() + "' " + "," +
-                    "packagefee = " + "'" + Float.parseFloat(mAmount.getText()) + "' " + "," +
-                    "packagefee1 = " + "'" + Float.parseFloat(mAmount1.getText()) + "' " + "," +
-                    "packagefee2 = " + "'" + Float.parseFloat(mAmount2.getText()) + "' " +
-                    "WHERE packageid = " + packageIdSelectedForEdit + ";";
+                connection = myDatabaseConnection.getDatabaseLinkConnection();
+                String query = "UPDATE " + PACKAGES_TABLE + " " +
+                        "SET packagename = " + "'" + mPackageName.getText() + "' " + "," +
+                        "packagefee = " + "'" + Float.parseFloat(mAmount.getText()) + "' " + "," +
+                        "packagefee1 = " + "'" + Float.parseFloat(mAmount1.getText()) + "' " + "," +
+                        "packagefee2 = " + "'" + Float.parseFloat(mAmount2.getText()) + "' " +
+                        "WHERE packageid = " + packageIdSelectedForEdit + ";";
 
 
                 preparedStatement = connection.prepareStatement(query);
@@ -2496,10 +2882,10 @@ public class MembershipController extends Window implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR:");
                 alert.setHeaderText(null);
-                alert.setContentText("ERROR: "+throwables.getMessage());
+                alert.setContentText("ERROR: " + throwables.getMessage());
                 alert.showAndWait();
                 throwables.printStackTrace();
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("ERROR:");
                 alert.setHeaderText(null);
@@ -2586,11 +2972,12 @@ public class MembershipController extends Window implements Initializable {
 
         }*/
     }
-    public void mRefreshPackagesnClear(ActionEvent event){
+
+    public void mRefreshPackagesnClear(ActionEvent event) {
         loadAllPackages();
         clearPackageTextFields();
-        isEditingPackage=false;
-        packageIdSelectedForEdit=null;
+        isEditingPackage = false;
+        packageIdSelectedForEdit = null;
         isShortTermPackage = false;
     }
 
@@ -2607,6 +2994,7 @@ public class MembershipController extends Window implements Initializable {
         mShortTermPckgDuration.setValue(null);
 
     }
+
     public void deleteMembershipPackage(ActionEvent event) {
         // System.out.println("Membership Package deleteClicks");
         if (isEditingPackage == false) {
@@ -2677,6 +3065,59 @@ public class MembershipController extends Window implements Initializable {
 
     }
 
+    public void authenticateUserInPackagesTab() {
+        if (mPackagesTab.isSelected()) {
+            try {
+                if (authlevel.equals("1") || authlevel.equals("2")) {
+                    loadAllPackages();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Info:");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Access denied! You do not have user rights to access this module");
+                    alert.showAndWait();
+                    mPackagesTab.setContent(null);
+                    return;
+
+                }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                // logOutUser();
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Info:");
+                alert.setHeaderText(null);
+                alert.setContentText("ERROR! " + e.getMessage());
+                alert.showAndWait();
+
+            }
+        }
+
+    }
+
+    public void authenticateUserInShortTCandPackages() {
+        if (mShortTermContractsTab.isSelected()) {
+            try {
+                if (authlevel.equals("3")) {
+
+                    mManageSTPackagesPane.setVisible(false);
+
+                }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                // logOutUser();
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Info:");
+                alert.setHeaderText(null);
+                alert.setContentText("ERROR! " + e.getMessage());
+                alert.showAndWait();
+
+            }
+        }
+
+    }
+
     public void loadAllPackages() {
         String query = null;
         PreparedStatement preparedStatement = null;
@@ -2709,7 +3150,7 @@ public class MembershipController extends Window implements Initializable {
             mAmountColumn.setCellValueFactory(new PropertyValueFactory<>("packagefee"));
             mAmount1Column.setCellValueFactory(new PropertyValueFactory<>("packagefee1"));
             mAmount2Column.setCellValueFactory(new PropertyValueFactory<>("packagefee2"));
-           // mSh
+            // mSh
 
             mPackagesTable.setItems(membershipPackageModelsList);
 
@@ -2727,9 +3168,8 @@ public class MembershipController extends Window implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-
     }
+
     public void loadAllShortTermPackages() {
         String query = null;
         PreparedStatement preparedStatement = null;
@@ -2789,6 +3229,7 @@ public class MembershipController extends Window implements Initializable {
 
 
     }
+
     private void updateShortTermPackagesFieldsForEdit(TableRow<ShortTermPackageModel> row) {
         isEditingShortTermPackage = true;
         shortTermpackageIdSelectedForEdit = row.getItem().getPackageid();

@@ -12,9 +12,8 @@ import java.sql.SQLException;
 import static home.Constants.SUBSCRIPTIONS_TABLE;
 
 public class AddSubscriberTask extends Task<SubscriptionModel> {
-    private final SubscriptionModel subscriptionModel ;
+    private final SubscriptionModel subscriptionModel;
     private SubscriptionModel exixstingSubscriptionModel;
-
 
 
     public AddSubscriberTask(SubscriptionModel subscriptionModel) {
@@ -25,9 +24,10 @@ public class AddSubscriberTask extends Task<SubscriptionModel> {
     protected SubscriptionModel call() {
 
 
-        Connection connection1 = new DatabaseConnection().getDatabaseLinkConnection();
-        PreparedStatement preparedStatement1 = null;
-        ResultSet resultSet = null;
+        //Connection connection1 = new DatabaseConnection().getDatabaseLinkConnection();
+      //  PreparedStatement preparedStatement1 = null;
+       // ResultSet resultSet = null;
+        /*
         try {
             String query1 = "SELECT * FROM " + SUBSCRIPTIONS_TABLE + " WHERE memberuid = " + "'" + subscriptionModel.getMemberuid() + "'";
             preparedStatement1 = connection1.prepareStatement(query1);
@@ -54,56 +54,61 @@ public class AddSubscriberTask extends Task<SubscriptionModel> {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-
-
-
+*/
 
 
         Connection connection = new DatabaseConnection().getDatabaseLinkConnection();
         PreparedStatement preparedStatement;
 
-        String query =  " INSERT INTO "+ SUBSCRIPTIONS_TABLE+ " (memberuid,accountname, cellnum, idnumber, idnumber1, idnumber2, accountnum, subaccount1, subaccount2, packagename," +
-                "subscriptionfee, subscriptionfee1, subscriptionfee2, paymethod, dueday, accesscount, accesscount1, accesscount2," +
-                "startdate, enddate, daysleft, debitorderday, nextduedate, accountbalance,adjustmentdate,profpic,profpic1,profpic2,accountstatus)" + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String query = " INSERT INTO " + SUBSCRIPTIONS_TABLE + " (memberuid,accountname, cellnum, idnumber, idnumber1, " +
+                "idnumber2, accountnum, subaccount1, subaccount2, packagename,subscriptionfee, subscriptionfee1, " +
+                "subscriptionfee2, paymethod, dueday, accesscount, accesscount1, accesscount2,startdate, enddate," +
+                " daysleft, debitorderday, nextduedate, accountbalance,adjustmentdate,profpic,profpic1,profpic2," +
+                "accountstatus,monthsduration,monthselapsed,contractvalue,totalpaid,elapsedamount)"
+                + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             preparedStatement = connection.prepareStatement(query);
 
-       preparedStatement.setInt(1,Integer.parseInt(subscriptionModel.getMemberuid()));
-        preparedStatement.setString(2,subscriptionModel.getAccountname());
-        preparedStatement.setString(3,subscriptionModel.getCellnum());
-        preparedStatement.setString(4,subscriptionModel.getIdnumber());
-        preparedStatement.setString(5,subscriptionModel.getIdnumber1());
-        preparedStatement.setString(6,subscriptionModel.getIdnumber2());
-        preparedStatement.setString(7,subscriptionModel.getAccountnum());
-        preparedStatement.setString(8,subscriptionModel.getSubaccount1());
-        preparedStatement.setString(9,subscriptionModel.getSubaccount2());
-        preparedStatement.setString(10,subscriptionModel.getPackagename());
-        preparedStatement.setFloat(11,Float.parseFloat(subscriptionModel.getSubscriptionfee()));
-        preparedStatement.setFloat(12,Float.parseFloat(subscriptionModel.getSubscriptionfee1()));
-        preparedStatement.setFloat(13,Float.parseFloat(subscriptionModel.getSubscriptionfee1()));
-        preparedStatement.setString(14,subscriptionModel.getPaymethod());
-        preparedStatement.setString(15,subscriptionModel.getDueday());
-        preparedStatement.setInt(16,Integer.parseInt(subscriptionModel.getAccesscount()));
-        preparedStatement.setInt(17,Integer.parseInt(subscriptionModel.getAccesscount1()));
-        preparedStatement.setInt(18,Integer.parseInt(subscriptionModel.getAccesscount2()));
-        preparedStatement.setString(19,subscriptionModel.getStartdate());
-        preparedStatement.setString(20,subscriptionModel.getEnddate());
-        preparedStatement.setInt(21,Integer.parseInt(subscriptionModel.getDaysleft()));
-        preparedStatement.setInt(22,Integer.parseInt(subscriptionModel.getDebitorderday()));
-        preparedStatement.setString(23,subscriptionModel.getNextduedate());
-        preparedStatement.setFloat(24,Float.parseFloat(subscriptionModel.getAccountbalance()));
+            preparedStatement.setInt(1, Integer.parseInt(subscriptionModel.getMemberuid()));
+            preparedStatement.setString(2, subscriptionModel.getAccountname());
+            preparedStatement.setString(3, subscriptionModel.getCellnum());
+            preparedStatement.setString(4, subscriptionModel.getIdnumber());
+            preparedStatement.setString(5, subscriptionModel.getIdnumber1());
+            preparedStatement.setString(6, subscriptionModel.getIdnumber2());
+            preparedStatement.setString(7, subscriptionModel.getAccountnum());
+            preparedStatement.setString(8, subscriptionModel.getSubaccount1());
+            preparedStatement.setString(9, subscriptionModel.getSubaccount2());
+            preparedStatement.setString(10, subscriptionModel.getPackagename());
+            preparedStatement.setFloat(11, Float.parseFloat(subscriptionModel.getSubscriptionfee()));
+            preparedStatement.setFloat(12, Float.parseFloat(subscriptionModel.getSubscriptionfee1()));
+            preparedStatement.setFloat(13, Float.parseFloat(subscriptionModel.getSubscriptionfee1()));
+            preparedStatement.setString(14, subscriptionModel.getPaymethod());
+            preparedStatement.setString(15, subscriptionModel.getDueday());
+            preparedStatement.setInt(16, Integer.parseInt(subscriptionModel.getAccesscount()));
+            preparedStatement.setInt(17, Integer.parseInt(subscriptionModel.getAccesscount1()));
+            preparedStatement.setInt(18, Integer.parseInt(subscriptionModel.getAccesscount2()));
+            preparedStatement.setString(19, subscriptionModel.getStartdate());
+            preparedStatement.setString(20, subscriptionModel.getEnddate());
+            preparedStatement.setInt(21, Integer.parseInt(subscriptionModel.getDaysleft()));
+            preparedStatement.setInt(22, Integer.parseInt(subscriptionModel.getDebitorderday()));
+            preparedStatement.setString(23, subscriptionModel.getNextduedate());
+            preparedStatement.setFloat(24, Float.parseFloat(subscriptionModel.getAccountbalance()));
 
-            preparedStatement.setString(25,subscriptionModel.getAdjustmentdate());
-            preparedStatement.setBinaryStream(26,null);
-            preparedStatement.setBinaryStream(27,null);
-            preparedStatement.setBinaryStream(28,null);
-            preparedStatement.setString(29,subscriptionModel.getAccountstatus());
+            preparedStatement.setString(25, subscriptionModel.getAdjustmentdate());
+            preparedStatement.setBinaryStream(26, null);
+            preparedStatement.setBinaryStream(27, null);
+            preparedStatement.setBinaryStream(28, null);
+            preparedStatement.setString(29, subscriptionModel.getAccountstatus());
+            preparedStatement.setInt(30, Integer.parseInt(subscriptionModel.getMonthsduration()));
+            preparedStatement.setInt(31, Integer.parseInt(subscriptionModel.getMonthselapsed()));
+            preparedStatement.setFloat(32, Float.parseFloat(subscriptionModel.getContractvalue()));
+            preparedStatement.setFloat(33, Float.parseFloat(subscriptionModel.getTotalpaid()));
+            preparedStatement.setFloat(34, Float.parseFloat(subscriptionModel.getElapsedamount()));
 
-        preparedStatement.execute();
-        preparedStatement.close();
-        connection.close();
+            preparedStatement.execute();
+            preparedStatement.close();
+            connection.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

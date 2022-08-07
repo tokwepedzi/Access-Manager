@@ -31,23 +31,24 @@ public class Constants {
     public static String MEMBERSHIP_DECLARATION_b ="to draw money from my bank account equivalent to the amount stipulated" +
             "for the membership. I request and authorise ";
     public static String MEMBERSHIP_DECLARATION_c = "to resubmit my debit order at a date set by the company in the event " +
-            "the debit order returns unpaid. The debit order will commence on the days agreed by";
+            "that the debit order returns unpaid. The debit order will commence on the days agreed by";
     public static String MEMBERSHIP_DECLARATION_d = " I agree to pay any bank charges related to this debit order instruction. ";
     public static String TERMS_AND_CONDITIONS = "                                        See back side for Terms and Conditions                     ";
     public static int MAX_DAYS_IN_MONTH =31;
-    public static String INDEMNITY_PARAGRAPH_1 = "I acknowledge that I am entering XPRESSIONS WELLNESS CENTRE facilities on my own accord and I agree " +
-            "and acknowledge that XPRESSIONS WELLNESS CENTRE will not be held liable for any loss or death suffered " +
+    public static String INDEMNITY_PARAGRAPH_1 = "I acknowledge that I am entering X-PRESSIONS WELLNESS CENTRE facilities on my own accord and I agree " +
+            "and acknowledge that X-PRESSIONS WELLNESS CENTRE will not be held liable for any loss or death suffered " +
             "by me whatsoever including gross negligence while viewing the facilities.";
 
     public static String INDEMNITY_PARAGRAPH_2 ="\nI acknowledge that I am in good health to participate in the use of the facilities, and other activities that " +
-            "XPRESSIONS WELLNESS CENTRE has to offer";
+            "X-PRESSIONS WELLNESS CENTRE has to offer";
 
     public static String INDEMNITY_PARAGRAPH_3 ="\nI acknowledge the risk of physical injuries to myself and other gym users if I had not gone through the " +
             "proper introduction of the facilities.";
     public static String INDEMNITY_PARAGRAPH_4="\nI agree to be accompanied by a sales consultant when viewing the facilities";
-    public static String INDEMNITY_PARAGRAPH_5="\nI agree and adhere to all rules and regulations set out by XPRESSIONS WELLNESS CENTRE.";
+    public static String INDEMNITY_PARAGRAPH_5="\nI agree and adhere to all rules and regulations set out by X-PRESSIONS WELLNESS CENTRE.";
     /*-------------------------------------  HOST PC NAME----------------------------------------*/
 
     //DESKTOP-PU2PGO7/Profile%20pictures)
    public static  String PATH_TO_PICS = "\\Gym Proctor\\Profile pictures\\";
+    public static  String DEFAULT_USER_PIC = "user_icon.png";
 }

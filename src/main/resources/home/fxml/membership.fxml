@@ -29,59 +29,69 @@
             <content>
                 <AnchorPane fx:id="mAccountsTableAPane" prefHeight="661.0" prefWidth="1075.0" styleClass="tables" stylesheets="@../../css/style.css">
                     <children>
-                        <Label layoutX="14.0" layoutY="45.0" prefHeight="40.0" prefWidth="167.0" text="ACCOUNT SEARCH" textFill="#005b96">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Label>
-                        <TextField fx:id="mAccountSearch" layoutX="181.0" layoutY="45.0" prefHeight="40.0" prefWidth="267.0">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font></TextField>
-                        <ScrollPane layoutX="12.0" layoutY="131.0" prefHeight="514.0" prefWidth="1060.0">
+                        <ScrollPane layoutX="12.0" layoutY="297.0" prefHeight="348.0" prefWidth="1060.0">
                      <content>
-                        <TableView fx:id="mMembersTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="1057.0" styleClass="tables" stylesheets="@../../css/style.css">
+                        <TableView fx:id="mMembersTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="555.0" prefWidth="1057.0" styleClass="tables" stylesheets="@../../css/style.css">
                           <columns>
                             <TableColumn fx:id="mTitleTableColumn" prefWidth="54.0" text="TITLE" />
                             <TableColumn fx:id="mNameTableColumn" prefWidth="183.0" text="NAME" />
                               <TableColumn fx:id="mSurnameTableColumn" minWidth="8.0" prefWidth="187.0" text="SURNAME" />
                               <TableColumn fx:id="mAccNumTableColumn" prefWidth="160.0" text="ACCOUNT NUMBER" />
                               <TableColumn fx:id="mCellNumTableColumn" prefWidth="151.0" text="CELL NUMBER" />
-                              <TableColumn fx:id="mIdNumTableColumn" prefWidth="159.0" text="ID NUMBER" />
-                              <TableColumn fx:id="mAccountStatusColumn" prefWidth="162.0" text="ACCOUNT STATUS" />
+                              <TableColumn fx:id="mIdNumTableColumn" prefWidth="132.0" text="ID NUMBER" />
+                              <TableColumn fx:id="mAccountStatusColumn" prefWidth="189.0" text="MEMBERSHIP STATUS" />
                           </columns>
                         </TableView>
                      </content></ScrollPane>
-                  <Label layoutX="467.0" layoutY="45.0" prefHeight="40.0" prefWidth="151.0" text="CHANGE STATUS" textFill="#005b96">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <ChoiceBox fx:id="mAccountStatus" layoutX="618.0" layoutY="45.0" prefHeight="40.0" prefWidth="135.0" styleClass="dropdown" stylesheets="@../../css/style.css" />
-                  <Button fx:id="mUpdateAccountStatus" layoutX="800.0" layoutY="43.0" mnemonicParsing="false" onAction="#updateAccountStatus" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="SAVE" textFill="#005b96">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="mRefreshTableBtn" layoutX="962.0" layoutY="43.0" mnemonicParsing="false" onAction="#rfreshAccountsTable" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="REFRESH" textFill="#005b96">
+                  <Button fx:id="mRefreshTableBtn" layoutX="668.0" layoutY="244.0" mnemonicParsing="false" onAction="#rfreshAccountsTable" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="REFRESH" textFill="#005b96">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
                   <ProgressBar fx:id="mLoadTableProgress" layoutX="-7.0" layoutY="-9.0" prefHeight="18.0" prefWidth="1113.0" progress="0.0" styleClass="tables" stylesheets="@../../css/style.css" />
+                  <Pane layoutX="36.0" layoutY="47.0" prefHeight="138.0" prefWidth="772.0" styleClass="modules_pane_background" stylesheets="@../../css/style.css">
+                     <children>
+                        <Label layoutX="76.0" layoutY="52.0" prefHeight="40.0" prefWidth="190.0" text="CHANGE STATUS TO" textFill="#005b96">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="mAccountStatus" layoutX="273.0" layoutY="52.0" prefHeight="40.0" prefWidth="181.0" styleClass="dropdown" stylesheets="@../../css/style.css" />
+                        <Button fx:id="mUpdateAccountStatus" layoutX="636.0" layoutY="50.0" mnemonicParsing="false" onAction="#updateAccountStatus" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="SAVE" textFill="#005b96">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <HBox alignment="CENTER" layoutX="322.0" layoutY="-20.0" prefHeight="41.0" prefWidth="243.0" styleClass="modules_pane_heading_bg" stylesheets="@../../css/style.css">
+                           <children>
+                              <Label styleClass="modules_pane_heading_txt" stylesheets="@../../css/style.css" text="MANAGE MEMBERSHIP STATUS" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </Pane>
+                        <Label layoutX="51.0" layoutY="246.0" prefHeight="40.0" prefWidth="167.0" text="MEMBER SEARCH" textFill="#005b96">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="mAccountSearch" layoutX="239.0" layoutY="246.0" prefHeight="40.0" prefWidth="307.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </TextField>
                     </children>
                 </AnchorPane>
             </content>
         </Tab>
         <Tab style="-fx-font-size: 20; -fx-font-weight: Bold;" text="CONTRACTS">
             <content>
-                <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0">
+                <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1114.0">
 
                     <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1300.0" prefWidth="1080.0" styleClass="tables" stylesheets="@../../css/style.css">
                         <children>
                             <VBox layoutX="12.0" layoutY="43.0" prefHeight="66.0" prefWidth="467.0">
                                 <children>
-                                    <Label prefHeight="17.0" prefWidth="426.0" text="MEMBERSHIP AGREEMENT BETWEEN XPRESSIONS WELLNESS CENTRE">
+                                    <Label prefHeight="17.0" prefWidth="426.0" text="MEMBERSHIP AGREEMENT BETWEEN X-PRESSIONS WELLNESS CENTRE">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
@@ -603,19 +613,19 @@
                            <ChoiceBox fx:id="mBankAccType" prefHeight="25.0" prefWidth="137.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
                                 </children>
                             </HBox>
-                            <VBox layoutX="19.0" layoutY="1204.0" prefHeight="57.0" prefWidth="1080.0">
+                            <VBox layoutX="6.0" layoutY="1204.0" prefHeight="57.0" prefWidth="1093.0">
                                 <children>
-                                    <Label fx:id="mDeclaration" text="I hereby instruct and authorise Xpressions Wellness Centre to draw from my bank account the amount stipulated for the membership. I request and authorise Xpressions Well nes Centre to resubmit my">
+                                    <Label fx:id="mDeclaration" text="I hereby instruct and authorise X-pressions Wellness Centre to draw from my bank account the amount stipulated for the membership. I request, instruct and authorise X-pressions Wellness Centre to ">
                                         <font>
                                             <Font name="System Bold" size="11.0" />
                                         </font>
                                     </Label>
-                                    <Label prefHeight="16.0" prefWidth="1075.0" text="by the company in  the event the debit order returns unpaid. The debit order will commence on the days agreed by Xpressions Wellness Centre. I agree to pay any bank charges related to this debit order">
+                                    <Label prefHeight="16.0" prefWidth="1075.0" text="re-submit my debit order at a date set by the company in  the event the debit order returns unpaid. The debit order will commence on the days agreed upon by X-pressions Wellness Centre.">
                                         <font>
                                             <Font name="System Bold" size="11.0" />
                                         </font>
                                     </Label>
-                                    <Label prefHeight="16.0" prefWidth="1075.0" text="instructions. ">
+                                    <Label prefHeight="16.0" prefWidth="1075.0" text=" I agree to pay any bank charges related to this debit order instructions. ">
                                         <font>
                                             <Font name="System Bold" size="11.0" />
                                         </font>
@@ -665,7 +675,7 @@
                                   </HBox>
                         </children>
                             </HBox>
-                            <Line endX="143.0" layoutX="827.0" layoutY="1330.0" startX="-177.0" />
+                            <Line endX="143.0" layoutX="842.0" layoutY="1298.0" startX="-177.0" />
                             <HBox layoutX="19.0" layoutY="1271.0" prefHeight="27.0" prefWidth="484.0">
                                 <children>
                                     <Label fx:id="mTermsAndCs" prefHeight="17.0" prefWidth="461.0" text="TERMS AND CONDITIONS APPLY (SEE BACKSIDE FOR TERM AND CONDITIONS)" underline="true">
@@ -675,7 +685,7 @@
                                     </Label>
                                 </children>
                             </HBox>
-                            <Button fx:id="mSaveBtn" layoutX="429.0" layoutY="1359.0" mnemonicParsing="false" onAction="#saveMemberDetails" prefHeight="48.0" prefWidth="173.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="SAVE">
+                            <Button fx:id="mSaveBtn" layoutX="119.0" layoutY="1309.0" mnemonicParsing="false" onAction="#saveMemberDetails" prefHeight="48.0" prefWidth="278.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="SAVE CONTRACT">
                                 <font>
                                     <Font name="System Bold" size="18.0" />
                                 </font>
@@ -713,6 +723,11 @@
                            <ChoiceBox fx:id="mPaymentType" prefHeight="25.0" prefWidth="130.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
                         </children>
                      </HBox>
+                     <Button fx:id="mPrintContractBtn" layoutX="746.0" layoutY="1309.0" mnemonicParsing="false" onAction="#printContract" prefHeight="48.0" prefWidth="278.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="PRINT CONTRACT">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                     </Button>
                         </children>
                         <opaqueInsets>
                             <Insets />
@@ -725,7 +740,7 @@
                 </ScrollPane>
             </content>
         </Tab>
-      <Tab fx:id="mPackagesTab" onSelectionChanged="#loadAllPackages" style="-fx-font-size: 20; -fx-font-weight: Bold;" text="PACKAGES">
+      <Tab fx:id="mPackagesTab" onSelectionChanged="#authenticateUserInPackagesTab" style="-fx-font-size: 20; -fx-font-weight: Bold;" text="PACKAGES">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tables" stylesheets="@../../css/style.css">
                <children>
@@ -905,7 +920,7 @@
                                         </Label>
                                     </children>
                                 </VBox>
-                                <Button fx:id="mDowloadIndemnity" layoutX="777.0" layoutY="852.0" mnemonicParsing="false" onAction="#generateIndemnityForm" prefHeight="60.0" prefWidth="250.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="DOWNLOAD INDEMNITY">
+                                <Button fx:id="mDowloadIndemnity" layoutX="777.0" layoutY="852.0" mnemonicParsing="false" onAction="#generateIndemnityForm" prefHeight="60.0" prefWidth="250.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="PRINT INDEMNITY">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -925,7 +940,7 @@
                                         <Image url="@../resources/femalecardbarcode.png" />
                                     </image>
                                 </ImageView>-->
-                                <Button fx:id="mDownloadMembershipCard" layoutX="777.0" layoutY="1182.0" mnemonicParsing="false" onAction="#generateMembershipCard" prefHeight="60.0" prefWidth="250.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="DOWNLOAD CARD">
+                                <Button fx:id="mDownloadMembershipCard" layoutX="777.0" layoutY="1182.0" mnemonicParsing="false" onAction="#generateMembershipCard" prefHeight="60.0" prefWidth="250.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="PRINT CARD">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font></Button>
@@ -1004,7 +1019,7 @@
                 </ScrollPane>
             </content>
         </Tab>
-      <Tab style="-fx-font-size: 20; -fx-font-weight: Bold;" text="SHORT TERM CONTRACTS &amp; PACKAGES">
+      <Tab fx:id="mShortTermContractsTab" onSelectionChanged="#authenticateUserInShortTCandPackages" style="-fx-font-size: 20; -fx-font-weight: Bold;" text="SHORT TERM CONTRACTS &amp; PACKAGES">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tables" stylesheets="@../../css/style.css">
                <children>
@@ -1095,7 +1110,7 @@
                         </Label>
               </children>
               </Pane>
-                  <Pane layoutX="593.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="450.0" styleClass="modules_pane_background" stylesheets="@../../css/style.css">
+                  <Pane fx:id="mManageSTPackagesPane" layoutX="593.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="450.0" styleClass="modules_pane_background" stylesheets="@../../css/style.css">
                      <children>
                         <TextField fx:id="mShortTermPckgName" layoutX="122.0" layoutY="39.0" prefHeight="30.0" prefWidth="290.0">
                            <font>

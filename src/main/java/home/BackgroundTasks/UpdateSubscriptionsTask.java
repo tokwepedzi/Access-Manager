@@ -11,6 +11,8 @@ import javafx.scene.control.Alert;
 import java.sql.*;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 import static home.Constants.MEMBERSHIP_TABLE;
@@ -135,7 +137,9 @@ public class UpdateSubscriptionsTask extends Task<ObservableList<SubscriptionMod
                                 resultSet1.getString("nextduedate"), resultSet1.getString("accountbalance"),
                                 resultSet1.getString("adjustmentdate"), resultSet1.getString("accountstatus"),
                                 resultSet1.getString("profpic"), resultSet1.getString("profpic1"),
-                                resultSet1.getString("profpic2")
+                                resultSet1.getString("profpic2"),resultSet1.getString("monthsduration"),
+                                resultSet1.getString("monthselapsed"),resultSet1.getString("contractvalue"),
+                                resultSet1.getString("totalpaid"),resultSet1.getString("elapsedamount")
                         ));
 
                         threeMembersSubscriptionModelList.add(subscriptionModel);
@@ -175,7 +179,9 @@ public class UpdateSubscriptionsTask extends Task<ObservableList<SubscriptionMod
                                 resultSet2.getString("nextduedate"), resultSet2.getString("accountbalance"),
                                 resultSet2.getString("adjustmentdate"), resultSet2.getString("accountstatus"),
                                 resultSet2.getString("profpic"), resultSet2.getString("profpic1"),
-                                resultSet2.getString("profpic2")
+                                resultSet2.getString("profpic2"),resultSet2.getString("monthsduration"),
+                                resultSet2.getString("monthselapsed"),resultSet2.getString("contractvalue"),
+                                resultSet2.getString("totalpaid"), resultSet2.getString("elapsedamount")
                         ));
 
                         twoMembersSubscriptionModelList.add(subscriptionModel2);
@@ -215,7 +221,9 @@ public class UpdateSubscriptionsTask extends Task<ObservableList<SubscriptionMod
                                 resultSet3.getString("nextduedate"), resultSet3.getString("accountbalance"),
                                 resultSet3.getString("adjustmentdate"), resultSet3.getString("accountstatus"),
                                 resultSet3.getString("profpic"), resultSet3.getString("profpic1"),
-                                resultSet3.getString("profpic2")
+                                resultSet3.getString("profpic2"),resultSet3.getString("monthsduration"),
+                                resultSet3.getString("monthselapsed"),resultSet3.getString("contractvalue"),
+                                resultSet3.getString("totalpaid"),resultSet3.getString("elapsedamount")
                         ));
 
                         oneMembersSubscriptionModelList.add(subscriptionModel3);
@@ -254,15 +262,28 @@ public class UpdateSubscriptionsTask extends Task<ObservableList<SubscriptionMod
                 Long daysLeft = Duration.between(todaysDate.atStartOfDay(), endDate.atStartOfDay()).toDays(); //todo if days left is less than zero set account to paused in DB
                // System.out.println("Days Left = " + String.valueOf(daysLeft));
                 Long daysSinceLastAdjustment = Duration.between(lastAdjustmentDate.atStartOfDay(), todaysDate.atStartOfDay()).toDays();
+                //get Months Elapsed since beginning of contract
+                Long monthsElapsed = ChronoUnit.MONTHS.between(startDate.atStartOfDay(),todaysDate.atStartOfDay());
                // System.out.println("DAYS SINCE LAST ADJ " + String.valueOf(daysSinceLastAdjustment));
-                long multiplicationFactor = daysSinceLastAdjustment / 30;
+               // long multiplicationFactor = daysSinceLastAdjustment / 30;
+                //update contract value
+                float contractvalue = Float.parseFloat(threeMembersSubscriptionModelList.get(i).getMonthsduration())*
+                        ( Float.parseFloat(threeMembersSubscriptionModelList.get(i).getSubscriptionfee())+
+                        Float.parseFloat(threeMembersSubscriptionModelList.get(i).getSubscriptionfee1())+
+                        Float.parseFloat(threeMembersSubscriptionModelList.get(i).getSubscriptionfee2()));
 
                 //Apply subscription fees for 3 members
-                if (daysSinceLastAdjustment > 30 && accountstatus.equals("ACTIVE")) {
-                    float totalfees = (Float.parseFloat(threeMembersSubscriptionModelList.get(i).getSubscriptionfee())
+                if (accountstatus.equals("ACTIVE")) {
+                   /* float totalfees = (Float.parseFloat(threeMembersSubscriptionModelList.get(i).getSubscriptionfee())
                             + Float.parseFloat(threeMembersSubscriptionModelList.get(i).getSubscriptionfee1()) +
                             Float.parseFloat(threeMembersSubscriptionModelList.get(i).getSubscriptionfee2())) * multiplicationFactor;
-                    float newbalance = totalfees + Float.parseFloat(threeMembersSubscriptionModelList.get(i).getAccountbalance());
+                    float newbalance = totalfees + Float.parseFloat(threeMembersSubscriptionModelList.get(i).getAccountbalance());*/
+                    //The total amount of payments made to date so far on this account
+                    float totalpaid = Float.parseFloat(threeMembersSubscriptionModelList.get(i).getTotalpaid());
+                    float elapsedamount = (Float.parseFloat(threeMembersSubscriptionModelList.get(i).getSubscriptionfee())
+                            + Float.parseFloat(threeMembersSubscriptionModelList.get(i).getSubscriptionfee1()) +
+                            Float.parseFloat(threeMembersSubscriptionModelList.get(i).getSubscriptionfee2())) * monthsElapsed;
+                    float accountbalance =  elapsedamount-totalpaid;
 
                     LocalDate newNextDueDate = nthDayOfFollowingMonth(Integer.parseInt(threeMembersSubscriptionModelList.get(i).getDebitorderday()), todaysDate);
 
@@ -270,14 +291,20 @@ public class UpdateSubscriptionsTask extends Task<ObservableList<SubscriptionMod
                     //set updated values
                     threeMembersSubscriptionModelList.get(i).setDaysleft(String.valueOf(daysLeft));
                     threeMembersSubscriptionModelList.get(i).setNextduedate(newNextDueDate.toString());
-                    threeMembersSubscriptionModelList.get(i).setAccountbalance(String.valueOf(newbalance));
+                    threeMembersSubscriptionModelList.get(i).setAccountbalance(String.valueOf(accountbalance));
                     threeMembersSubscriptionModelList.get(i).setAdjustmentdate(todaysDate.toString());
+                    threeMembersSubscriptionModelList.get(i).setMonthselapsed(String.valueOf(monthsElapsed));
+                    threeMembersSubscriptionModelList.get(i).setElapsedamount(String.valueOf(elapsedamount));
+                    threeMembersSubscriptionModelList.get(i).setContractvalue(String.valueOf(contractvalue));
 
                     String updateQuery = "UPDATE " + SUBSCRIPTIONS_TABLE + " " +
                             "SET daysleft = " + "'" + threeMembersSubscriptionModelList.get(i).getDaysleft() + "' " + "," +
                             "nextduedate = " + "'" + threeMembersSubscriptionModelList.get(i).getNextduedate() + "' " + "," +
                             "accountbalance = " + "'" + threeMembersSubscriptionModelList.get(i).getAccountbalance() + "' " + "," +
-                            "adjustmentdate = " + "'" + threeMembersSubscriptionModelList.get(i).getAdjustmentdate() + "' " +
+                            "adjustmentdate = " + "'" + threeMembersSubscriptionModelList.get(i).getAdjustmentdate() + "' " + "," +
+                            "monthselapsed = " + "'" + threeMembersSubscriptionModelList.get(i).getMonthselapsed() + "' " + "," +
+                            "elapsedamount = " + "'" + threeMembersSubscriptionModelList.get(i).getElapsedamount() + "' " + "," +
+                            "contractvalue = " + "'" + threeMembersSubscriptionModelList.get(i).getContractvalue() + "' " +
                             "WHERE accountnum = " + threeMembersSubscriptionModelList.get(i).getAccountnum() + ";";
 
                     try {
@@ -305,14 +332,25 @@ public class UpdateSubscriptionsTask extends Task<ObservableList<SubscriptionMod
                 Long daysLeft = Duration.between(todaysDate.atStartOfDay(), endDate.atStartOfDay()).toDays();
                // System.out.println("Days Left = " + String.valueOf(daysLeft));
                 Long daysSinceLastAdjustment = Duration.between(lastAdjustmentDate.atStartOfDay(), todaysDate.atStartOfDay()).toDays();
+                //get Months Elapsed since beginning of contract
+                Long monthsElapsed = ChronoUnit.MONTHS.between(startDate.atStartOfDay(),todaysDate.atStartOfDay());
                 //System.out.println("DAYS SINCE LAST ADJ " + String.valueOf(daysSinceLastAdjustment));
-                long multiplicationFactor = daysSinceLastAdjustment / 30;
+              //  long multiplicationFactor = daysSinceLastAdjustment / 30;
+                //update contract value
+                float contractvalue = Float.parseFloat(twoMembersSubscriptionModelList.get(i).getMonthsduration())*
+                        ( Float.parseFloat(twoMembersSubscriptionModelList.get(i).getSubscriptionfee())+
+                                Float.parseFloat(twoMembersSubscriptionModelList.get(i).getSubscriptionfee1()));
 
                 //Apply subscription fees for 3 members
-                if (daysSinceLastAdjustment > 30 && accountstatus.equals("ACTIVE")) {
-                    float totalfees = (Float.parseFloat(twoMembersSubscriptionModelList.get(i).getSubscriptionfee())
+                if (accountstatus.equals("ACTIVE")) {
+                   /* float totalfees = (Float.parseFloat(twoMembersSubscriptionModelList.get(i).getSubscriptionfee())
                             + Float.parseFloat(twoMembersSubscriptionModelList.get(i).getSubscriptionfee1())) * multiplicationFactor;
-                    float newbalance = totalfees + Float.parseFloat(twoMembersSubscriptionModelList.get(i).getAccountbalance());
+                    float newbalance = totalfees + Float.parseFloat(twoMembersSubscriptionModelList.get(i).getAccountbalance());*/
+
+                    float totalpaid = Float.parseFloat(twoMembersSubscriptionModelList.get(i).getTotalpaid());
+                    float elapsedamount = (Float.parseFloat(twoMembersSubscriptionModelList.get(i).getSubscriptionfee())
+                            + Float.parseFloat(twoMembersSubscriptionModelList.get(i).getSubscriptionfee1()))* monthsElapsed;
+                    float accountbalance =  elapsedamount-totalpaid;
 
                     LocalDate newNextDueDate = nthDayOfFollowingMonth(Integer.parseInt(twoMembersSubscriptionModelList.get(i).getDebitorderday()), todaysDate);
 
@@ -320,14 +358,21 @@ public class UpdateSubscriptionsTask extends Task<ObservableList<SubscriptionMod
                     //set updated values
                     twoMembersSubscriptionModelList.get(i).setDaysleft(String.valueOf(daysLeft));
                     twoMembersSubscriptionModelList.get(i).setNextduedate(newNextDueDate.toString());
-                    twoMembersSubscriptionModelList.get(i).setAccountbalance(String.valueOf(newbalance));
+                    twoMembersSubscriptionModelList.get(i).setAccountbalance(String.valueOf(accountbalance));
                     twoMembersSubscriptionModelList.get(i).setAdjustmentdate(todaysDate.toString());
+                    twoMembersSubscriptionModelList.get(i).setMonthselapsed(String.valueOf(monthsElapsed));
+                    twoMembersSubscriptionModelList.get(i).setElapsedamount(String.valueOf(elapsedamount));
+                    twoMembersSubscriptionModelList.get(i).setContractvalue(String.valueOf(contractvalue));
+
 
                     String updateQuery = "UPDATE " + SUBSCRIPTIONS_TABLE + " " +
                             "SET daysleft = " + "'" + twoMembersSubscriptionModelList.get(i).getDaysleft() + "' " + "," +
                             "nextduedate = " + "'" + twoMembersSubscriptionModelList.get(i).getNextduedate() + "' " + "," +
                             "accountbalance = " + "'" + twoMembersSubscriptionModelList.get(i).getAccountbalance() + "' " + "," +
-                            "adjustmentdate = " + "'" + twoMembersSubscriptionModelList.get(i).getAdjustmentdate() + "' " +
+                            "adjustmentdate = " + "'" + twoMembersSubscriptionModelList.get(i).getAdjustmentdate() + "' " + "," +
+                            "monthselapsed = " + "'" + twoMembersSubscriptionModelList.get(i).getMonthselapsed() + "' " + "," +
+                            "elapsedamount = " + "'" + twoMembersSubscriptionModelList.get(i).getElapsedamount() + "' " + "," +
+                            "contractvalue = " + "'" + twoMembersSubscriptionModelList.get(i).getContractvalue() + "' " +
                             "WHERE accountnum = " + twoMembersSubscriptionModelList.get(i).getAccountnum() + ";";
 
                     try {
@@ -355,13 +400,22 @@ public class UpdateSubscriptionsTask extends Task<ObservableList<SubscriptionMod
                 Long daysLeft = Duration.between(todaysDate.atStartOfDay(), endDate.atStartOfDay()).toDays();
                // System.out.println("Days Left = " + String.valueOf(daysLeft));
                 Long daysSinceLastAdjustment = Duration.between(lastAdjustmentDate.atStartOfDay(), todaysDate.atStartOfDay()).toDays();
+                //get Months Elapsed since beginning of contract
+                Long monthsElapsed = ChronoUnit.MONTHS.between(startDate.atStartOfDay(),todaysDate.atStartOfDay());
                // System.out.println("DAYS SINCE LAST ADJ " + String.valueOf(daysSinceLastAdjustment));
-                long multiplicationFactor = daysSinceLastAdjustment / 30;
+               // long multiplicationFactor = daysSinceLastAdjustment / 30;
+                //update contract value
+                float contractvalue = Float.parseFloat(oneMembersSubscriptionModelList.get(i).getMonthsduration())*
+                        ( Float.parseFloat(oneMembersSubscriptionModelList.get(i).getSubscriptionfee()));
 
                 //Apply subscription fees for 3 members
-                if (daysSinceLastAdjustment > 30 && accountstatus.equals("ACTIVE")) {
-                    float totalfees = (Float.parseFloat(oneMembersSubscriptionModelList.get(i).getSubscriptionfee())) * multiplicationFactor;
-                    float newbalance = totalfees + Float.parseFloat(oneMembersSubscriptionModelList.get(i).getAccountbalance());
+                if (accountstatus.equals("ACTIVE")) {
+                   /* float totalfees = (Float.parseFloat(oneMembersSubscriptionModelList.get(i).getSubscriptionfee())) * multiplicationFactor;
+                    float newbalance = totalfees + Float.parseFloat(oneMembersSubscriptionModelList.get(i).getAccountbalance());*/
+                    //The total amount of payments made to date so far on this account
+                    float totalpaid = Float.parseFloat(oneMembersSubscriptionModelList.get(i).getTotalpaid());
+                    float elapsedamount = (Float.parseFloat(oneMembersSubscriptionModelList.get(i).getSubscriptionfee()))* monthsElapsed;
+                    float accountbalance =  elapsedamount-totalpaid;
 
                     LocalDate newNextDueDate = nthDayOfFollowingMonth(Integer.parseInt(oneMembersSubscriptionModelList.get(i).getDebitorderday()), todaysDate);
 
@@ -369,14 +423,20 @@ public class UpdateSubscriptionsTask extends Task<ObservableList<SubscriptionMod
                     //set updated values
                     oneMembersSubscriptionModelList.get(i).setDaysleft(String.valueOf(daysLeft));
                     oneMembersSubscriptionModelList.get(i).setNextduedate(newNextDueDate.toString());
-                    oneMembersSubscriptionModelList.get(i).setAccountbalance(String.valueOf(newbalance));
+                    oneMembersSubscriptionModelList.get(i).setAccountbalance(String.valueOf(accountbalance));
                     oneMembersSubscriptionModelList.get(i).setAdjustmentdate(todaysDate.toString());
+                    oneMembersSubscriptionModelList.get(i).setMonthselapsed(String.valueOf(monthsElapsed));
+                    oneMembersSubscriptionModelList.get(i).setElapsedamount(String.valueOf(elapsedamount));
+                    oneMembersSubscriptionModelList.get(i).setContractvalue(String.valueOf(contractvalue));
 
                     String updateQuery = "UPDATE " + SUBSCRIPTIONS_TABLE + " " +
                             "SET daysleft = " + "'" + oneMembersSubscriptionModelList.get(i).getDaysleft() + "' " + "," +
                             "nextduedate = " + "'" + oneMembersSubscriptionModelList.get(i).getNextduedate() + "' " + "," +
                             "accountbalance = " + "'" + oneMembersSubscriptionModelList.get(i).getAccountbalance() + "' " + "," +
-                            "adjustmentdate = " + "'" + oneMembersSubscriptionModelList.get(i).getAdjustmentdate() + "' " +
+                            "adjustmentdate = " + "'" + oneMembersSubscriptionModelList.get(i).getAdjustmentdate() + "' " + "," +
+                            "monthselapsed = " + "'" + oneMembersSubscriptionModelList.get(i).getMonthselapsed() + "' " + "," +
+                            "elapsedamount = " + "'" + oneMembersSubscriptionModelList.get(i).getMonthselapsed() + "' " +"," +
+                            "contractvalue = " + "'" + oneMembersSubscriptionModelList.get(i).getContractvalue() + "' " +
                             "WHERE accountnum = " + oneMembersSubscriptionModelList.get(i).getAccountnum() + ";";
 
                     try {

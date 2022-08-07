@@ -150,7 +150,18 @@ public class AccessControlController implements Initializable {
         }*/
 
         clearFileds();
+        refreshWeeklyAccountsTable();
+
+        mSearchAccount.setTextFormatter(new TextFormatter<>((change )-> {
+            change.setText(change.getText().toUpperCase());
+            return change;
+
+        }));
+
+
     }
+
+
 
     public void searchForAccount() {
         System.out.println("Typing...." + subscriptionModelObservableList.size());
@@ -219,7 +230,7 @@ public class AccessControlController implements Initializable {
             // System.out.println("THE USER IS :" + systemUser.getFullname());
             SecurityClearanceEventModel securityClearanceEventModel = new SecurityClearanceEventModel(
                     "Access Control Checkin", systemUser.getFullname(), mSearchAccount.getText().toString()
-                    , "", "", "Account", "System allowed");
+                    , "", "", "Long Term Account", "System allowed");
 
                     /*AccessCounterTask counterTask = new AccessCounterTask(accountnumber, memberIdentifier);
                     Thread thread = new Thread(counterTask);
@@ -279,77 +290,51 @@ public class AccessControlController implements Initializable {
     public void overrideAction() {
         // System.out.println("Override Action on Subscriber");
         if (!isAllowedToCheckIn) {
-            Dialog textInputDialog = new Dialog();
-            textInputDialog.setTitle("Override Action");
-            textInputDialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
-
-            TextField inputreason = new TextField();
-            textInputDialog.getDialogPane().setContent(inputreason);
+            try {
 
 
-            // Create an event filter that consumes the action if the text is empty
-            EventHandler<ActionEvent> filter = event -> {
-                if (inputreason.getText().isEmpty()) {
-                    event.consume();
-                    //  System.out.println("You must put a reason");
-                    //todo evaulate adding alert dialog saying you must put a reason
-                } else {
+                String accountnumber = mSearchAccount.getText().toString();
+                AccessCounterTask counterTask = new AccessCounterTask(accountnumber, memberIdentifier);
+                Thread thread1 = new Thread(counterTask);
+                thread1.setDaemon(true);
+                thread1.start();
 
-                    // lookup the buttons
-                    Button okButton = (Button) textInputDialog.getDialogPane().lookupButton(ButtonType.OK);
-                    Button cancelButton = (Button) textInputDialog.getDialogPane().lookupButton(ButtonType.CANCEL);
-                    okButton.addEventFilter(ActionEvent.ACTION, event1 -> {
-
-                        String accountnumber = mSearchAccount.getText().toString();
-                        AccessCounterTask counterTask = new AccessCounterTask(accountnumber, memberIdentifier);
-                        Thread thread1 = new Thread(counterTask);
-                        thread1.setDaemon(true);
-                        thread1.start();
-
-                        mMessageOut.setText("Check in successful");
-                        String reason = inputreason.getText().toString();
-                        // start log reason task in background
-                        // System.out.println("Logging reason PEDZI");
-                        SystemUser systemUser = UserSession.getUserSessionInstance(null).getSystemUser();
-                        // System.out.println("THE USER IS :" + systemUser.getFullname());
-                        SecurityClearanceEventModel securityClearanceEventModel = new SecurityClearanceEventModel(
-                                "Access Control Override", systemUser.getFullname(), mSearchAccount.getText().toString()
-                                , "", "", "", reason);
-
-                        LogSecurityEventTask logSecurityEventTask = new LogSecurityEventTask(securityClearanceEventModel);
-                        Thread thread = new Thread(logSecurityEventTask);
-                        thread.setDaemon(true);
-                        thread.start();
-                        clearFileds();
+                mMessageOut.setText("Check in successful");
+                SystemUser systemUser = UserSession.getUserSessionInstance(null).getSystemUser();
+                // System.out.println("THE USER IS :" + systemUser.getFullname());
+                SecurityClearanceEventModel securityClearanceEventModel = new SecurityClearanceEventModel(
+                        "Access Control Override", systemUser.getFullname(), mSearchAccount.getText().toString()
+                        , "", "", "Long Term Account", "");
 
 
-                    });
-
-                    cancelButton.addEventFilter(ActionEvent.ACTION, event1 -> {
-
-                        mMessageOut.setText("Check in CANCELLED");
-                        String reason = inputreason.getText().toString();
-                        // start log reason task in background
-                        // System.out.println("Logging reason PEDZI");
-                        SystemUser systemUser = UserSession.getUserSessionInstance(null).getSystemUser();
-
-                        // System.out.println("THE USER IS :" + systemUser.getFullname() + " BUT DECIDED TO CANCEL");
-                        clearFileds();
-
-                    });
-                }
-            };
-
-            // lookup the buttons
-            Button okButton = (Button) textInputDialog.getDialogPane().lookupButton(ButtonType.OK);
-            Button cancelButton = (Button) textInputDialog.getDialogPane().lookupButton(ButtonType.CANCEL);
-
-            // add the event-filter
-            okButton.addEventFilter(ActionEvent.ACTION, filter);
-            cancelButton.addEventFilter(ActionEvent.ACTION, filter);
-            textInputDialog.showAndWait();
-
-
+                stage = new Stage();
+                stage.setResizable(false);
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.setUserData(securityClearanceEventModel);
+                Parent root = FXMLLoader.load(getClass().getResource("/home/fxml/accessOverride.fxml"));
+                Scene scene1 = new Scene(root, 450, 420);
+                stage.setScene(scene1);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.initOwner(m7OverrideBtn.getScene().getWindow());
+                stage.showAndWait();
+                clearFileds();
+                //refreshWeeklyAccountsTable();
+            }catch (NullPointerException e){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.initModality(Modality.APPLICATION_MODAL);
+                alert.setTitle("WARNING!");
+                alert.setHeaderText(null);
+                alert.setContentText("Null selection: "+e.getMessage());
+                alert.showAndWait();
+            }catch (Exception e){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.initModality(Modality.APPLICATION_MODAL);
+                alert.setTitle("WARNING!");
+                alert.setHeaderText(null);
+                alert.setContentText("Error: "+e.getMessage());
+                alert.showAndWait();
+                e.printStackTrace();
+            }
         } else if (isAllowedToCheckIn) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Info:");
@@ -385,13 +370,25 @@ public class AccessControlController implements Initializable {
             String member2Account = subscriptionModel.getSubaccount2();
 
             if (enteredAccountNumber.equals(mainMemberAccount)) {
-                updateUiForMainMember(subscriptionModel);
+                try {
+                    updateUiForMainMember(subscriptionModel);
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
                 return;
             } else if (enteredAccountNumber.equals(member1Account)) {
-                updateUiForMember1(subscriptionModel);
+                try {
+                    updateUiForMember1(subscriptionModel);
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
                 return;
             } else if (enteredAccountNumber.equals(member2Account)) {
-                updateUiForMember2(subscriptionModel);
+                try {
+                    updateUiForMember2(subscriptionModel);
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
                 return;
             }
 
@@ -424,7 +421,7 @@ public class AccessControlController implements Initializable {
 
     }
 
-    private void updateUiForMember2(SubscriptionModel subscriptionModel) {
+    private void updateUiForMember2(SubscriptionModel subscriptionModel) throws MalformedURLException {
         //isMember2 = true;
         memberIdentifier = 3;
         LocalDate todaysDate = LocalDate.parse(getTodaysDateAsStringFromDb());
@@ -439,7 +436,7 @@ public class AccessControlController implements Initializable {
         mDueDateField.setText("NEXT DUE DATE IS ON :" + subscriptionModel.getNextduedate());
         //f account balance is greater than zero and  the next due date has passed
         //if ((Float.parseFloat(subscriptionModel.getAccountbalance())) > (Float.parseFloat(subscriptionModel.getSubscriptionfee())) && nextdueDate.isBefore(todaysDate)) {
-        if ((Float.parseFloat(subscriptionModel.getAccountbalance())) > (Float.parseFloat(subscriptionModel.getSubscriptionfee2()))) {
+        if ((Float.parseFloat(subscriptionModel.getAccountbalance())) > 0) {
             mParentBg.setStyle("-fx-background-color:  #C80815;" + "-fx-background-radius: 20;");
             isAllowedToCheckIn = false;
         } else {
@@ -459,11 +456,16 @@ public class AccessControlController implements Initializable {
         }
 
         mSubscriberImageRectangle.setFill(new ImagePattern(new Image(url.toExternalForm())));
+        if((new Image(url.toExternalForm()).isError())){
+            picfile = new File(DEFAULT_USER_PIC.toString());
+            url = picfile.toURI().toURL();
+            mSubscriberImageRectangle.setFill(new ImagePattern(new Image(url.toExternalForm())));
+        }
 
         // mSubscriberImageRectangle.setImage(getMemberImage(query, columnname));
     }
 
-    private void updateUiForMember1(SubscriptionModel subscriptionModel) {
+    private void updateUiForMember1(SubscriptionModel subscriptionModel) throws MalformedURLException {
         //isMember1 = true;
         memberIdentifier = 2;
 
@@ -479,7 +481,7 @@ public class AccessControlController implements Initializable {
         mDueDateField.setText("NEXT DUE DATE IS ON :" + subscriptionModel.getNextduedate());
         //f account balance is greater than zero and  the next due date has passed
         // if ((Float.parseFloat(subscriptionModel.getAccountbalance())) > (Float.parseFloat(subscriptionModel.getSubscriptionfee())) && nextdueDate.isBefore(todaysDate)) {
-        if ((Float.parseFloat(subscriptionModel.getAccountbalance())) > (Float.parseFloat(subscriptionModel.getSubscriptionfee1()))) {
+        if ((Float.parseFloat(subscriptionModel.getAccountbalance())) > 0) {
 
             mParentBg.setStyle("-fx-background-color:  #C80815;" + "-fx-background-radius: 20;");
             isAllowedToCheckIn = false;
@@ -501,11 +503,16 @@ public class AccessControlController implements Initializable {
         }
 
         mSubscriberImageRectangle.setFill(new ImagePattern(new Image(url.toExternalForm())));
+        if((new Image(url.toExternalForm()).isError())){
+            picfile = new File(DEFAULT_USER_PIC.toString());
+            url = picfile.toURI().toURL();
+            mSubscriberImageRectangle.setFill(new ImagePattern(new Image(url.toExternalForm())));
+        }
 
 
     }
 
-    private void updateUiForMainMember(SubscriptionModel subscriptionModel) {
+    private void updateUiForMainMember(SubscriptionModel subscriptionModel) throws MalformedURLException {
         //isMainMember = true;
         memberIdentifier = 1;
 
@@ -521,7 +528,8 @@ public class AccessControlController implements Initializable {
         mDueDateField.setText("NEXT DUE DATE IS ON :" + subscriptionModel.getNextduedate());
         //f account balance is greater than zero and  the next due date has passed
         // if ((Float.parseFloat(subscriptionModel.getAccountbalance())) > (Float.parseFloat(subscriptionModel.getSubscriptionfee())) && nextdueDate.isBefore(todaysDate)) {
-        if ((Float.parseFloat(subscriptionModel.getAccountbalance())) > (Float.parseFloat(subscriptionModel.getSubscriptionfee()))) {
+       // if ((Float.parseFloat(subscriptionModel.getAccountbalance())) > (Float.parseFloat(subscriptionModel.getSubscriptionfee()))) {
+        if ((Float.parseFloat(subscriptionModel.getAccountbalance())) > 0) {
 
             mParentBg.setStyle("-fx-background-color: #C80815;" + "-fx-background-radius: 20;");
             isAllowedToCheckIn = false;
@@ -561,6 +569,11 @@ public class AccessControlController implements Initializable {
         }
 
         mSubscriberImageRectangle.setFill(new ImagePattern(new Image(url.toExternalForm())));
+        if((new Image(url.toExternalForm()).isError())){
+            picfile = new File(DEFAULT_USER_PIC.toString());
+            url = picfile.toURI().toURL();
+            mSubscriberImageRectangle.setFill(new ImagePattern(new Image(url.toExternalForm())));
+        }
 
 
     }

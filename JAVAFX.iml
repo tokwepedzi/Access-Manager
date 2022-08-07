@@ -10,7 +10,6 @@
     </content>
     <orderEntry type="jdk" jdkName="18" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="GymProctor_jar" level="project" />
     <orderEntry type="library" name="adaptive" level="project" />
     <orderEntry type="module-library">
       <library>
@@ -25,11 +24,6 @@
         <jarDirectory url="file://$MODULE_DIR$/out/artifacts/JAVAFX_jar/lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="barcode4j-2.1" level="project" />
-    <orderEntry type="library" name="kernel-7.2.1" level="project" />
-    <orderEntry type="library" name="layout-7.2.1" level="project" />
-    <orderEntry type="library" name="io-7.2.1" level="project" />
-    <orderEntry type="library" name="commons-7.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:15.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:15.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:15.0.1" level="project" />
@@ -61,5 +55,10 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.2" level="project" />
     <orderEntry type="library" name="Maven: eu.agno3.jcifs:jcifs-ng:2.1.7" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.69" level="project" />
+    <orderEntry type="library" name="io-7.2.1" level="project" />
+    <orderEntry type="library" name="kernel-7.2.1" level="project" />
+    <orderEntry type="library" name="layout-7.2.1" level="project" />
+    <orderEntry type="library" name="barcode4j-2.1" level="project" />
+    <orderEntry type="library" name="GymProctor_jar" level="project" />
   </component>
 </module>

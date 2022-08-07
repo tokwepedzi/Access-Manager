@@ -71,6 +71,7 @@ public class MembershipModel {
         return paymentype;
     }
 
+
     public void setPaymentype(String paymentype) {
         this.paymentype = paymentype;
     }

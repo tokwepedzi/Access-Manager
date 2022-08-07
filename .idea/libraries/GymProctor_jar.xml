@@ -1,10 +1,10 @@
 <component name="libraryTable">
   <library name="GymProctor_jar">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../Java/GymProctor_jar" />
+      <root url="file://$USER_HOME$/Downloads/JAVAFX_jar/GymProctor_jar" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
-    <jarDirectory url="file://$PROJECT_DIR$/../Java/GymProctor_jar" recursive="false" />
+    <jarDirectory url="file://$USER_HOME$/Downloads/JAVAFX_jar/GymProctor_jar" recursive="false" />
   </library>
 </component>
