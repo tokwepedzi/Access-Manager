@@ -11,19 +11,6 @@
     <orderEntry type="jdk" jdkName="18" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="adaptive" level="project" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/out/artifacts/JAVAFX_jar/lib" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/out/artifacts/JAVAFX_jar/lib" />
-        </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/out/artifacts/JAVAFX_jar/lib" recursive="false" />
-        <jarDirectory url="file://$MODULE_DIR$/out/artifacts/JAVAFX_jar/lib" recursive="false" type="SOURCES" />
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:15.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:15.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:15.0.1" level="project" />
@@ -60,5 +47,9 @@
     <orderEntry type="library" name="layout-7.2.1" level="project" />
     <orderEntry type="library" name="barcode4j-2.1" level="project" />
     <orderEntry type="library" name="GymProctor_jar" level="project" />
+    <orderEntry type="library" name="svg-7.2.1" level="project" />
+    <orderEntry type="library" name="styled-xml-parser-7.2.1" level="project" />
+    <orderEntry type="library" name="layout-7.2.11" level="project" />
+    <orderEntry type="library" name="github.sarxos.webcam.capture" level="project" />
   </component>
 </module>

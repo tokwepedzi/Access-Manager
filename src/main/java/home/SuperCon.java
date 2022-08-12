@@ -1,9 +1,9 @@
 package home;
 
 public class SuperCon {
-    public static String AUTH_TB = "remoteauth_tb";
-    public static String REMOTE_SERVER = "35.238.129.143";
-    public static String REMOTE_LOGIN = "sqlserver";
-    public static String REMOTE_PW ="!@#$sql";
-    public static String DB_NAME = "xpressions_db";
+    public static String AUTH_TB = "accessmgt";
+    public static String REMOTE_SERVER = "sql6.freesqldatabase.com";
+    public static String REMOTE_LOGIN = "pedzi";
+    public static String REMOTE_PW ="qazwsx140989P";
+    public static String DB_NAME = "sql6511605";
 }

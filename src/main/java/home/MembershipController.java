@@ -279,7 +279,7 @@ public class MembershipController extends Window implements Initializable {
     private SystemUser systemUser;
 
 
-    File picfile, picfile1, picfile2,defaultPicFile;
+    File picfile, picfile1, picfile2, defaultPicFile;
     URL url = null;
     URL url1 = null;
     URL url2 = null;
@@ -288,356 +288,410 @@ public class MembershipController extends Window implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        systemUser = UserSession.getSystemUser();
-        authlevel = systemUser.getAuthlevel();
-
-        mTitles.getItems().addAll(TitlesList);
-        mTitles.setValue(TitlesList[0]);
-        mGender.getItems().addAll(GenderList);
-        mGender.setValue(GenderList[0]);
-        mPaymentMethods.getItems().addAll(paymentMethodsList);
-        mPaymentType.getItems().addAll(paymentTypeList);
-        mMinDuration.getItems().addAll(minDurationList);// todo add durations list in database
-        // mMinDuration.setValue(MinDurationList[0]);
-        mDebitOrderDate.getItems().addAll(debitorderdaysList);
-        mAccountStatus.getItems().addAll(AccountStatusList);
-        mIndemnitySelector.getItems().addAll(memberLevelList);
-
-        mShortTermPckgDuration.getItems().addAll(durationDaysList);
-        mBankName.getItems().addAll(listOfBanksInSA);
-        mBankAccType.getItems().addAll(listOfBankAccountTypes);
-        packagesList = FXCollections.observableArrayList();
-        shortTermPackageList = FXCollections.observableArrayList();
-        mTotAmntRec.setText("0");
-        mCardFee.setText("0");
-        mJoiningFee.setText("0");
-        mUpFrontPayment.setText("0");
-        // Get Membership packages types (as a Java Object Model) from database and initialize respective choice box
         try {
-            //Run query to fetch membership packages
-            String query = "SELECT * FROM " + PACKAGES_TABLE;
-            preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = null;
-            resultSet = preparedStatement.executeQuery();
-            packagesList.clear();
-            while (resultSet.next()) {
-                packagesList.add(new MembershipPackageModel(
-                        resultSet.getString("packageid"),
-                        resultSet.getString("packagename"),
-                        resultSet.getString("packagefee"),
-                        resultSet.getString("packagefee1"),
-                        resultSet.getString("packagefee2")
+            try {
+                systemUser = UserSession.getSystemUser();
+                authlevel = systemUser.getAuthlevel();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Info:");
+                alert.setHeaderText(null);
+                alert.setContentText("ERROR 1 " + e.getMessage());
+                alert.showAndWait();
+            }
+            try {
+                mTitles.getItems().addAll(TitlesList);
+                mTitles.setValue(TitlesList[0]);
+                mGender.getItems().addAll(GenderList);
+                mGender.setValue(GenderList[0]);
+                mPaymentMethods.getItems().addAll(paymentMethodsList);
+                mPaymentType.getItems().addAll(paymentTypeList);
+                mMinDuration.getItems().addAll(minDurationList);// todo add durations list in database
+                // mMinDuration.setValue(MinDurationList[0]);
+                mDebitOrderDate.getItems().addAll(debitorderdaysList);
+                mAccountStatus.getItems().addAll(AccountStatusList);
+                mIndemnitySelector.getItems().addAll(memberLevelList);
 
-                ));
+                mShortTermPckgDuration.getItems().addAll(durationDaysList);
+                mBankName.getItems().addAll(listOfBanksInSA);
+                mBankAccType.getItems().addAll(listOfBankAccountTypes);
+                packagesList = FXCollections.observableArrayList();
+                shortTermPackageList = FXCollections.observableArrayList();
+                mTotAmntRec.setText("0");
+                mCardFee.setText("0");
+                mJoiningFee.setText("0");
+                mUpFrontPayment.setText("0");
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Info:");
+                alert.setHeaderText(null);
+                alert.setContentText("ERROR 2 " + e.getMessage());
+                alert.showAndWait();
             }
-            for (int i = 0; i < packagesList.size(); i++) {
-                mMembershipDesc.getItems().add(packagesList.get(i).getPackagename());
+            // Get Membership packages types (as a Java Object Model) from database and initialize respective choice box
+            try {
+                //Run query to fetch membership packages
+                String query = "SELECT * FROM " + PACKAGES_TABLE;
+                preparedStatement = connection.prepareStatement(query);
+                ResultSet resultSet = null;
+                resultSet = preparedStatement.executeQuery();
+                packagesList.clear();
+                while (resultSet.next()) {
+                    packagesList.add(new MembershipPackageModel(
+                            resultSet.getString("packageid"),
+                            resultSet.getString("packagename"),
+                            resultSet.getString("packagefee"),
+                            resultSet.getString("packagefee1"),
+                            resultSet.getString("packagefee2")
+
+                    ));
+                }
+                for (int i = 0; i < packagesList.size(); i++) {
+                    mMembershipDesc.getItems().add(packagesList.get(i).getPackagename());
+                }
+                mMembershipDesc.setValue(packagesList.get(0).getPackagename());
+                // Close connections to database for this query
+                preparedStatement.close();
+                resultSet.close();
+                connection.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("WARNING!");
+                alert.setHeaderText(null);
+                alert.setContentText("Error:3 " + e.getMessage());
             }
-            mMembershipDesc.setValue(packagesList.get(0).getPackagename());
-            // Close connections to database for this query
-            preparedStatement.close();
-            resultSet.close();
-            connection.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+
+            try {
+                //Run query to fetch short term membership packages
+                String query = "SELECT * FROM " + SHORT_TERM_PACKAGES_TABLE;
+                connection = new DatabaseConnection().getDatabaseLinkConnection();
+                preparedStatement = connection.prepareStatement(query);
+                ResultSet resultSet = null;
+                resultSet = preparedStatement.executeQuery();
+                shortTermPackageList.clear();
+                while (resultSet.next()) {
+                    shortTermPackageList.add(new ShortTermPackageModel(
+                            resultSet.getString("packageid"),
+                            resultSet.getString("packagename"),
+                            resultSet.getString("packagefee"),
+                            resultSet.getString("daysduration")
+                    ));
+                }
+
+                for (int i = 0; i < shortTermPackageList.size(); i++) {
+                    mShortTermPckgSelector.getItems().add(shortTermPackageList.get(i).getPackagename());
+                }
+                mShortTermPckgSelector.setValue(shortTermPackageList.get(0).getPackagename());
+                // Close connections to database for this query
+                connection.close();
+                preparedStatement.close();
+                resultSet.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("WARNING!");
+                alert.setHeaderText(null);
+                alert.setContentText("Error: 4" + e.getMessage());
+            }
+
+            try {
+
+                // map account search table colums to titles
+                mTitleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+                mNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+                mSurnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
+                mAccNumTableColumn.setCellValueFactory(new PropertyValueFactory<>("memberaccountnumber"));
+                mCellNumTableColumn.setCellValueFactory(new PropertyValueFactory<>("cellnumber"));
+                mIdNumTableColumn.setCellValueFactory(new PropertyValueFactory<>("idnumber"));
+                mAccountStatusColumn.setCellValueFactory(new PropertyValueFactory<>("accountstatus"));
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Info:");
+                alert.setHeaderText(null);
+                alert.setContentText("ERROR 5 " + e.getMessage());
+                alert.showAndWait();
+            }
+
+            //rfreshAccountsTable(); (SUSPEND FUNCTION TO REFRESH TABLE AUTOMATICALLY)
+
+
+            //Listen for Membership packages choice box clicks and get package from db and set global var selectedpackage on click
+            mMembershipDesc.setOnAction(this::getMembershipPackage);
+
+            mIndemnitySelector.setOnAction(this::updateMembershipDocumentsFields);
+            mShortTermPckgSelector.setOnAction(this::setHintFields);
+            try {
+                loadAllShortTermPackages();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Info:");
+                alert.setHeaderText(null);
+                alert.setContentText("ERROR 6 " + e.getMessage());
+                alert.showAndWait();
+            }
+
+            try {
+                rfreshAccountsTable();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Info:");
+                alert.setHeaderText(null);
+                alert.setContentText("ERROR 7" + e.getMessage());
+                alert.showAndWait();
+            }
+
+            try {
+
+                defaultPicFile = new File("user_icon.png");
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Info:");
+                alert.setHeaderText(null);
+                alert.setContentText("ERROR! 8" + e.getMessage());
+                alert.showAndWait();
+            }
+
+            //-------------------------------------------- SET TEXT FIELDS TO CAPITALISE LETTERS----------------------------
+
+            mAccountSearch.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            m7Fullaname.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            m7IdNUm.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            m7CellNum.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mName.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mSurname.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mIdNumber.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mAddress.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mCellNumber.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mTelNumber.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mOccupation.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mEmail.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mContractNum.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mNextOfKin.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mAccNum.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mNextOfKinCell.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mMc.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mMember1FullName.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mMember2FullNames.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mMember1Id.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mMember2Id.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mMemberCardNum1.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mMemberCardNum2.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mTotAmntRec.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mCardFee.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mJoiningFee.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mUpFrontPayment.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mBankAccNumber.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mPayerDetails.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mPayerIdNum.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mPayerCellNum.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mPayerEmail.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mAccountSearch.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mDocumentsName.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mDocumentsSurname.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mDocumentsCell.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mMembershipCardName.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mMembershipCardSurname.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mMembershipCardAccount.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            ;
+            mPackageName.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mAmount.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mAmount1.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mAmount2.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+
+            mShortTermPckgName.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+            mShortTermPckgFee.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
+
+            }));
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("WARNING!");
+            alert.setHeaderText(null);
+            alert.setContentText("Error: 9" + e.getMessage());
         }
-
-        try {
-            //Run query to fetch short term membership packages
-            String query = "SELECT * FROM " + SHORT_TERM_PACKAGES_TABLE;
-            connection = new DatabaseConnection().getDatabaseLinkConnection();
-            preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = null;
-            resultSet = preparedStatement.executeQuery();
-            shortTermPackageList.clear();
-            while (resultSet.next()) {
-                shortTermPackageList.add(new ShortTermPackageModel(
-                        resultSet.getString("packageid"),
-                        resultSet.getString("packagename"),
-                        resultSet.getString("packagefee"),
-                        resultSet.getString("daysduration")
-                ));
-            }
-
-            for (int i = 0; i < shortTermPackageList.size(); i++) {
-                mShortTermPckgSelector.getItems().add(shortTermPackageList.get(i).getPackagename());
-            }
-            mShortTermPckgSelector.setValue(shortTermPackageList.get(0).getPackagename());
-            // Close connections to database for this query
-            connection.close();
-            preparedStatement.close();
-            resultSet.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-
-        }
-
-     /*   monthdaysList = new ArrayList<>();
-        for (int j = 1; j < MAX_DAYS_IN_MONTH + 1; j++) {
-            mDebitOrderDate.getItems().add(String.valueOf(j));
-
-        }*/
-
-       /* minDurationsList = new ArrayList<>();
-        for (int j = 1; j < 25; j++) {
-            mMinDuration.getItems().add(String.valueOf(j));
-
-        }*/
-
-        // map account search table colums to titles
-        mTitleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        mNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        mSurnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
-        mAccNumTableColumn.setCellValueFactory(new PropertyValueFactory<>("memberaccountnumber"));
-        mCellNumTableColumn.setCellValueFactory(new PropertyValueFactory<>("cellnumber"));
-        mIdNumTableColumn.setCellValueFactory(new PropertyValueFactory<>("idnumber"));
-        mAccountStatusColumn.setCellValueFactory(new PropertyValueFactory<>("accountstatus"));
-
-
-        //rfreshAccountsTable(); (SUSPEND FUNCTION TO REFRESH TABLE AUTOMATICALLY)
-
-
-        //Listen for Membership packages choice box clicks and get package from db and set global var selectedpackage on click
-        mMembershipDesc.setOnAction(this::getMembershipPackage);
-
-        mIndemnitySelector.setOnAction(this::updateMembershipDocumentsFields);
-        mShortTermPckgSelector.setOnAction(this::setHintFields);
-        loadAllShortTermPackages();
-        rfreshAccountsTable();
-
-        defaultPicFile = new File("user_icon.png");
-
-        //-------------------------------------------- SET TEXT FIELDS TO CAPITALISE LETTERS----------------------------
-
-        mAccountSearch.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        m7Fullaname.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        m7IdNUm.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        m7CellNum.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mName.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mSurname.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mIdNumber.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mAddress.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mCellNumber.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mTelNumber.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mOccupation.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mEmail.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mContractNum.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mNextOfKin.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mAccNum.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mNextOfKinCell.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mMc.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mMember1FullName.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mMember2FullNames.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mMember1Id.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mMember2Id.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mMemberCardNum1.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mMemberCardNum2.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mTotAmntRec.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mCardFee.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mJoiningFee.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mUpFrontPayment.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mBankAccNumber.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mPayerDetails.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mPayerIdNum.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mPayerCellNum.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mPayerEmail.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mAccountSearch.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mDocumentsName.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mDocumentsSurname.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mDocumentsCell.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mMembershipCardName.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mMembershipCardSurname.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mMembershipCardAccount.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        ;
-        mPackageName.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mAmount.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mAmount1.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mAmount2.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-
-        mShortTermPckgName.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
-        mShortTermPckgFee.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
-
-        }));
     }
 
     public void getMembershipPackage(ActionEvent event) {
@@ -661,74 +715,93 @@ public class MembershipController extends Window implements Initializable {
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Info:");
+            alert.setHeaderText(null);
+            alert.setContentText("ERROR! 10" + e.getMessage());
+            alert.showAndWait();
         }
     }
 
     public void rfreshAccountsTable() {
+        try {
 
-        // System.out.println("Load table click");
-        final GetAccountsService service = new GetAccountsService();// this service takes the the heavy task of fetchiching the account fromdb to a backgroung thread
-        //can use this to programaticall add progressbar to anchorpane
-        // ProgressIndicator p = new ProgressIndicator();
-        //p.setMaxSize(140,140);
+            // System.out.println("Load table click");
+            final GetAccountsService service = new GetAccountsService();// this service takes the the heavy task of fetchiching the account fromdb to a backgroung thread
+            //can use this to programaticall add progressbar to anchorpane
+            // ProgressIndicator p = new ProgressIndicator();
+            //p.setMaxSize(140,140);
 
-        mLoadTableProgress.progressProperty().bind(service.progressProperty());
-        mLoadTableProgress.visibleProperty().bind(service.runningProperty());
-        //mMembersTableView.itemsProperty().bind(service.valueProperty());
+            mLoadTableProgress.progressProperty().bind(service.progressProperty());
+            mLoadTableProgress.visibleProperty().bind(service.runningProperty());
+            //mMembersTableView.itemsProperty().bind(service.valueProperty());
+            try {
+                service.valueProperty().addListener(new ChangeListener<ObservableList<MemberSearchModel>>() {
+                    @Override
+                    public void changed(ObservableValue<? extends ObservableList<MemberSearchModel>> observableValue, ObservableList<MemberSearchModel> oldValue, ObservableList<MemberSearchModel> newValue) {
+                        memberSearchModelObservableList = newValue;
+                        mMembersTableView.setItems(newValue);
 
-        service.valueProperty().addListener(new ChangeListener<ObservableList<MemberSearchModel>>() {
-            @Override
-            public void changed(ObservableValue<? extends ObservableList<MemberSearchModel>> observableValue, ObservableList<MemberSearchModel> oldValue, ObservableList<MemberSearchModel> newValue) {
-                memberSearchModelObservableList = newValue;
-                mMembersTableView.setItems(newValue);
+                    }
+                });
 
+                service.start();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Info:");
+                alert.setHeaderText(null);
+                alert.setContentText("ERROR! 11" + e.getMessage());
+                alert.showAndWait();
             }
-        });
 
-        service.start();
+            FilteredList<MemberSearchModel> filteredList = new FilteredList<>(memberSearchModelObservableList, b -> true);
+            mAccountSearch.textProperty().addListener((observable, oldValue, newvalue) -> {
+                filteredList.setPredicate(memberSearchModel -> {
+                    //If there is no search value, display all  the members
+                    if (newvalue.isEmpty() || newvalue.isBlank() || newvalue == null) {
+                        return true;
+                    }
+                    String searchKeyWord = newvalue.toLowerCase();
+                    if (memberSearchModel.getName().toLowerCase().indexOf(searchKeyWord) > -1) {
+                        return true; //Means a match has been found in name field
+                    } else if (memberSearchModel.getSurname().toLowerCase().indexOf(searchKeyWord) > -1) {
+                        return true; //Means a match has been found in surname field
+                    } else if (memberSearchModel.getMemberaccountnumber().toLowerCase().indexOf(searchKeyWord) > -1) {
+                        return true; //Means a match has been found in account number field
+                    } else
+                        return false;
+                });
 
-        FilteredList<MemberSearchModel> filteredList = new FilteredList<>(memberSearchModelObservableList, b -> true);
-        mAccountSearch.textProperty().addListener((observable, oldValue, newvalue) -> {
-            filteredList.setPredicate(memberSearchModel -> {
-                //If there is no search value, display all  the members
-                if (newvalue.isEmpty() || newvalue.isBlank() || newvalue == null) {
-                    return true;
-                }
-                String searchKeyWord = newvalue.toLowerCase();
-                if (memberSearchModel.getName().toLowerCase().indexOf(searchKeyWord) > -1) {
-                    return true; //Means a match has been found in name field
-                } else if (memberSearchModel.getSurname().toLowerCase().indexOf(searchKeyWord) > -1) {
-                    return true; //Means a match has been found in surname field
-                } else if (memberSearchModel.getMemberaccountnumber().toLowerCase().indexOf(searchKeyWord) > -1) {
-                    return true; //Means a match has been found in account number field
-                } else
-                    return false;
+                //Sort the filtered data
+                SortedList<MemberSearchModel> sortedList = new SortedList<>(filteredList);
+                //Bind sorted result with TableView
+                sortedList.comparatorProperty().bind(mMembersTableView.comparatorProperty());
+                //Apply filtered and sorted data t o the tableVIew
+                mMembersTableView.setItems(sortedList);
+
+
             });
 
-            //Sort the filtered data
-            SortedList<MemberSearchModel> sortedList = new SortedList<>(filteredList);
-            //Bind sorted result with TableView
-            sortedList.comparatorProperty().bind(mMembersTableView.comparatorProperty());
-            //Apply filtered and sorted data t o the tableVIew
-            mMembersTableView.setItems(sortedList);
+            //Set Table Row Item Click Listener
+            mMembersTableView.setRowFactory(tv -> {
+                TableRow<MemberSearchModel> row = new TableRow<>();
+                row.setOnMouseClicked(event1 -> {
+                    if (event1.getClickCount() == 1 && (!row.isEmpty())) {
+                        String rowData = row.getItem().getMemberaccountnumber().toString();
+                        getMemberForEdit(row);
+                    }
+                });
+                return row;
 
-
-        });
-
-        //Set Table Row Item Click Listener
-        mMembersTableView.setRowFactory(tv -> {
-            TableRow<MemberSearchModel> row = new TableRow<>();
-            row.setOnMouseClicked(event1 -> {
-                if (event1.getClickCount() == 1 && (!row.isEmpty())) {
-                    String rowData = row.getItem().getMemberaccountnumber().toString();
-                    getMemberForEdit(row);
-                }
             });
-            return row;
 
-        });
-
-
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("WARNING!");
+            alert.setHeaderText(null);
+            alert.setContentText("Error: " + e.getMessage());
+        }
     }
 
 
@@ -836,74 +909,74 @@ public class MembershipController extends Window implements Initializable {
         }
     }
 
-    private void updateMembershipFieldsForEditing(MembershipModel membershipModel) throws MalformedURLException{
-        try{
+    private void updateMembershipFieldsForEditing(MembershipModel membershipModel) throws MalformedURLException {
+        try {
 
-        if (!membershipModel.getProfilepicture().isEmpty()) {
-            try {
-                picfile = new File(globalVarOfSelcetectedMember.getProfilepicture());
-                url = picfile.toURI().toURL();
-                mRectPic.setFill(new ImagePattern(new Image(url.toExternalForm())));
-                if((new Image(url.toExternalForm()).isError())){
+            if (!membershipModel.getProfilepicture().isEmpty()) {
+                try {
+                    picfile = new File(globalVarOfSelcetectedMember.getProfilepicture());
+                    url = picfile.toURI().toURL();
+                    mRectPic.setFill(new ImagePattern(new Image(url.toExternalForm())));
+                    if ((new Image(url.toExternalForm()).isError())) {
+                        picfile = new File(defaultPicFile.toString());
+                        url = picfile.toURI().toURL();
+                        mRectPic.setFill(new ImagePattern(new Image(url.toExternalForm())));
+                        System.out.println("Images may be missing main pic");
+                        // return;
+                    }
+
+                } catch (Exception e) {
                     picfile = new File(defaultPicFile.toString());
                     url = picfile.toURI().toURL();
                     mRectPic.setFill(new ImagePattern(new Image(url.toExternalForm())));
+                    e.printStackTrace();
                     System.out.println("Images may be missing main pic");
-                   // return;
+
                 }
-
-            } catch (Exception e) {
-                picfile = new File(defaultPicFile.toString());
-                url = picfile.toURI().toURL();
-                mRectPic.setFill(new ImagePattern(new Image(url.toExternalForm())));
-                e.printStackTrace();
-                System.out.println("Images may be missing main pic");
-
             }
-        }
 
-        if (!membershipModel.getPic1().isEmpty()) {
-            try {
-                picfile1 = new File(globalVarOfSelcetectedMember.getPic1());
-                url1 = picfile1.toURI().toURL();
-                mRectPic1.setFill(new ImagePattern(new Image(url1.toExternalForm())));
-                if((new Image(url1.toExternalForm()).isError())){
+            if (!membershipModel.getPic1().isEmpty()) {
+                try {
+                    picfile1 = new File(globalVarOfSelcetectedMember.getPic1());
+                    url1 = picfile1.toURI().toURL();
+                    mRectPic1.setFill(new ImagePattern(new Image(url1.toExternalForm())));
+                    if ((new Image(url1.toExternalForm()).isError())) {
+                        picfile1 = new File(defaultPicFile.toString());
+                        url1 = picfile1.toURI().toURL();
+                        mRectPic1.setFill(new ImagePattern(new Image(url1.toExternalForm())));
+                        System.out.println("Images may be missing pic1");
+
+                    }
+                } catch (Exception e) {
                     picfile1 = new File(defaultPicFile.toString());
                     url1 = picfile1.toURI().toURL();
                     mRectPic1.setFill(new ImagePattern(new Image(url1.toExternalForm())));
+                    e.printStackTrace();
                     System.out.println("Images may be missing pic1");
-
                 }
-            } catch (Exception e) {
-                picfile1 = new File(defaultPicFile.toString());
-                url1 = picfile1.toURI().toURL();
-                mRectPic1.setFill(new ImagePattern(new Image(url1.toExternalForm())));
-                e.printStackTrace();
-                System.out.println("Images may be missing pic1");
             }
-        }
 
-        if (!membershipModel.getPic2().isEmpty()) {
-            try {
-                picfile2 = new File(globalVarOfSelcetectedMember.getPic2());
-                url2 = picfile2.toURI().toURL();
-                mRectPic2.setFill(new ImagePattern(new Image(url2.toExternalForm())));
-                if((new Image(url2.toExternalForm()).isError())){
+            if (!membershipModel.getPic2().isEmpty()) {
+                try {
+                    picfile2 = new File(globalVarOfSelcetectedMember.getPic2());
+                    url2 = picfile2.toURI().toURL();
+                    mRectPic2.setFill(new ImagePattern(new Image(url2.toExternalForm())));
+                    if ((new Image(url2.toExternalForm()).isError())) {
+                        picfile2 = new File(defaultPicFile.toString());
+                        url2 = picfile2.toURI().toURL();
+                        mRectPic2.setFill(new ImagePattern(new Image(url2.toExternalForm())));
+                        System.out.println("Images may be missing pic 2");
+                    }
+                } catch (Exception e) {
                     picfile2 = new File(defaultPicFile.toString());
                     url2 = picfile2.toURI().toURL();
                     mRectPic2.setFill(new ImagePattern(new Image(url2.toExternalForm())));
+                    e.printStackTrace();
                     System.out.println("Images may be missing pic 2");
                 }
-            } catch (Exception e) {
-                picfile2 = new File(defaultPicFile.toString());
-                url2 = picfile2.toURI().toURL();
-                mRectPic2.setFill(new ImagePattern(new Image(url2.toExternalForm())));
-                e.printStackTrace();
-                System.out.println("Images may be missing pic 2");
-            }
 
-        }}
-        catch (IllegalArgumentException e){
+            }
+        } catch (IllegalArgumentException e) {
 
         }
         //Update Text fields
@@ -972,7 +1045,7 @@ public class MembershipController extends Window implements Initializable {
                             URL url = null;
                             url = picfile.toURI().toURL();
                             mDocumentsProfilePic.setFill(new ImagePattern(new Image(url.toExternalForm())));
-                            if((new Image(url.toExternalForm()).isError())){
+                            if ((new Image(url.toExternalForm()).isError())) {
                                 picfile = new File(defaultPicFile.toString());
                                 url = picfile.toURI().toURL();
                                 mDocumentsProfilePic.setFill(new ImagePattern(new Image(url.toExternalForm())));
@@ -1005,7 +1078,7 @@ public class MembershipController extends Window implements Initializable {
 
                             url = picfile.toURI().toURL();
                             mDocumentsProfilePic.setFill(new ImagePattern(new Image(url.toExternalForm())));
-                            if((new Image(url.toExternalForm()).isError())){
+                            if ((new Image(url.toExternalForm()).isError())) {
                                 picfile = new File(defaultPicFile.toString());
                                 url = picfile.toURI().toURL();
                                 mDocumentsProfilePic.setFill(new ImagePattern(new Image(url.toExternalForm())));
@@ -1038,7 +1111,7 @@ public class MembershipController extends Window implements Initializable {
 
                             url = picfile.toURI().toURL();
                             mDocumentsProfilePic.setFill(new ImagePattern(new Image(url.toExternalForm())));
-                            if((new Image(url.toExternalForm()).isError())){
+                            if ((new Image(url.toExternalForm()).isError())) {
                                 picfile = new File(defaultPicFile.toString());
                                 url = picfile.toURI().toURL();
                                 mDocumentsProfilePic.setFill(new ImagePattern(new Image(url.toExternalForm())));
@@ -1663,9 +1736,9 @@ public class MembershipController extends Window implements Initializable {
                                 , "", "", "", "mStartDate.getValue().toString()", endDate.toString()
                                 , String.valueOf(daysLeft), mDebitOrderDate.getValue(), nextDueDate.toString(),
                                 "", "", "", "", "", "",
-                                mMinDuration.getValue(),"",
+                                mMinDuration.getValue(), "",
                                 "",
-                                "","");
+                                "", "");
                         //Must ignore empty fields when altering/updating the database
                         startAlterSubscriberService(subscriptionModel);
                     }
@@ -2003,9 +2076,9 @@ public class MembershipController extends Window implements Initializable {
 
         try {
             // Get local project comapany logo Image and add to pdf
-           // String defaultLogoImagepath = "src\\main\\resources\\logo_placeholder.png"; //todo make this a global variable
+            // String defaultLogoImagepath = "src\\main\\resources\\logo_placeholder.png"; //todo make this a global variable
             String defaultLogoImagepath = "logo_placeholder.png";
-           // String localImagepath = "src\\main\\resources\\logo.png";
+            // String localImagepath = "src\\main\\resources\\logo.png";
             String localImagepath = "logo.png";
             com.itextpdf.layout.element.Image image = new com.itextpdf.layout.element.Image(ImageDataFactory.create(localImagepath));
 
@@ -2146,7 +2219,7 @@ public class MembershipController extends Window implements Initializable {
             membershipTypeAndFessTable.addCell(new Cell().add(new Paragraph("CARD FEE :")).setFontSize(7).setBorder(Border.NO_BORDER).setBold());
             membershipTypeAndFessTable.addCell(new Cell().add(new Paragraph(membershipModelObject.getCardfee())).setFontSize(7).setBorder(Border.NO_BORDER));
             membershipTypeAndFessTable.addCell(new Cell().add(new Paragraph("MINIMUM DURATION")).setFontSize(7).setBorder(Border.NO_BORDER));
-            membershipTypeAndFessTable.addCell(new Cell().add(new Paragraph(membershipModelObject.getMinimumduration()+" MONTHS")).setFontSize(7).setBorder(Border.NO_BORDER));
+            membershipTypeAndFessTable.addCell(new Cell().add(new Paragraph(membershipModelObject.getMinimumduration() + " MONTHS")).setFontSize(7).setBorder(Border.NO_BORDER));
 
 
             //ROW 3 membershipTypeAndFessTable
@@ -2286,8 +2359,8 @@ public class MembershipController extends Window implements Initializable {
         LocalDate nowDate = LocalDate.now();
         LocalDate nextDueDate = nthDayOfFollowingMonth(Integer.parseInt(memberlist.getDebitorderdate()), nowDate);
         //account balance = cardfee + joining fee + upfrontPayment +
-      //  float accbalance = (((Float.parseFloat(memberlist.getCardfee())) + Float.parseFloat(memberlist.getJoiningfee()))
-              //  - Float.parseFloat(memberlist.getUpfrontpayment()));
+        //  float accbalance = (((Float.parseFloat(memberlist.getCardfee())) + Float.parseFloat(memberlist.getJoiningfee()))
+        //  - Float.parseFloat(memberlist.getUpfrontpayment()));
 
 
         SubscriptionModel newSubscriber = new SubscriptionModel(memberlist.getMemberuid(),
@@ -2299,9 +2372,9 @@ public class MembershipController extends Window implements Initializable {
                 , "0", "0", memberlist.getStartdate(), endDate.toString(), String.valueOf(daysLeft),
                 memberlist.getDebitorderdate(), nextDueDate.toString(), "0", nowDate.toString(),
                 memberlist.getAccountstatus(), memberlist.getProfilepicture(), memberlist.getPic1(), memberlist.getPic2(),
-                memberlist.getMinimumduration(),"0",
+                memberlist.getMinimumduration(), "0",
                 "0",
-               memberlist.getUpfrontpayment(),"0"
+                memberlist.getUpfrontpayment(), "0"
         );
 
         final AddSubscriberService addSubscriberService = new AddSubscriberService(newSubscriber);
@@ -2441,7 +2514,7 @@ public class MembershipController extends Window implements Initializable {
 
         try {
             // Get local project company logo Image and add to pdf
-           // String defaultLogoImagepath = "src\\main\\resources\\logo_placeholder.png";
+            // String defaultLogoImagepath = "src\\main\\resources\\logo_placeholder.png";
             String defaultLogoImagepath = "logo_placeholder.png";
             //String defaultProfilePicImagepath = "src\\main\\resources\\user_icon.png";
             String defaultProfilePicImagepath = "user_icon.png";
@@ -2663,7 +2736,7 @@ public class MembershipController extends Window implements Initializable {
             alert.showAndWait();
         }
 
-        String barcodesFolderPath = File.listRoots()[0]+File.separator+"Gym Proctor"+File.separator+"Membership Barcodes";
+        String barcodesFolderPath = File.listRoots()[0] + File.separator + "Gym Proctor" + File.separator + "Membership Barcodes";
         File file = new File(barcodesFolderPath);
         if (!file.exists()) {
             try {
@@ -2698,10 +2771,10 @@ public class MembershipController extends Window implements Initializable {
 
 
             // getting buffered image todo reconsider this working code
-            File path = new File("./src"+File.separator+"main"+File.separator+"resources");
-           // File path =  new File(File.listRoots()[0]+File.separator+"Gym Proctor"+File.separator+"resources");
+            File path = new File("./src" + File.separator + "main" + File.separator + "resources");
+            // File path =  new File(File.listRoots()[0]+File.separator+"Gym Proctor"+File.separator+"resources");
             // File path = new File(getClass());
-             //File path = new File("./src");
+            //File path = new File("./src");
             //BufferedImage barcodeImage = canvasProvider.getBufferedImage();
             BufferedImage barcodeImage = null;
             if (mIndemnitySelector.getValue().equals("MAIN MEMBER")) {
@@ -2721,8 +2794,8 @@ public class MembershipController extends Window implements Initializable {
                 malebg = ImageIO.read(new File("fcode.png"));
             } else if (globalVarOfSelcetectedMember.getGender().equals("Male") ||
                     globalVarOfSelcetectedMember.getGender().equals("MALE") || isMaleGender == true) {
-               // malebg = ImageIO.read(new BufferedImage(getClass().getResource("mcode.png"));
-                 malebg = ImageIO.read(new File("mcode.png"));
+                // malebg = ImageIO.read(new BufferedImage(getClass().getResource("mcode.png"));
+                malebg = ImageIO.read(new File("mcode.png"));
 
             }
             //int w = Math.max(barcodeImage.getWidth(), malebg.getWidth());
@@ -2782,7 +2855,7 @@ public class MembershipController extends Window implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR!");
             alert.setHeaderText(null);
-            alert.setContentText("There was an error: code 5 :  " + e.getMessage()+"CAUSE: "+e.getCause());
+            alert.setContentText("There was an error: code 5 :  " + e.getMessage() + "CAUSE: " + e.getCause());
             alert.showAndWait();
             e.printStackTrace();
         } catch (Exception e) {
@@ -3171,51 +3244,62 @@ public class MembershipController extends Window implements Initializable {
     }
 
     public void loadAllShortTermPackages() {
-        String query = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        SystemUser systemUser = null;
-
-        ObservableList<ShortTermPackageModel> shortTermPackageModelObservableList = FXCollections.observableArrayList();
-        shortTermPackageModelObservableList.clear();
-        query = "SELECT * FROM " + SHORT_TERM_PACKAGES_TABLE;
-        connection = myDatabaseConnection.getDatabaseLinkConnection();
         try {
-            preparedStatement = connection.prepareStatement(query);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                shortTermPackageModelObservableList.add(new ShortTermPackageModel(
-                        resultSet.getString("packageid"),
-                        resultSet.getString("packagename"),
-                        resultSet.getString("packagefee"),
-                        resultSet.getString("daysduration")
+            String query = null;
+            PreparedStatement preparedStatement = null;
+            ResultSet resultSet = null;
+            SystemUser systemUser = null;
 
-                ));
-            }
-            preparedStatement.close();
-            resultSet.close();
-            connection.close();
+            ObservableList<ShortTermPackageModel> shortTermPackageModelObservableList = FXCollections.observableArrayList();
+            shortTermPackageModelObservableList.clear();
+            query = "SELECT * FROM " + SHORT_TERM_PACKAGES_TABLE;
+            connection = myDatabaseConnection.getDatabaseLinkConnection();
+            try {
+                preparedStatement = connection.prepareStatement(query);
+                resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    shortTermPackageModelObservableList.add(new ShortTermPackageModel(
+                            resultSet.getString("packageid"),
+                            resultSet.getString("packagename"),
+                            resultSet.getString("packagefee"),
+                            resultSet.getString("daysduration")
 
-            //Initialize Table Columns
-            mShortTermPckgNameClmn.setCellValueFactory(new PropertyValueFactory<>("packagename"));
-            mShortTermPckgFeesClmn.setCellValueFactory(new PropertyValueFactory<>("packagefee"));
-            mShortTermDurationDaysClmn.setCellValueFactory(new PropertyValueFactory<>("daysduration"));
+                    ));
+                }
+                preparedStatement.close();
+                resultSet.close();
+                connection.close();
 
-            mShortTermPackagesTable.setItems(shortTermPackageModelObservableList);
+                //Initialize Table Columns
+                mShortTermPckgNameClmn.setCellValueFactory(new PropertyValueFactory<>("packagename"));
+                mShortTermPckgFeesClmn.setCellValueFactory(new PropertyValueFactory<>("packagefee"));
+                mShortTermDurationDaysClmn.setCellValueFactory(new PropertyValueFactory<>("daysduration"));
 
-            mShortTermPackagesTable.setRowFactory(tv -> {
-                TableRow<ShortTermPackageModel> row = new TableRow<>();
-                row.setOnMouseClicked(event -> {
-                    if (event.getClickCount() == 1 && (!row.isEmpty())) {
-                        updateShortTermPackagesFieldsForEdit(row);
-                    }
+                mShortTermPackagesTable.setItems(shortTermPackageModelObservableList);
+
+                mShortTermPackagesTable.setRowFactory(tv -> {
+                    TableRow<ShortTermPackageModel> row = new TableRow<>();
+                    row.setOnMouseClicked(event -> {
+                        if (event.getClickCount() == 1 && (!row.isEmpty())) {
+                            updateShortTermPackagesFieldsForEdit(row);
+                        }
+                    });
+                    return row;
                 });
-                return row;
-            });
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("WARNING!");
+                alert.setHeaderText(null);
+                alert.setContentText("Error: " + e.getMessage());
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("WARNING!");
+            alert.setHeaderText(null);
+            alert.setContentText("Error: " + e.getMessage());
         }
-
 
     }
 

@@ -33,17 +33,17 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 650, 500));
         //primaryStage.setResizable(false);
         primaryStage.show();
-       /* try {
+        try {
 
 
             Connection authConnection = new RemoteAuthConnection().getDatabaseLinkConnection();
-            String authquery = "SELECT authstate FROM " + AUTH_TB + " WHERE usergroup = " + "'" + "xpressions" + "'";
+            String authquery = "SELECT authstate FROM " + AUTH_TB + " WHERE customername = " + "'" + "Xpressions" + "'";
             Statement statement = authConnection.createStatement();
             ResultSet resultSet = statement.executeQuery(authquery);
-            String state = "";
+            int state =0;
 
             if (resultSet.next()) {
-                state = resultSet.getString("authstate");
+                state = resultSet.getInt("authstate");
                // System.out.println("THE STATE  IS " + state);
             }
 
@@ -51,23 +51,24 @@ public class Main extends Application {
             statement.close();
             authConnection.close();
 
-           if (state.equals("allow")) {
+           if (state==1) {
                 ScrollPane scrollPane = new ScrollPane();
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/home/fxml/login.fxml")));
+                Parent root1 = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/home/fxml/login.fxml")));
                 // primaryStage.initStyle(StageStyle.UNDECORATED);
                 primaryStage.setTitle("Xpressions Wellness Center");
-                Image icon = new Image("/logoicon.png");
+               // Image icon1 = new Image("/logoicon.png");
                 primaryStage.getIcons().add(icon);
-                primaryStage.setScene(new Scene(root, 700, 500));
+                primaryStage.setScene(new Scene(root1, 700, 500));
                 primaryStage.show();
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                /*Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initModality(Modality.APPLICATION_MODAL);
                 alert.setTitle("Info:");
                 alert.setHeaderText(null);
-                alert.setContentText("SYSTEM ERROR! A serious error has occurred with state "+ state+", contact : pedzi@transactafrica (+27 81 423 6043) " +
+                alert.setContentText("SYSTEM ERROR! A serious error has occurred with state "+"System denied, "+" contact : pedzi@transactafrica (+27 81 423 6043) " +
                         "for support");
-                alert.showAndWait();
+                alert.showAndWait();*/
+                primaryStage.close();
 
             }
         }catch (SQLException throwables){
@@ -76,8 +77,10 @@ public class Main extends Application {
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setTitle("Info:");
             alert.setHeaderText(null);
-            alert.setContentText("ERROR! "+throwables.getMessage() + "CAUSED BY"+throwables.getCause());
+            alert.setContentText("ERROR 1 "+throwables.getMessage() + "CAUSED BY"+throwables.getCause());
             alert.showAndWait();
+           // primaryStage.close();
+            return;
         }catch (Exception e){
             e.printStackTrace();
             e.printStackTrace();
@@ -85,9 +88,11 @@ public class Main extends Application {
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setTitle("Info:");
             alert.setHeaderText(null);
-            alert.setContentText("ERROR! "+e.getMessage() + "CAUSED BY"+e.getCause());
+            alert.setContentText("ERROR 2 "+e.getMessage() + "CAUSED BY "+e.getCause());
             alert.showAndWait();
-        }*/
+           // primaryStage.close();
+            return;
+        }
 
 
 

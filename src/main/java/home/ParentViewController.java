@@ -155,11 +155,22 @@ public class ParentViewController implements Initializable {
         moduleHeadingLabel.setText("ACCESS CONTROL");
     }
 
-    public void openMembershipModule(ActionEvent event) throws IOException {
-        Parent fxmlparent = FXMLLoader.load(getClass().getResource("/home/fxml/membership.fxml"));
-        contentArea.getChildren().removeAll();
-        contentArea.getChildren().setAll(fxmlparent);
-        moduleHeadingLabel.setText("MEMBERSHIP");
+    public void openMembershipModule(ActionEvent event) {
+        try {
+            Parent fxmlparent = FXMLLoader.load(getClass().getResource("/home/fxml/membership.fxml"));
+            contentArea.getChildren().removeAll();
+            contentArea.getChildren().setAll(fxmlparent);
+            moduleHeadingLabel.setText("MEMBERSHIP");
+
+        }
+        catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Info:");
+            alert.setHeaderText(null);
+            alert.setContentText("ERROR! "+e.getMessage());
+            alert.showAndWait();
+
+        }
     }
 
     public void openUsersModule(ActionEvent event) throws IOException {

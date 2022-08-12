@@ -19,7 +19,9 @@ public class RemoteAuthConnection {
        // String databaseUser1 = "sqlserver";//cahnge this to sqlserver for remote
        // String databasePassword = "!@#$sql";
         //Changed integrated security to false to connect to remote instance
-        String url = "jdbc:sqlserver://"+REMOTE_SERVER+";database="+DB_NAME+";integratedSecurity=false;"+"encrypt=true;trustServerCertificate=true";
+        //String url =  "jdbc:mysql://sql6.freesqldatabase.com:3306/sql6511605";
+        String url = "jdbc:sqlserver://chihwa.database.windows.net:1433;database=transactafrica_db;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=60";
+       // String url = "jdbc:sqlserver://"+REMOTE_SERVER+":3306"+";database="+DB_NAME+";integratedSecurity=false;"+"encrypt=true;trustServerCertificate=true";
        // String url = "jdbc:sqlserver://DESKTOP-PU2PGO7\\SQLEXPRESS12;database="+databaseName+";integratedSecurity=true;"+"encrypt=true;trustServerCertificate=true";
         try{
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

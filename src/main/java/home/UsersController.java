@@ -147,102 +147,123 @@ public class UsersController implements Initializable {
     private boolean isEditing = false;
     private String uidSelectedforEdit = null;
     private boolean cameraIsRunning = false;
-    Webcam webcam = Webcam.getDefault();
-    WebcamPanel webcamPanel = new WebcamPanel(webcam);
+    Webcam webcam;//= Webcam.getDefault();
+    WebcamPanel webcamPanel;//= new WebcamPanel(webcam);
     JFrame window = new JFrame("Web Cam");
     private String selectedReasonid = "";
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            webcam = Webcam.getDefault();
+            webcamPanel = new WebcamPanel(webcam);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("WARNING!");
+            alert.setHeaderText(null);
+            alert.setContentText("Error: "+e.getMessage());
 
-        mAuthlevel.getItems().addAll(AuthLevelList);
-        mAuthlevel.setValue(AuthLevelList[0]);
-        mGender.getItems().addAll(GenderList);
-        mGender.setValue(GenderList[0]);
+        }
 
-        //Initialize Table Columns for Users accounts table
-        mUidColumn.setCellValueFactory(new PropertyValueFactory<>("uid"));
-        mFullNameColumn.setCellValueFactory(new PropertyValueFactory<>("fullname"));
-        mCellNumColumn.setCellValueFactory(new PropertyValueFactory<>("cellnumber"));
-        mIDColumn.setCellValueFactory(new PropertyValueFactory<>("idnumber"));
-        mDobColumn.setCellValueFactory(new PropertyValueFactory<>("dob"));
-        mAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-        mGenderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
-        mEmailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        mAuthLevelColumn.setCellValueFactory(new PropertyValueFactory<>("authlevel"));
-        mPasswordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
-        mUsersTable.setRowFactory(tv -> {
-            TableRow<SystemUser> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 1 && (!row.isEmpty())) {
-                    String rowData = row.getItem().getAddress().toString();
-                    upDateFieldsForEdit(row);
-                }
+        try {
+            mAuthlevel.getItems().addAll(AuthLevelList);
+            mAuthlevel.setValue(AuthLevelList[0]);
+            mGender.getItems().addAll(GenderList);
+            mGender.setValue(GenderList[0]);
+
+            //Initialize Table Columns for Users accounts table
+            mUidColumn.setCellValueFactory(new PropertyValueFactory<>("uid"));
+            mFullNameColumn.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+            mCellNumColumn.setCellValueFactory(new PropertyValueFactory<>("cellnumber"));
+            mIDColumn.setCellValueFactory(new PropertyValueFactory<>("idnumber"));
+            mDobColumn.setCellValueFactory(new PropertyValueFactory<>("dob"));
+            mAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+            mGenderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
+            mEmailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+            mAuthLevelColumn.setCellValueFactory(new PropertyValueFactory<>("authlevel"));
+            mPasswordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
+            mUsersTable.setRowFactory(tv -> {
+                TableRow<SystemUser> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 1 && (!row.isEmpty())) {
+                        String rowData = row.getItem().getAddress().toString();
+                        upDateFieldsForEdit(row);
+                    }
+                });
+                return row;
             });
-            return row;
-        });
 
-        //Initialize Table Columns for Override reasons table
-        mOverrideReasonClmn.setCellValueFactory(new PropertyValueFactory<>("overridereason"));
-        mReasonsTable.setRowFactory(tv -> {
-            TableRow<OverrideReasonModel> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 1 && (!row.isEmpty())) {
-                    selectedReasonid = row.getItem().getReasonid();
-                    System.out.println(" Selected reason is " + row.getItem().getOverridereason() + "with ID" +
-                            row.getItem().getReasonid());
-                }
+            //Initialize Table Columns for Override reasons table
+            mOverrideReasonClmn.setCellValueFactory(new PropertyValueFactory<>("overridereason"));
+            mReasonsTable.setRowFactory(tv -> {
+                TableRow<OverrideReasonModel> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 1 && (!row.isEmpty())) {
+                        selectedReasonid = row.getItem().getReasonid();
+                        System.out.println(" Selected reason is " + row.getItem().getOverridereason() + "with ID" +
+                                row.getItem().getReasonid());
+                    }
+                });
+                return row;
             });
-            return row;
-        });
 
 
-        mEventTableColumn.setCellValueFactory(new PropertyValueFactory<>("event"));
-        mEventOwnerTableColumn.setCellValueFactory(new PropertyValueFactory<>("eventowner"));
-        mAccountTableColumn.setCellValueFactory(new PropertyValueFactory<>("accountnum"));
-        mTimeStampTableColumn.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
-        mDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        mCommentsTableColumn.setCellValueFactory(new PropertyValueFactory<>("comments"));
-        mAttributesTableColumn.setCellValueFactory(new PropertyValueFactory<>("attributes"));
-        refreshOverrideReasonsTable(null);
-        refreshSecurityLogs();
-        refreshUsersTable(null);
+            mEventTableColumn.setCellValueFactory(new PropertyValueFactory<>("event"));
+            mEventOwnerTableColumn.setCellValueFactory(new PropertyValueFactory<>("eventowner"));
+            mAccountTableColumn.setCellValueFactory(new PropertyValueFactory<>("accountnum"));
+            mTimeStampTableColumn.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
+            mDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+            mCommentsTableColumn.setCellValueFactory(new PropertyValueFactory<>("comments"));
+            mAttributesTableColumn.setCellValueFactory(new PropertyValueFactory<>("attributes"));
+            refreshOverrideReasonsTable(null);
+            refreshSecurityLogs();
+            refreshUsersTable(null);
 
-        //-------------------------------------------- SET TEXT FIELDS TO CAPITALISE LETTERS----------------------------
+            //-------------------------------------------- SET TEXT FIELDS TO CAPITALISE LETTERS----------------------------
 
-        mReasonTextFld.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
+            mReasonTextFld.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
 
-        }));
+            }));
 
-        mFullname.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
+            mFullname.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
 
-        }));
-        mCellnumber.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
+            }));
+            mCellnumber.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
 
-        }));
-        mIdnumber.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
+            }));
+            mIdnumber.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
 
-        }));
-        mAddress.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
+            }));
+            mAddress.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
 
-        }));
+            }));
 
-        mSearchLogs.setTextFormatter(new TextFormatter<>((change) -> {
-            change.setText(change.getText().toUpperCase());
-            return change;
+            mSearchLogs.setTextFormatter(new TextFormatter<>((change) -> {
+                change.setText(change.getText().toUpperCase());
+                return change;
 
-        }));
+            }));
+        }
+        catch (Exception e){
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("WARNING!");
+            alert.setHeaderText(null);
+            alert.setContentText("Error: "+e.getMessage());
+
+
+        }
     }
 
     //refresh override reasons table
@@ -382,7 +403,7 @@ public class UsersController implements Initializable {
                 mProfilePicImageView.setFitHeight(150);
                 mProfilePicImageView.setPreserveRatio(true);
                 mUserPicRec.setFill(new ImagePattern(image));
-                if(image.isError()){
+                if (image.isError()) {
                     image = new Image(DEFAULT_USER_PIC.toString());
                     mUserPicRec.setFill(new ImagePattern(image));
                 }
@@ -606,7 +627,7 @@ public class UsersController implements Initializable {
 
                 URL url = selectedFile.toURI().toURL();
                 mUserPicRec.setFill(new ImagePattern(new Image(url.toExternalForm())));
-                if((new Image(url.toExternalForm()).isError())){
+                if ((new Image(url.toExternalForm()).isError())) {
                     selectedFile = new File(DEFAULT_USER_PIC.toString());
                     url = selectedFile.toURI().toURL();
                     mUserPicRec.setFill(new ImagePattern(new Image(url.toExternalForm())));

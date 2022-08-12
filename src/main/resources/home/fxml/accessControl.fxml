@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="709.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.AccessControlController">
+<TabPane prefHeight="709.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.AccessControlController">
     <Tab style="-fx-font-size: 20; -fx-font-weight: Bold;" text="LONG TERM ACCOUNTS">
         <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" stylesheets="@../../css/style.css">
             <content>

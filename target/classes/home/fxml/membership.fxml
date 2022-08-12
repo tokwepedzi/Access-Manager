@@ -23,7 +23,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="715.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" stylesheets="@../../css/style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.MembershipController">
+<TabPane prefHeight="715.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" stylesheets="@../../css/style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.MembershipController">
     <tabs>
         <Tab style="-fx-font-size: 20; -fx-font-weight: Bold;" text="MEMBERS">
             <content>
@@ -85,9 +85,9 @@
         </Tab>
         <Tab style="-fx-font-size: 20; -fx-font-weight: Bold;" text="CONTRACTS">
             <content>
-                <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1114.0">
+                <ScrollPane prefHeight="650.0" prefWidth="1100.0">
 
-                    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1300.0" prefWidth="1080.0" styleClass="tables" stylesheets="@../../css/style.css">
+                    <AnchorPane prefHeight="1300.0" prefWidth="1080.0" styleClass="tables" stylesheets="@../../css/style.css">
                         <children>
                             <VBox layoutX="12.0" layoutY="43.0" prefHeight="66.0" prefWidth="467.0">
                                 <children>
@@ -742,7 +742,7 @@
         </Tab>
       <Tab fx:id="mPackagesTab" onSelectionChanged="#authenticateUserInPackagesTab" style="-fx-font-size: 20; -fx-font-weight: Bold;" text="PACKAGES">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tables" stylesheets="@../../css/style.css">
+          <AnchorPane prefHeight="669.0" prefWidth="1100.0" styleClass="tables" stylesheets="@../../css/style.css">
                <children>
 
                    <HBox layoutX="29.0" layoutY="82.0" prefHeight="40.0" prefWidth="901.0">
@@ -811,7 +811,7 @@
       </Tab>
         <Tab style="-fx-font-size: 20; -fx-font-weight: Bold;" text="IMAGES &amp; DOWNLOADS">
             <content>
-                <ScrollPane prefHeight="500.0" prefWidth="1110.0">
+                <ScrollPane prefHeight="500.0" prefWidth="1100.0">
                     <content>
                         <AnchorPane prefHeight="1344.0" prefWidth="1089.0" styleClass="tables" stylesheets="@../../css/style.css">
                             <children>
@@ -877,17 +877,17 @@
                                 <Line endX="799.0" layoutX="224.0" layoutY="655.0" startX="-207.0" />
                                 <VBox layoutX="15.0" layoutY="663.0" prefHeight="167.0" prefWidth="1075.0">
                                     <children>
-                                        <Label prefHeight="20.0" prefWidth="1065.0" text="I acknowledge that I am entering XPRESSIONS WELLNEST CENTRE facilities on my own accord and I agree and acknowledge that XPRESSIONS WELLNESS">
+                                        <Label prefHeight="20.0" prefWidth="1065.0" text="I acknowledge that I am entering X-PRESSIONS WELLNESS CENTRE facilities on my own accord and I agree and acknowledge that X-PRESSIONS WELLNESS">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label prefHeight="20.0" prefWidth="1065.0" text="CENTRE will nnot be held liable for any loss or death sufferes by me whatsoever including gross negligence while viewing the facilities.">
+                                        <Label prefHeight="20.0" prefWidth="1065.0" text="CENTRE will not be held liable for any loss or death suffered by me whatsoever including gross negligence while viewing the facilities.">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label prefHeight="20.0" prefWidth="1075.0" text="I acknowledge that I am in good health to participate in the use of the facilities, equipment and any other activity that EXPRESSIONS WELLNESS CENTRE has to ">
+                                        <Label prefHeight="20.0" prefWidth="1075.0" text="I acknowledge that I am in good health to participate in the use of the facilities, equipment and any other activity that E-XPRESSIONS WELLNESS CENTRE has to ">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
@@ -897,7 +897,7 @@
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label prefHeight="20.0" prefWidth="1075.0" text="I acknowledge the risk of physical injuries to myself and other gym users if I have not gone through the proper introduction of   the facilities">
+                                        <Label prefHeight="20.0" prefWidth="1075.0" text="I acknowledge the risk of physical injuries to myself and other gym users if I have not gone through the proper introduction of the facilities.">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
@@ -905,7 +905,7 @@
                                                 <Insets top="10.0" />
                                             </padding>
                                         </Label>
-                                        <Label prefHeight="20.0" prefWidth="1075.0" text="I agree to be accompanied by  the sales consultant when viewing  the facilities. I agree and adhere to  the rules and regulations set out by XPRESSIONS WELLNESS">
+                                        <Label prefHeight="20.0" prefWidth="1075.0" text="I agree to be accompanied by  the sales consultant when viewing  the facilities. I agree and adhere to  the rules and regulations set out by X-PRESSIONS WELLNESS">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
@@ -1021,7 +1021,7 @@
         </Tab>
       <Tab fx:id="mShortTermContractsTab" onSelectionChanged="#authenticateUserInShortTCandPackages" style="-fx-font-size: 20; -fx-font-weight: Bold;" text="SHORT TERM CONTRACTS &amp; PACKAGES">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tables" stylesheets="@../../css/style.css">
+          <AnchorPane prefHeight="180.0" prefWidth="1100.0" styleClass="tables" stylesheets="@../../css/style.css">
                <children>
               <Pane layoutX="73.0" layoutY="75.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="450.0" styleClass="modules_pane_background" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/17">
               <children>

@@ -36,6 +36,14 @@
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/logo_placeholder.png" />
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/logo.png" />
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/user_icon.png" />
+      <element id="library" level="project" name="barcode4j-2.1" />
+      <element id="library" level="project" name="GymProctor_jar" />
+      <element id="library" level="project" name="io-7.2.1" />
+      <element id="library" level="project" name="kernel-7.2.1" />
+      <element id="library" level="project" name="layout-7.2.1" />
+      <element id="library" level="project" name="layout-7.2.11" />
+      <element id="library" level="project" name="styled-xml-parser-7.2.1" />
+      <element id="library" level="project" name="svg-7.2.1" />
     </root>
   </artifact>
 </component>
