@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="497.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.DashBoardController">
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.DashBoardController">
    <children>
-      <Pane layoutX="74.0" layoutY="34.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-background-color: #d4f7f6;">
+      <Pane layoutX="52.0" layoutY="34.0" style="-fx-background-radius: 15; -fx-background-color: #d4f7f6;">
          <children>
             <Label layoutX="38.0" layoutY="37.0" text="CURRENT MEMBERS" textFill="#005b96">
                <font>
@@ -20,7 +20,7 @@
                </font>
             </Label>
          </children></Pane>
-      <Pane layoutX="395.0" layoutY="34.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-background-color: #d4f7f6;">
+      <Pane layoutX="351.0" layoutY="34.0" style="-fx-background-radius: 15; -fx-background-color: #d4f7f6;">
          <children>
             <Label layoutX="18.0" layoutY="37.0" text="EXPIRING MEMBERSHIPS" textFill="#005b96">
                <font>
@@ -34,7 +34,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="74.0" layoutY="283.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-background-color: #d4f7f6;">
+      <Pane layoutX="52.0" layoutY="269.0" style="-fx-background-radius: 15; -fx-background-color: #d4f7f6;">
          <children>
             <Label layoutX="65.0" layoutY="38.0" text="VISITS TODAY" textFill="#005b96">
                <font>
@@ -48,7 +48,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane layoutX="395.0" layoutY="283.0" prefHeight="200.0" prefWidth="250.0" style="-fx-background-radius: 15; -fx-background-color: #d4f7f6;">
+      <Pane layoutX="351.0" layoutY="269.0" style="-fx-background-radius: 15; -fx-background-color: #d4f7f6;">
          <children>
             <Label layoutX="38.0" layoutY="37.0" text="OVERRIDES TODAY" textFill="#005b96">
                <font>

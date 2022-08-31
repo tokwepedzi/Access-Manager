@@ -13,13 +13,13 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="709.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.ParentViewController">
+<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.ParentViewController">
    <left>
-      <VBox prefHeight="679.0" prefWidth="228.0" style="-fx-background-color: #005b96;" BorderPane.alignment="CENTER">
+      <VBox prefWidth="200.0" style="-fx-background-color: #005b96;" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="338.0" prefWidth="228.0">
+            <Pane prefHeight="299.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="28.0" layoutY="-1.0" text="X-pressions" textFill="WHITE">
+                  <Label layoutX="28.0" layoutY="-1.0" prefHeight="20.0" prefWidth="114.0" text="Xpressions" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -40,26 +40,26 @@
                         <Image url="@../../logo.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="mUserLabel" layoutX="14.0" layoutY="229.0" text="username@email.com" textFill="WHITE">
+                  <Label fx:id="mUserLabel" layoutX="12.0" layoutY="222.0" text="username@email.com" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Circle fx:id="mProfilePic" fill="#ffffff00" layoutX="44.0" layoutY="199.0" radius="30.0" stroke="#ffffff00" strokeType="INSIDE" />
-                  <ImageView fx:id="mLogoutBtn" fitHeight="45.0" fitWidth="45.0" layoutX="14.0" layoutY="264.0" onMouseClicked="#logOutUser" pickOnBounds="true" preserveRatio="true">
+                  <Circle fx:id="mProfilePic" fill="#ffffff00" layoutX="37.0" layoutY="198.0" radius="24.0" stroke="#ffffff00" strokeType="INSIDE" />
+                  <ImageView fx:id="mLogoutBtn" fitHeight="45.0" fitWidth="45.0" layoutX="14.0" layoutY="248.0" onMouseClicked="#logOutUser" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../power.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="11.0" layoutY="309.0" text="LOG OUT" textFill="WHITE">
+                  <Label layoutX="80.0" layoutY="262.0" text="LOG OUT" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Pane prefHeight="2.0" prefWidth="230.0" style="-fx-background-color: #60abd6;" />
-            <Button id="dashboardBtn" fx:id="dashboardBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openDashBoard" prefHeight="55.0" prefWidth="230.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="DASHBOARD" textAlignment="CENTER" textFill="WHITE">
+            <Pane prefHeight="2.0" prefWidth="200.0" style="-fx-background-color: #60abd6;" />
+            <Button id="dashboardBtn" fx:id="dashboardBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openDashBoard" prefHeight="50.0" prefWidth="200.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="DASHBOARD" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -71,7 +71,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="dashboardBtn" fx:id="accessControlBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openAccessControl" prefHeight="55.0" prefWidth="230.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="ACCESS CONTROL" textAlignment="CENTER" textFill="WHITE">
+            <Button id="dashboardBtn" fx:id="accessControlBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openAccessControl" prefHeight="50.0" prefWidth="200.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="ACCESS CONTROL" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -83,7 +83,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="dashboardBtn" fx:id="membershipBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openMembershipModule" prefHeight="55.0" prefWidth="230.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="MEMBERSHIP" textAlignment="CENTER" textFill="WHITE">
+            <Button id="dashboardBtn" fx:id="membershipBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openMembershipModule" prefHeight="50.0" prefWidth="200.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="MEMBERSHIP" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -95,7 +95,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="dashboardBtn" fx:id="usersBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openUsersModule" prefHeight="55.0" prefWidth="230.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="USERS" textAlignment="CENTER" textFill="WHITE">
+            <Button id="dashboardBtn" fx:id="usersBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openUsersModule" prefHeight="50.0" prefWidth="200.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="USERS" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -107,7 +107,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="dashboardBtn" fx:id="settingsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openSettingsModule" prefHeight="55.0" prefWidth="230.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="SETTINGS" textAlignment="CENTER" textFill="WHITE">
+            <Button id="dashboardBtn" fx:id="settingsBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openSettingsModule" prefHeight="50.0" prefWidth="200.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="SETTINGS" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -119,7 +119,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="dashboardBtn" fx:id="systemBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openSystemModule" prefHeight="55.0" prefWidth="230.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="SYSTEM" textAlignment="CENTER" textFill="WHITE">
+            <Button id="dashboardBtn" fx:id="systemBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openSystemModule" prefHeight="50.0" prefWidth="200.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="SYSTEM" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -135,7 +135,7 @@
       </VBox>
    </left>
    <center>
-      <AnchorPane style="-fx-background-color: #60abd6;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #60abd6;" BorderPane.alignment="CENTER">
          <children>
             <StackPane fx:id="contentArea" />
          </children>

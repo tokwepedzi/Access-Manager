@@ -3,4 +3,4 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane fx:id="dashboardAnchorPane" prefHeight="597.0" prefWidth="903.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.DashBoardController" />
+<AnchorPane fx:id="dashboardAnchorPane" prefHeight="768.0" prefWidth="1024.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.DashBoardController" />

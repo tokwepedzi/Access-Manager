@@ -18,23 +18,23 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<TabPane prefHeight="709.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.AccessControlController">
+<TabPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #ffffff;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.AccessControlController">
     <Tab style="-fx-font-size: 20; -fx-font-weight: Bold;" text="LONG TERM ACCOUNTS">
-        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1100.0" stylesheets="@../../css/style.css">
+        <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" stylesheets="@../../css/style.css">
             <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #60abd6;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #60abd6;">
                     <children>
-                        <Pane fx:id="mParentBg" layoutX="14.0" layoutY="137.0" prefHeight="313.0" prefWidth="400.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #FFFFFF;">
+                        <Pane fx:id="mParentBg" layoutX="28.0" layoutY="155.0" prefHeight="250.0" prefWidth="350.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #FFFFFF;">
                      <children>
-                        <ImageView fx:id="mSubscribermImage" fitHeight="150.0" fitWidth="150.0" layoutX="125.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="mSubscribermImage" fitHeight="150.0" fitWidth="150.0" layoutX="100.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../user_icon.png" />
                            </image>
                         </ImageView>
-                        <Rectangle fx:id="mSubscriberImageRectangle" arcHeight="15.0" arcWidth="15.0" fill="#ffffff00" height="260.0" layoutX="25.0" layoutY="27.0" stroke="#fafafab3" strokeType="INSIDE" strokeWidth="4.0" width="350.0" />
+                        <Rectangle fx:id="mSubscriberImageRectangle" arcHeight="15.0" arcWidth="15.0" fill="#ffffff00" height="200.0" layoutX="25.0" layoutY="25.0" stroke="#fafafab3" strokeType="INSIDE" strokeWidth="4.0" width="300.0" />
                      </children>
                         </Pane>
-                        <Pane layoutX="511.0" layoutY="90.0" prefHeight="507.0" prefWidth="551.0" style="-fx-background-color: #d4f7f6; -fx-border-radius: 10; -fx-background-radius: 10;">
+                        <Pane layoutX="463.0" layoutY="90.0" prefHeight="507.0" prefWidth="551.0" style="-fx-background-color: #d4f7f6; -fx-border-radius: 10; -fx-background-radius: 10;">
                             <children>
                                 <Pane layoutX="4.0" layoutY="39.0" prefHeight="38.0" prefWidth="546.0">
                                     <children>
@@ -132,7 +132,7 @@
                                 <Image url="@../../searchaccount.png" />
                             </image>
                         </ImageView>
-                        <Button fx:id="mOverrideBtn" layoutX="17.0" layoutY="486.0" mnemonicParsing="false" onAction="#overrideAction" prefHeight="70.0" prefWidth="175.0" style="-fx-background-radius: 10;" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="OVERRIDE" textFill="#60abd6">
+                        <Button fx:id="mOverrideBtn" layoutX="11.0" layoutY="486.0" mnemonicParsing="false" onAction="#overrideAction" prefHeight="70.0" prefWidth="175.0" style="-fx-background-radius: 10;" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="OVERRIDE" textFill="#60abd6">
                             <graphic>
                                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -176,7 +176,7 @@
         <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="658.0" prefWidth="1104.0" style="-fx-background-color: #60abd6;">
                 <children>
-                    <TextField fx:id="m7SearchAccount" layoutX="24.0" layoutY="80.0" onKeyTyped="#searchForAccount" prefHeight="42.0" prefWidth="394.0">
+                    <TextField fx:id="m7SearchAccount" layoutX="12.0" layoutY="79.0" onKeyTyped="#searchForAccount" prefHeight="42.0" prefWidth="394.0">
                   <font>
                      <Font name="System Bold" size="18.0" />
                   </font></TextField>
@@ -184,10 +184,10 @@
                         <content>
                             <TableView fx:id="weeklyMemberModelTableView" layoutX="2.0" layoutY="2.0" prefHeight="589.0" prefWidth="639.0" style="-fx-background-color: #d4f7f6;" stylesheets="@../../css/style.css">
                                 <columns>
-                                    <TableColumn fx:id="m7NameColumn" prefWidth="230.0" text="FULL NAME" />
-                                    <TableColumn fx:id="m7CellColumn" prefWidth="168.0" text="CELL NUMBER " />
-                                    <TableColumn fx:id="m7StarDateColumn" minWidth="0.0" prefWidth="119.0" text="START DATE" />
-                                    <TableColumn fx:id="m7EndDateColumn" prefWidth="120.0" text="END DATE" />
+                                    <TableColumn fx:id="m7NameColumn" prefWidth="221.0" text="FULL NAME" />
+                                    <TableColumn fx:id="m7CellColumn" prefWidth="120.0" text="CELL NUMBER " />
+                                    <TableColumn fx:id="m7StarDateColumn" minWidth="0.0" prefWidth="123.0" text="START DATE" />
+                                    <TableColumn fx:id="m7EndDateColumn" prefWidth="173.0" text="END DATE" />
                                 </columns>
                             </TableView>
                         </content>

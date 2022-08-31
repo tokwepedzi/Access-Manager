@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.LoginController">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="150.0" BorderPane.alignment="CENTER">
          <children>
@@ -39,7 +39,7 @@
                <font>
                   <Font name="System Bold" size="16.0" />
                </font></Label>
-            <PasswordField id="passwordFieldLogin" fx:id="passwordField" alignment="CENTER" layoutX="161.0" layoutY="173.0" prefHeight="40.0" prefWidth="169.0" promptText="PASSWORD">
+            <PasswordField id="passwordFieldLogin" fx:id="passwordField" alignment="CENTER" layoutX="161.0" layoutY="173.0" onAction="#setLoginBtnOnAction" prefHeight="40.0" prefWidth="169.0" promptText="PASSWORD">
                <font>
                   <Font size="16.0" />
                </font></PasswordField>

@@ -108,10 +108,17 @@ public class AccessControlController implements Initializable {
     private Parent root;
     private Stage stage;
     private Scene scene;
+    private SystemUser systemUser;
+    private String authlevel = "";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // startUpdatingSubscriptions();
+        systemUser = UserSession.getSystemUser();
+        authlevel = systemUser.getAuthlevel();
+        if(!authlevel.equals("1")){
+            m7DeleteBtn.setVisible(false);
+        }
 
         mSearchAccount.requestFocus();
         final UpdateSubscriptionsService service = new UpdateSubscriptionsService(subscriptionModelObservableList);

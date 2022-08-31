@@ -87,12 +87,12 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="mTestConnection" layoutX="360.0" layoutY="540.0" mnemonicParsing="false" onAction="#testDatabaseConnection" prefHeight="40.0" prefWidth="122.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="TEST">
+            <Button fx:id="mTestConnection" layoutX="354.0" layoutY="409.0" mnemonicParsing="false" onAction="#testDatabaseConnection" prefHeight="40.0" prefWidth="122.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="TEST">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="mSaveDatabaseConnectionSettings" layoutX="11.0" layoutY="540.0" mnemonicParsing="false" onAction="#saveDatabaseConnectionSettings" prefHeight="40.0" prefWidth="325.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="SAVE CONNECTION DETAILS">
+            <Button fx:id="mSaveDatabaseConnectionSettings" layoutX="11.0" layoutY="409.0" mnemonicParsing="false" onAction="#saveDatabaseConnectionSettings" prefHeight="40.0" prefWidth="325.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="SAVE CONNECTION DETAILS">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

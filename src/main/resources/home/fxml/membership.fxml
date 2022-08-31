@@ -91,7 +91,7 @@
                         <children>
                             <VBox layoutX="12.0" layoutY="43.0" prefHeight="66.0" prefWidth="467.0">
                                 <children>
-                                    <Label prefHeight="17.0" prefWidth="426.0" text="MEMBERSHIP AGREEMENT BETWEEN X-PRESSIONS WELLNESS CENTRE">
+                                    <Label prefHeight="17.0" prefWidth="426.0" text="MEMBERSHIP AGREEMENT BETWEEN XPRESSIONS WELLNESS CENTRE">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
@@ -615,12 +615,12 @@
                             </HBox>
                             <VBox layoutX="6.0" layoutY="1204.0" prefHeight="57.0" prefWidth="1093.0">
                                 <children>
-                                    <Label fx:id="mDeclaration" text="I hereby instruct and authorise X-pressions Wellness Centre to draw from my bank account the amount stipulated for the membership. I request, instruct and authorise X-pressions Wellness Centre to ">
+                                    <Label fx:id="mDeclaration" text="I hereby instruct and authorise Xressions Wellness Centre to draw from my bank account the amount stipulated for the membership. I request, instruct and authorise Xpressions Wellness Centre to ">
                                         <font>
                                             <Font name="System Bold" size="11.0" />
                                         </font>
                                     </Label>
-                                    <Label prefHeight="16.0" prefWidth="1075.0" text="re-submit my debit order at a date set by the company in  the event the debit order returns unpaid. The debit order will commence on the days agreed upon by X-pressions Wellness Centre.">
+                                    <Label prefHeight="16.0" prefWidth="1075.0" text="re-submit my debit order at a date set by the company in  the event the debit order returns unpaid. The debit order will commence on the days agreed upon by Xpressions Wellness Centre.">
                                         <font>
                                             <Font name="System Bold" size="11.0" />
                                         </font>
@@ -877,7 +877,7 @@
                                 <Line endX="799.0" layoutX="224.0" layoutY="655.0" startX="-207.0" />
                                 <VBox layoutX="15.0" layoutY="663.0" prefHeight="167.0" prefWidth="1075.0">
                                     <children>
-                                        <Label prefHeight="20.0" prefWidth="1065.0" text="I acknowledge that I am entering X-PRESSIONS WELLNESS CENTRE facilities on my own accord and I agree and acknowledge that X-PRESSIONS WELLNESS">
+                                        <Label prefHeight="20.0" prefWidth="1065.0" text="I acknowledge that I am entering XPRESSIONS WELLNESS CENTRE facilities on my own accord and I agree and acknowledge that XPRESSIONS WELLNESS">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
@@ -905,7 +905,7 @@
                                                 <Insets top="10.0" />
                                             </padding>
                                         </Label>
-                                        <Label prefHeight="20.0" prefWidth="1075.0" text="I agree to be accompanied by  the sales consultant when viewing  the facilities. I agree and adhere to  the rules and regulations set out by X-PRESSIONS WELLNESS">
+                                        <Label prefHeight="20.0" prefWidth="1075.0" text="I agree to be accompanied by  the sales consultant when viewing  the facilities. I agree and adhere to  the rules and regulations set out by XPRESSIONS WELLNESS">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
