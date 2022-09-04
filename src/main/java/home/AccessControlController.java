@@ -116,9 +116,9 @@ public class AccessControlController implements Initializable {
         // startUpdatingSubscriptions();
         systemUser = UserSession.getSystemUser();
         authlevel = systemUser.getAuthlevel();
-        if(!authlevel.equals("1")){
+      /*  if(!authlevel.equals("1")){
             m7DeleteBtn.setVisible(false);
-        }
+        }*/
 
         mSearchAccount.requestFocus();
         final UpdateSubscriptionsService service = new UpdateSubscriptionsService(subscriptionModelObservableList);

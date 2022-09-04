@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.LoginController">
+<BorderPane prefHeight="768.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.LoginController">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="150.0" BorderPane.alignment="CENTER">
          <children>
@@ -23,7 +23,7 @@
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane prefHeight="400.0" prefWidth="328.0" style="-fx-background-color: #002657;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="768.0" prefWidth="1020.0" style="-fx-background-color: #002657;" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="39.0" fitWidth="38.0" layoutX="226.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -13,13 +13,13 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.ParentViewController">
+<BorderPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.ParentViewController">
    <left>
-      <VBox prefWidth="200.0" style="-fx-background-color: #005b96;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="731.0" prefWidth="160.0" style="-fx-background-color: #005b96;" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="299.0" prefWidth="200.0">
+            <Pane prefHeight="282.0" prefWidth="200.0">
                <children>
-                  <Label layoutX="28.0" layoutY="-1.0" prefHeight="20.0" prefWidth="114.0" text="Xpressions" textFill="WHITE">
+                  <Label layoutX="23.0" layoutY="-1.0" prefHeight="21.0" prefWidth="114.0" text="Xpressions" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -27,7 +27,7 @@
                         <Insets left="5.0" />
                      </padding>
                   </Label>
-                  <Label layoutX="28.0" layoutY="29.0" text="Wellness Centre" textFill="WHITE">
+                  <Label layoutX="2.0" layoutY="29.0" text="Wellness Centre" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="20.0" />
                      </font>
@@ -35,23 +35,23 @@
                         <Insets left="5.0" />
                      </padding>
                   </Label>
-                  <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="56.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="16.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../logo.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="mUserLabel" layoutX="12.0" layoutY="222.0" text="username@email.com" textFill="WHITE">
+                  <Label fx:id="mUserLabel" layoutX="3.0" layoutY="214.0" prefHeight="20.0" prefWidth="154.0" text="username@email.com" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Circle fx:id="mProfilePic" fill="#ffffff00" layoutX="37.0" layoutY="198.0" radius="24.0" stroke="#ffffff00" strokeType="INSIDE" />
-                  <ImageView fx:id="mLogoutBtn" fitHeight="45.0" fitWidth="45.0" layoutX="14.0" layoutY="248.0" onMouseClicked="#logOutUser" pickOnBounds="true" preserveRatio="true">
+                  <Circle fx:id="mProfilePic" fill="#ffffff00" layoutX="35.0" layoutY="185.0" radius="22.0" stroke="#ffffff00" strokeType="INSIDE" />
+                  <ImageView fx:id="mLogoutBtn" fitHeight="38.0" fitWidth="40.0" layoutX="16.0" layoutY="234.0" onMouseClicked="#logOutUser" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../power.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="80.0" layoutY="262.0" text="LOG OUT" textFill="WHITE">
+                  <Label layoutX="80.0" layoutY="245.0" text="LOG OUT" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -64,19 +64,19 @@
                   <Font size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../dashboardicon.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="dashboardBtn" fx:id="accessControlBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openAccessControl" prefHeight="50.0" prefWidth="200.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="ACCESS CONTROL" textAlignment="CENTER" textFill="WHITE">
+            <Button id="dashboardBtn" fx:id="accessControlBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openAccessControl" prefHeight="50.0" prefWidth="200.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="ACCESS .." textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../accessctrl.png" />
                      </image>
@@ -88,7 +88,7 @@
                   <Font size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../membership.png" />
                      </image>
@@ -100,7 +100,7 @@
                   <Font size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../users.png" />
                      </image>
@@ -112,7 +112,7 @@
                   <Font size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../settings.png" />
                      </image>
@@ -124,7 +124,7 @@
                   <Font size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../system.png" />
                      </image>
@@ -135,7 +135,7 @@
       </VBox>
    </left>
    <center>
-      <AnchorPane prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #60abd6;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="730.0" prefWidth="824.0" style="-fx-background-color: #60abd6;" BorderPane.alignment="CENTER">
          <children>
             <StackPane fx:id="contentArea" />
          </children>

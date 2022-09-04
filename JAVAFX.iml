@@ -10,7 +10,12 @@
     </content>
     <orderEntry type="jdk" jdkName="18" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="adaptive" level="project" />
+    <orderEntry type="library" name="io-7.2.1" level="project" />
+    <orderEntry type="library" name="kernel-7.2.1" level="project" />
+    <orderEntry type="library" name="layout-7.2.1" level="project" />
+    <orderEntry type="library" name="barcode4j-2.1" level="project" />
+    <orderEntry type="library" name="layout-7.2.11" level="project" />
+    <orderEntry type="library" name="github.sarxos.webcam.capture" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:15.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:15.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:15.0.1" level="project" />
@@ -40,16 +45,43 @@
     <orderEntry type="library" name="Maven: com.github.sarxos:webcam-capture:0.3.12" level="project" />
     <orderEntry type="library" name="Maven: com.nativelibs4java:bridj:0.7.0" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.2" level="project" />
-    <orderEntry type="library" name="Maven: eu.agno3.jcifs:jcifs-ng:2.1.7" level="project" />
-    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.69" level="project" />
-    <orderEntry type="library" name="io-7.2.1" level="project" />
-    <orderEntry type="library" name="kernel-7.2.1" level="project" />
-    <orderEntry type="library" name="layout-7.2.1" level="project" />
-    <orderEntry type="library" name="barcode4j-2.1" level="project" />
-    <orderEntry type="library" name="GymProctor_jar" level="project" />
-    <orderEntry type="library" name="svg-7.2.1" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="barcodes-7.2.1" level="project" />
+    <orderEntry type="library" name="bcprov-jdk15on-1.69" level="project" />
+    <orderEntry type="library" name="forms-7.2.1" level="project" />
+    <orderEntry type="library" name="javafx.base" level="project" />
+    <orderEntry type="library" name="javafx.controls" level="project" />
+    <orderEntry type="library" name="javafx.fxml" level="project" />
+    <orderEntry type="library" name="javafx.graphics" level="project" />
+    <orderEntry type="library" name="JAVAFX" level="project" />
+    <orderEntry type="library" name="javafx.media" level="project" />
+    <orderEntry type="library" name="javafx.swing" level="project" />
+    <orderEntry type="library" name="javafx.web" level="project" />
+    <orderEntry type="library" name="javafx-base-15.0.1-win" level="project" />
+    <orderEntry type="library" name="javafx-base-15.0.1" level="project" />
+    <orderEntry type="library" name="javafx-controls-15.0.1-win" level="project" />
+    <orderEntry type="library" name="javafx-controls-15.0.1" level="project" />
+    <orderEntry type="library" name="javafx-fxml-15.0.1-win" level="project" />
+    <orderEntry type="library" name="javafx-fxml-15.0.1" level="project" />
+    <orderEntry type="library" name="javafx-graphics-15.0.1" level="project" />
+    <orderEntry type="library" name="javafx-media-15.0.1-win" level="project" />
+    <orderEntry type="library" name="javafx-media-15.0.1" level="project" />
+    <orderEntry type="library" name="javafx-swt" level="project" />
+    <orderEntry type="library" name="javafx-web-15.0.1-win" level="project" />
+    <orderEntry type="library" name="javafx-web-15.0.1" level="project" />
+    <orderEntry type="library" name="jcifs-ng-2.1.7" level="project" />
+    <orderEntry type="library" name="layout-7.2.12" level="project" />
+    <orderEntry type="library" name="mssql-jdbc-8.4.1.jre14" level="project" />
+    <orderEntry type="library" name="mssql-jdbc-11.1.1.jre18-preview" level="project" />
+    <orderEntry type="library" name="pdfa-7.2.1" level="project" />
+    <orderEntry type="library" name="pdftest-7.2.1" level="project" />
+    <orderEntry type="library" name="sign-7.2.1" level="project" />
+    <orderEntry type="library" name="slf4j-api-1.7.2" level="project" />
+    <orderEntry type="library" name="slf4j.jdk14-1.6.1" level="project" />
     <orderEntry type="library" name="styled-xml-parser-7.2.1" level="project" />
-    <orderEntry type="library" name="layout-7.2.11" level="project" />
-    <orderEntry type="library" name="github.sarxos.webcam.capture" level="project" />
+    <orderEntry type="library" name="svg-7.2.1" level="project" />
+    <orderEntry type="library" name="tilesfx-11.48" level="project" />
+    <orderEntry type="library" name="validatorfx-0.1.13" level="project" />
+    <orderEntry type="library" name="webcam-capture-0.3.12" level="project" />
   </component>
 </module>

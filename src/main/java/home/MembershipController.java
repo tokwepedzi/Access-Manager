@@ -226,7 +226,7 @@ public class MembershipController extends Window implements Initializable {
 
     private static String TAG = "MembshpContller";
     private String[] GenderList = {"SELECT GENDER", "MALE", "FEMALE"};
-    private String[] TitlesList = {"TITLE", "MR", "MRS", "MS"};
+    private String[] TitlesList = {"TITLE", "MR", "MRS", "MS", "MISS"};
     private String[] AccountStatusList = {"ACTIVE", "PAUSED", "SUSPENDED"};
     private String[] paymentMethodsList = {"DEBIT ORDER", "CASH"};
     private String[] memberLevelList = {"MAIN MEMBER", "MEMBER 1", "MEMBER 2"};
@@ -422,7 +422,7 @@ public class MembershipController extends Window implements Initializable {
 
 
             //Listen for Membership packages choice box clicks and get package from db and set global var selectedpackage on click
-            mMembershipDesc.setOnAction(this::getMembershipPackage);
+            //mMembershipDesc.setOnAction(this::getMembershipPackage);
 
             mIndemnitySelector.setOnAction(this::updateMembershipDocumentsFields);
             mShortTermPckgSelector.setOnAction(this::setHintFields);
@@ -694,8 +694,8 @@ public class MembershipController extends Window implements Initializable {
         }
     }
 
-    public void getMembershipPackage(ActionEvent event) {
-        String packagename = mMembershipDesc.getValue();
+    public void getMembershipPackage( ) {
+        String packagename = mMembershipDesc.getValue().toString();
         String query = "SELECT * FROM " + PACKAGES_TABLE + " WHERE packagename = " + "'" + packagename + "'";
         try {
             //Run query to fetch membership packages
@@ -722,6 +722,7 @@ public class MembershipController extends Window implements Initializable {
             alert.setContentText("ERROR! 10" + e.getMessage());
             alert.showAndWait();
         }
+       // return selectedPackage;
     }
 
     public void rfreshAccountsTable() {
@@ -1720,6 +1721,7 @@ public class MembershipController extends Window implements Initializable {
 
                     //preparing data to alter the respective subscriber/member in the subscriptions table
                     if (isEditingContract == true) {
+                        getMembershipPackage();
 
                         LocalDate startDate = LocalDate.parse(mStartDate.getValue().toString());
                         LocalDate endDate = startDate.plusMonths(Long.parseLong(mMinDuration.getValue().toString()));
@@ -2307,9 +2309,9 @@ public class MembershipController extends Window implements Initializable {
             alert.showAndWait();
 
             openPdf(membershipPdfDocPath);
-            if (isEditingContract == false) {
+           // if (isEditingContract == false) {
                 startAddSubscriberService(membershipModelObject);
-            }
+           // }
 
 
         } catch (Exception e) {
@@ -2345,6 +2347,7 @@ public class MembershipController extends Window implements Initializable {
     }
 
     private void startAddSubscriberService(MembershipModel memberlist) {
+        System.out.println("Add subscriber service started!");
         // todo calculate the following and set them on the Subscriptio model
         //  todo before entering the new Subscriber in table
         //Dueday, Enddate,Days left, Next due date
@@ -2352,6 +2355,8 @@ public class MembershipController extends Window implements Initializable {
         //startDate = membershipModel.getStartDate
         //Enddate - membershipModel.getStartdate + membershipModel.getMinDuration(months)
         //Daysleft = endDate - startDate
+
+        getMembershipPackage();
 
         LocalDate startDate = LocalDate.parse(memberlist.getStartdate());
         LocalDate endDate = startDate.plusMonths(Long.parseLong(memberlist.getMinimumduration()));

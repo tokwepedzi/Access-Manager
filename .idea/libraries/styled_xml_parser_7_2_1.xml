@@ -1,12 +1,7 @@
 <component name="libraryTable">
   <library name="styled-xml-parser-7.2.1">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Downloads/Compressed/JAVAFX/JAVAFX/out/artifacts/JAVAFX_jar/styled-xml-parser-7.2.1.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/Compressed/JAVAFX/JAVAFX/out/artifacts/JAVAFX_jar/slf4j.jdk14-1.6.1.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/Compressed/JAVAFX/JAVAFX/out/artifacts/JAVAFX_jar/sign-7.2.1.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/Compressed/JAVAFX/JAVAFX/out/artifacts/JAVAFX_jar/pdftest-7.2.1.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/Compressed/JAVAFX/JAVAFX/out/artifacts/JAVAFX_jar/pdfa-7.2.1.jar!/" />
-      <root url="jar://$USER_HOME$/Downloads/Compressed/JAVAFX/JAVAFX/out/artifacts/JAVAFX_jar/mssql-jdbc-8.4.1.jre14.jar!/" />
+      <root url="jar://$USER_HOME$/Projects Dependencies/IntelliJ/Gym Access Manager/styled-xml-parser-7.2.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

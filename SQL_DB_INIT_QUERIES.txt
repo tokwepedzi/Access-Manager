@@ -1,0 +1,191 @@
+ip address: 192.168.1.197
+port: 1433
+user: user
+password: !@#$sql
+
+PDF error might have occured e.getmessage = I/O exception
+
+
+
+There was an error: code 5: Cant read inputfile
+
+
+//----------------------------------------------------------------------------------------------------------------------------//
+
+CREATE TABLE users_tb
+(
+uid int  not null identity (1,1),
+fullname varchar(50) not null,
+cellnumber varchar(50) not null,
+idnumber varchar(50) not null,
+dob date not null,
+address varchar(500) not null,
+gender varchar(50) null,
+email varchar(50) not null,
+authlevel int not null,
+password varchar(50) not null,
+profilepicture varbinary(MAX) null
+);
+
+
+
+
+INSERT INTO users_tb (
+ fullname, cellnumber, idnumber, dob, address, gender, email, authlevel, password, profilepicture
+) 
+VALUES
+(
+'SUPPORT','0814236043', 'NA', '1989-09-14', 'CAPE-TOWN', 'NA', 'pedzi@transactafrica.co.za', 1, '!@#$sql', NULL
+);
+
+
+CREATE TABLE overridereasons_tb
+(
+reasonid int identity (1,1),
+overridereason varchar(250)
+);
+
+CREATE TABLE packages_tb
+(
+packageid int identity (1,1) not null,
+packagename varchar(50) not null,
+packagefee decimal(19,2) not null,
+packagefee1 decimal(19,2) null,
+packagefee2 decimal(19,2) null
+);
+
+
+CREATE TABLE payments_tb
+(
+contractstartdate date null,
+contractenddate date null,
+monthsduration int null,
+contractvalue decimal(19,2) null,
+monthselapsed int null,
+elapsedamount decimal(19,2) null,
+pamentdate date null,
+paymentamount decimal(19,2) null,
+accountnumber varchar(250) null,
+idnumber varchar(250) null,
+description varchar(250) null
+);
+
+CREATE TABLE securitylogs_tb
+(
+event varchar(250) not null,
+eventowner varchar(250) not null,
+accountnum varchar(250) not null,
+timestamp varchar(50) not null,
+date varchar(50) null,
+attributes varchar(250) null,
+comments varchar(500) not null
+);
+
+CREATE TABLE shorttermpackages_tb
+(
+packageid int primary key not null identity(1,1),
+packagename varchar(50) not null,
+packagefee decimal(19,2) not null,
+daysduration int not null
+);
+
+CREATE TABLE subscriptions_tb
+(
+memberuid int not null,
+accountname varchar(250) null,
+cellnum varchar(50) not null,
+idnumber varchar(250) not null,
+idnumber1 varchar(250) null,
+idnumber2 varchar(250) null,
+accountnum varchar(250) not null,
+subaccount1 varchar(250) null,
+subaccount2 varchar(250) null,
+packagename varchar(250) not null,
+subscriptionfee decimal(19,2) not null,
+subscriptionfee1 decimal(19,2) null,
+subscriptionfee2 decimal(19,2) null,
+paymethod varchar(50) null,
+accesscount int null,
+accesscount1 int null,
+accesscount2 int null,
+startdate date null,
+enddate date null,
+daysleft int null,
+debitorderday int null,
+dueday int null,
+nextduedate date null,
+adjustmentdate date null,
+monthsduration int null,
+monthselapsed int null,
+elapsedamount decimal(19,2) null,
+totalpaid decimal(19,2) null,
+contractvalue decimal(19,2) null,
+accountbalance decimal(19,2) null,
+accountstatus varchar(50) null,
+profpic varchar(250) null,
+profpic1 varchar(250) null,
+profpic2 varchar(250) null
+);
+
+CREATE TABLE weeklymembership_tb
+(
+fullname varchar(50) not null,
+idnum varchar(50) not null,
+cellnum varchar(50) null,
+startdate varchar(50) not null,
+enddate varchar(50) not null
+);
+
+CREATE TABLE membership_tb
+(
+memberuid int primary key not null identity(1,1),
+title varchar(50) null,
+name varchar(250) not null,
+surname varchar(250) not null,
+idnumber varchar(50) not null,
+address varchar(500) not null,
+cellnumber varchar(50) not null,
+email varchar(50) null,
+occupation varchar(50) null,
+nextofkin varchar(250) not null,
+nextofkincell varchar(50) not null,
+memberaccountnumber varchar(250) not null,
+contractnumber varchar(50) not null,
+mc varchar(50) null,
+member1name varchar(50) null,
+member1idnumber varchar(50) null,
+member1accountnumber varchar(250) null,
+member2name varchar(50) null,
+member2idnumber varchar(50) null,
+member2accountnumber varchar(250) null,
+startdate varchar(50) not null,
+cardfee decimal(19,2) null,
+joiningfee decimal(19,2) null,
+totalreceived decimal(19,2) null,
+upfrontpayment decimal(19,2) null,
+bankname varchar(50) null,
+bankaccountnumber varchar(50) null,
+bankaccounttype varchar(50) null,
+debitorderdate varchar(50) null,
+payerdetails varchar(250) null,
+payeridnumber varchar(50) null,
+payercellnumber varchar(50) null,
+payeremail varchar(50) null,
+membershipdescription varchar(50) null,
+minimumduration varchar(50) null,
+profilepicture varchar(250) null,
+membercontractdoc varchar(250) null,
+gender varchar(50) null,
+telnumber varchar(50) null,
+paymentmethod varchar(50) null,
+paymenttype varchar(50),
+accountstatus varchar(50) not null,
+pic1 varchar(250) null,
+pic2 varchar(250) null
+);
+
+
+
+
+
+

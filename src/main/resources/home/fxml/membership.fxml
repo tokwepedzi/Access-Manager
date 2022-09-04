@@ -23,33 +23,33 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<TabPane prefHeight="715.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" stylesheets="@../../css/style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.MembershipController">
+<TabPane prefHeight="715.0" prefWidth="1100.0" style="-fx-background-color: #ffffff;" stylesheets="@../../css/style.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.MembershipController">
     <tabs>
         <Tab style="-fx-font-size: 20; -fx-font-weight: Bold;" text="MEMBERS">
             <content>
-                <AnchorPane fx:id="mAccountsTableAPane" prefHeight="661.0" prefWidth="1075.0" styleClass="tables" stylesheets="@../../css/style.css">
+                <AnchorPane fx:id="mAccountsTableAPane" prefHeight="669.0" prefWidth="1000.0" styleClass="tables" stylesheets="@../../css/style.css">
                     <children>
-                        <ScrollPane layoutX="12.0" layoutY="297.0" prefHeight="348.0" prefWidth="1060.0">
+                        <ScrollPane layoutX="1.0" layoutY="240.0" prefHeight="348.0" prefWidth="845.0">
                      <content>
                         <TableView fx:id="mMembersTableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="555.0" prefWidth="1057.0" styleClass="tables" stylesheets="@../../css/style.css">
                           <columns>
-                            <TableColumn fx:id="mTitleTableColumn" prefWidth="54.0" text="TITLE" />
-                            <TableColumn fx:id="mNameTableColumn" prefWidth="183.0" text="NAME" />
-                              <TableColumn fx:id="mSurnameTableColumn" minWidth="8.0" prefWidth="187.0" text="SURNAME" />
-                              <TableColumn fx:id="mAccNumTableColumn" prefWidth="160.0" text="ACCOUNT NUMBER" />
-                              <TableColumn fx:id="mCellNumTableColumn" prefWidth="151.0" text="CELL NUMBER" />
-                              <TableColumn fx:id="mIdNumTableColumn" prefWidth="132.0" text="ID NUMBER" />
-                              <TableColumn fx:id="mAccountStatusColumn" prefWidth="189.0" text="MEMBERSHIP STATUS" />
+                            <TableColumn fx:id="mTitleTableColumn" prefWidth="40.0" text="TITLE" />
+                            <TableColumn fx:id="mNameTableColumn" prefWidth="136.0" text="NAME" />
+                              <TableColumn fx:id="mSurnameTableColumn" minWidth="8.0" prefWidth="139.0" text="SURNAME" />
+                              <TableColumn fx:id="mAccNumTableColumn" prefWidth="136.0" text="ACCOUNT NUMBER" />
+                              <TableColumn fx:id="mCellNumTableColumn" prefWidth="122.0" text="CELL NUMBER" />
+                              <TableColumn fx:id="mIdNumTableColumn" prefWidth="105.0" text="ID NUMBER" />
+                              <TableColumn fx:id="mAccountStatusColumn" prefWidth="170.0" text="MEMBERSHIP STATUS" />
                           </columns>
                         </TableView>
                      </content></ScrollPane>
-                  <Button fx:id="mRefreshTableBtn" layoutX="668.0" layoutY="244.0" mnemonicParsing="false" onAction="#rfreshAccountsTable" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="REFRESH" textFill="#005b96">
+                  <Button fx:id="mRefreshTableBtn" layoutX="673.0" layoutY="179.0" mnemonicParsing="false" onAction="#rfreshAccountsTable" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="REFRESH" textFill="#005b96">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
                   <ProgressBar fx:id="mLoadTableProgress" layoutX="-7.0" layoutY="-9.0" prefHeight="18.0" prefWidth="1113.0" progress="0.0" styleClass="tables" stylesheets="@../../css/style.css" />
-                  <Pane layoutX="36.0" layoutY="47.0" prefHeight="138.0" prefWidth="772.0" styleClass="modules_pane_background" stylesheets="@../../css/style.css">
+                  <Pane layoutX="37.0" layoutY="27.0" prefHeight="138.0" prefWidth="772.0" styleClass="modules_pane_background" stylesheets="@../../css/style.css">
                      <children>
                         <Label layoutX="76.0" layoutY="52.0" prefHeight="40.0" prefWidth="190.0" text="CHANGE STATUS TO" textFill="#005b96">
                            <font>
@@ -69,12 +69,12 @@
                         </HBox>
                      </children>
                   </Pane>
-                        <Label layoutX="51.0" layoutY="246.0" prefHeight="40.0" prefWidth="167.0" text="MEMBER SEARCH" textFill="#005b96">
+                        <Label layoutX="50.0" layoutY="181.0" prefHeight="40.0" prefWidth="167.0" text="MEMBER SEARCH" textFill="#005b96">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="mAccountSearch" layoutX="239.0" layoutY="246.0" prefHeight="40.0" prefWidth="307.0">
+                        <TextField fx:id="mAccountSearch" layoutX="232.0" layoutY="181.0" prefHeight="40.0" prefWidth="307.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -87,7 +87,7 @@
             <content>
                 <ScrollPane prefHeight="650.0" prefWidth="1100.0">
 
-                    <AnchorPane prefHeight="1300.0" prefWidth="1080.0" styleClass="tables" stylesheets="@../../css/style.css">
+                    <AnchorPane prefHeight="1500.0" prefWidth="1080.0" styleClass="tables" stylesheets="@../../css/style.css">
                         <children>
                             <VBox layoutX="12.0" layoutY="43.0" prefHeight="66.0" prefWidth="467.0">
                                 <children>
@@ -117,12 +117,12 @@
                                     </Label>
                                 </children>
                             </VBox>
-                            <ImageView fx:id="mCompanyLogo" fitHeight="150.0" fitWidth="150.0" layoutX="484.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                            <ImageView fx:id="mCompanyLogo" fitHeight="150.0" fitWidth="150.0" layoutX="418.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@../../logo.png" />
                                 </image>
                             </ImageView>
-                            <HBox layoutX="15.0" layoutY="364.0" prefHeight="30.0" prefWidth="238.0">
+                            <HBox layoutX="7.0" layoutY="364.0" prefHeight="30.0" prefWidth="221.0">
                                 <children>
                                     <Label prefHeight="20.0" prefWidth="36.0" text="TITLE">
                                         <font>
@@ -132,7 +132,7 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <ChoiceBox fx:id="mTitles" prefHeight="25.0" prefWidth="53.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css">
+                                    <ChoiceBox fx:id="mTitles" prefHeight="25.0" prefWidth="40.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css">
                                         <HBox.margin>
                                             <Insets right="5.0" />
                                         </HBox.margin>
@@ -145,16 +145,16 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <ChoiceBox fx:id="mGender" prefHeight="25.0" prefWidth="81.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css">
+                                    <ChoiceBox fx:id="mGender" prefHeight="25.0" prefWidth="68.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css">
                                         <HBox.margin>
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </ChoiceBox>
                                 </children>
                             </HBox>
-                            <HBox layoutX="13.0" layoutY="403.0" prefHeight="30.0" prefWidth="502.0">
+                            <HBox layoutX="6.0" layoutY="403.0" prefHeight="30.0" prefWidth="431.0">
                                 <children>
-                                    <Label prefHeight="20.0" prefWidth="94.0" text="NAME: ">
+                                    <Label prefHeight="20.0" prefWidth="49.0" text="NAME: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
@@ -162,7 +162,7 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mName" prefHeight="25.0" prefWidth="136.0">
+                                    <TextField fx:id="mName" prefHeight="30.0" prefWidth="112.0">
                                         <HBox.margin>
                                             <Insets right="5.0" />
                                         </HBox.margin>
@@ -175,14 +175,14 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mSurname" prefHeight="25.0" prefWidth="155.0">
+                                    <TextField fx:id="mSurname" prefHeight="30.0" prefWidth="154.0">
                                         <padding>
                                             <Insets right="5.0" />
                                         </padding>
                                     </TextField>
                                 </children>
                             </HBox>
-                            <HBox layoutX="278.0" layoutY="364.0" prefHeight="30.0" prefWidth="233.0">
+                            <HBox layoutX="234.0" layoutY="364.0" prefHeight="30.0" prefWidth="215.0">
                                 <children>
                                     <Label prefHeight="20.0" prefWidth="87.0" text="IDENTITY NR:">
                                         <font>
@@ -192,16 +192,16 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mIdNumber" prefHeight="25.0" prefWidth="131.0">
+                                    <TextField fx:id="mIdNumber" prefHeight="30.0" prefWidth="123.0">
                                         <HBox.margin>
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </TextField>
                                 </children>
                             </HBox>
-                            <HBox layoutX="13.0" layoutY="441.0" prefHeight="30.0" prefWidth="496.0">
+                            <HBox layoutX="8.0" layoutY="441.0" prefHeight="30.0" prefWidth="413.0">
                                 <children>
-                                    <Label prefHeight="20.0" prefWidth="94.0" text="ADDRESS: ">
+                                    <Label prefHeight="20.0" prefWidth="63.0" text="ADDRESS: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
@@ -209,16 +209,16 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mAddress" prefHeight="25.0" prefWidth="391.0">
+                                    <TextField fx:id="mAddress" prefHeight="30.0" prefWidth="343.0">
                                         <HBox.margin>
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </TextField>
                                 </children>
                             </HBox>
-                            <HBox layoutX="541.0" layoutY="403.0" prefHeight="30.0" prefWidth="538.0">
+                            <HBox layoutX="432.0" layoutY="403.0" prefHeight="30.0" prefWidth="431.0">
                                 <children>
-                                    <Label prefHeight="20.0" prefWidth="77.0" text="CELL NR: ">
+                                    <Label prefHeight="20.0" prefWidth="62.0" text="CELL NR: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
@@ -226,12 +226,12 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mCellNumber" prefHeight="25.0" prefWidth="134.0">
+                                    <TextField fx:id="mCellNumber" prefHeight="30.0" prefWidth="99.0">
                                         <HBox.margin>
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </TextField>
-                                    <Label prefHeight="20.0" prefWidth="160.0" text="           TEL(H/W): ">
+                                    <Label prefHeight="20.0" prefWidth="107.0" text="           TEL(H/W): ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
@@ -239,16 +239,16 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mTelNumber" prefHeight="25.0" prefWidth="144.0">
+                                    <TextField fx:id="mTelNumber" prefHeight="30.0" prefWidth="139.0">
                                         <padding>
                                             <Insets right="5.0" />
                                         </padding>
                                     </TextField>
                                 </children>
                             </HBox>
-                            <HBox layoutX="538.0" layoutY="441.0" prefHeight="30.0" prefWidth="545.0">
+                            <HBox layoutX="420.0" layoutY="441.0" prefHeight="30.0" prefWidth="436.0">
                                 <children>
-                                    <Label prefHeight="17.0" prefWidth="80.0" text="OCCUPATION">
+                                    <Label prefHeight="17.0" prefWidth="82.0" text="OCCUPATION">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
@@ -256,12 +256,12 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mOccupation" prefHeight="25.0" prefWidth="136.0">
+                                    <TextField fx:id="mOccupation" prefHeight="30.0" prefWidth="92.0">
                                         <HBox.margin>
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </TextField>
-                                    <Label prefHeight="20.0" prefWidth="160.0" text="                 EMAIL:">
+                                    <Label prefHeight="20.0" prefWidth="98.0" text="                 EMAIL:">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
@@ -269,7 +269,7 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mEmail" prefHeight="25.0" prefWidth="143.0">
+                                    <TextField fx:id="mEmail" prefHeight="30.0" prefWidth="146.0">
                                         <padding>
                                             <Insets right="5.0" />
                                         </padding>
@@ -284,7 +284,7 @@
                                     <Insets right="5.0" />
                                 </HBox.margin>
                             </Label>
-                            <HBox layoutX="538.0" layoutY="364.0" prefHeight="30.0" prefWidth="224.0">
+                            <HBox layoutX="448.0" layoutY="364.0" prefHeight="30.0" prefWidth="197.0">
                                 <children>
                                     <Label prefHeight="20.0" prefWidth="82.0" text="NEXT OF KIN:">
                                         <font>
@@ -294,7 +294,7 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mNextOfKin" prefHeight="25.0" prefWidth="134.0">
+                                    <TextField fx:id="mNextOfKin" prefHeight="30.0" prefWidth="110.0">
                                         <HBox.margin>
                                             <Insets right="5.0" />
                                         </HBox.margin>
@@ -302,7 +302,7 @@
                                 </children>
                             </HBox>
                             <TextField layoutX="731.0" layoutY="12.0" prefHeight="98.0" prefWidth="123.0" style="-fx-background-color: #696969;" />
-                            <HBox layoutX="805.0" layoutY="364.0" prefHeight="30.0" prefWidth="270.0">
+                            <HBox layoutX="648.0" layoutY="364.0" prefHeight="30.0" prefWidth="217.0">
                                 <children>
                                     <Label prefHeight="20.0" prefWidth="115.0" text="NEXT OF KIN CELL: ">
                                         <font>
@@ -312,14 +312,14 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mNextOfKinCell" prefHeight="25.0" prefWidth="144.0">
+                                    <TextField fx:id="mNextOfKinCell" prefHeight="30.0" prefWidth="87.0">
                                         <HBox.margin>
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </TextField>
                                 </children>
                             </HBox>
-                            <HBox layoutX="864.0" layoutY="14.0" prefHeight="30.0" prefWidth="214.0">
+                            <HBox layoutX="641.0" layoutY="124.0" prefHeight="30.0" prefWidth="214.0">
                                 <children>
                                     <Label prefHeight="20.0" prefWidth="107.0" text="CONTRACT NR:">
                                         <font>
@@ -329,14 +329,14 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mContractNum" editable="false" prefHeight="25.0" prefWidth="115.0">
+                                    <TextField fx:id="mContractNum" editable="false" prefHeight="30.0" prefWidth="113.0">
                                         <HBox.margin>
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </TextField>
                                 </children>
                             </HBox>
-                            <HBox layoutX="879.0" layoutY="61.0" prefHeight="30.0" prefWidth="205.0">
+                            <HBox layoutX="650.0" layoutY="161.0" prefHeight="30.0" prefWidth="212.0">
                                 <children>
                                     <Label prefHeight="20.0" prefWidth="84.0" text="ACC NUMBER:">
                                         <font>
@@ -346,14 +346,14 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mAccNum" editable="false" prefHeight="30.0" prefWidth="106.0">
+                                    <TextField fx:id="mAccNum" editable="false" prefHeight="30.0" prefWidth="112.0">
                                         <HBox.margin>
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </TextField>
                                 </children>
                             </HBox>
-                            <HBox layoutX="879.0" layoutY="109.0" prefHeight="30.0" prefWidth="199.0">
+                            <HBox layoutX="649.0" layoutY="199.0" prefHeight="30.0" prefWidth="212.0">
                                 <children>
                                     <Label prefHeight="20.0" prefWidth="83.0" text="MC: ">
                                         <font>
@@ -363,7 +363,7 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mMc" editable="false" prefHeight="30.0" prefWidth="109.0">
+                                    <TextField fx:id="mMc" editable="false" prefHeight="30.0" prefWidth="115.0">
                                         <HBox.margin>
                                             <Insets right="5.0" />
                                         </HBox.margin>
@@ -379,9 +379,9 @@
                                     </Label>
                                 </children>
                             </VBox>
-                            <HBox layoutX="16.0" layoutY="750.0" prefHeight="30.0" prefWidth="1060.0">
+                            <HBox layoutX="6.0" layoutY="748.0" prefHeight="30.0" prefWidth="848.0">
                                 <children>
-                                    <Label prefHeight="20.0" prefWidth="165.0" text="MEMBER 1 FULL NAMES: ">
+                                    <Label prefHeight="20.0" prefWidth="154.0" text="MEMBER 1 FULL NAMES: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
@@ -389,12 +389,12 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mMember1FullName" prefHeight="25.0" prefWidth="380.0">
+                                    <TextField fx:id="mMember1FullName" prefHeight="30.0" prefWidth="231.0">
                                         <HBox.margin>
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </TextField>
-                                    <Label prefHeight="20.0" prefWidth="173.0" text="MEMBER 2 FULL NAMES: ">
+                                    <Label prefHeight="20.0" prefWidth="153.0" text="MEMBER 2 FULL NAMES: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
@@ -402,16 +402,16 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mMember2FullNames" prefHeight="25.0" prefWidth="380.0">
+                                    <TextField fx:id="mMember2FullNames" prefHeight="30.0" prefWidth="306.0">
                                         <padding>
                                             <Insets right="5.0" />
                                         </padding>
                                     </TextField>
                                 </children>
                             </HBox>
-                            <HBox layoutX="13.0" layoutY="795.0" prefHeight="30.0" prefWidth="530.0">
+                            <HBox layoutX="5.0" layoutY="795.0" prefHeight="30.0" prefWidth="392.0">
                                 <children>
-                                    <Label prefHeight="20.0" prefWidth="83.0" text="IDENTITY 1: ">
+                                    <Label prefHeight="20.0" prefWidth="75.0" text="IDENTITY 1: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
@@ -419,12 +419,12 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mMember1Id" prefHeight="25.0" prefWidth="165.0">
+                                    <TextField fx:id="mMember1Id" prefHeight="30.0" prefWidth="110.0">
                                         <HBox.margin>
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </TextField>
-                                    <Label prefHeight="20.0" prefWidth="88.0" text="CARD NR 1: ">
+                                    <Label prefHeight="20.0" prefWidth="73.0" text="CARD NR 1: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
@@ -432,7 +432,7 @@
                                             <Insets right="5.0" />
                                         </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="mMemberCardNum1" editable="false" prefHeight="25.0" prefWidth="175.0">
+                                    <TextField fx:id="mMemberCardNum1" editable="false" prefHeight="30.0" prefWidth="120.0">
                                         <padding>
                                             <Insets right="5.0" />
                                         </padding>
@@ -448,17 +448,17 @@
                                     </Label>
                                 </children>
                             </HBox>
-                            <HBox layoutX="12.0" layoutY="903.0" prefHeight="35.0" prefWidth="230.0">
+                            <HBox layoutX="4.0" layoutY="903.0" prefHeight="35.0" prefWidth="246.0">
                                 <children>
                                     <Label text="START DATE: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
                                     </Label>
-                                    <DatePicker fx:id="mStartDate" prefHeight="25.0" prefWidth="152.0" />
+                                    <DatePicker fx:id="mStartDate" prefHeight="30.0" prefWidth="124.0" />
                                 </children>
                             </HBox>
-                            <HBox layoutX="576.0" layoutY="948.0" prefHeight="35.0" prefWidth="249.0">
+                            <HBox layoutX="590.0" layoutY="999.0" prefHeight="35.0" prefWidth="249.0">
                                 <children>
                                     <Label text="TOTAL AMOUNT RECEIVED: ">
                                         <font>
@@ -468,57 +468,57 @@
                                     <TextField fx:id="mTotAmntRec" prefHeight="25.0" prefWidth="85.0" />
                                 </children>
                             </HBox>
-                            <HBox layoutX="264.0" layoutY="903.0" prefHeight="35.0" prefWidth="282.0">
+                            <HBox layoutX="254.0" layoutY="903.0" prefHeight="35.0" prefWidth="301.0">
                                 <children>
                                     <Label text="MEMBERSHIP DESCRIPTION: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
                                     </Label>
-                                    <ChoiceBox fx:id="mMembershipDesc" prefHeight="25.0" prefWidth="115.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
+                                    <ChoiceBox fx:id="mMembershipDesc" prefHeight="30.0" prefWidth="134.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
                                 </children>
                             </HBox>
-                            <HBox layoutX="559.0" layoutY="897.0" prefHeight="35.0" prefWidth="246.0">
+                            <HBox layoutX="7.0" layoutY="952.0" prefHeight="35.0" prefWidth="287.0">
                                 <children>
                                     <Label text="MINIMUM DURATION: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
                                     </Label>
-                                    <ChoiceBox fx:id="mMinDuration" prefHeight="25.0" prefWidth="108.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
+                                    <ChoiceBox fx:id="mMinDuration" prefHeight="30.0" prefWidth="146.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
                                 </children>
                             </HBox>
-                            <HBox layoutX="185.0" layoutY="948.0" prefHeight="35.0" prefWidth="155.0">
+                            <HBox layoutX="176.0" layoutY="999.0" prefHeight="35.0" prefWidth="151.0">
                                 <children>
                                     <Label text="CARD FEE: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="mCardFee" prefHeight="30.0" prefWidth="85.0" />
+                                    <TextField fx:id="mCardFee" prefHeight="30.0" prefWidth="80.0" />
                                 </children>
                             </HBox>
-                            <HBox layoutX="12.0" layoutY="948.0" prefHeight="35.0" prefWidth="166.0">
+                            <HBox layoutX="7.0" layoutY="999.0" prefHeight="35.0" prefWidth="167.0">
                                 <children>
                                     <Label text="JOINING FEE: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="mJoiningFee" prefHeight="30.0" prefWidth="85.0" />
+                                    <TextField fx:id="mJoiningFee" prefHeight="30.0" prefWidth="84.0" />
                                 </children>
                             </HBox>
-                            <HBox layoutX="351.0" layoutY="948.0" prefHeight="35.0" prefWidth="211.0">
+                            <HBox layoutX="329.0" layoutY="999.0" prefHeight="35.0" prefWidth="230.0">
                                 <children>
                                     <Label text="UPFRONT PAYMENT: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="mUpFrontPayment" prefHeight="30.0" prefWidth="85.0" />
+                                    <TextField fx:id="mUpFrontPayment" prefHeight="30.0" prefWidth="105.0" />
                                 </children>
                             </HBox>
-                            <HBox layoutX="15.0" layoutY="1016.0" prefHeight="35.0" prefWidth="147.0">
+                            <HBox layoutX="17.0" layoutY="1067.0" prefHeight="35.0" prefWidth="147.0">
                                 <children>
                                     <Label text="BANKING DETAILS: " underline="true">
                                         <font>
@@ -527,109 +527,113 @@
                                     </Label>
                                 </children>
                             </HBox>
-                            <HBox layoutX="16.0" layoutY="1064.0" prefHeight="35.0" prefWidth="287.0">
+                            <HBox layoutX="13.0" layoutY="1094.0" prefHeight="35.0" prefWidth="351.0">
                                 <children>
-                                    <Label text="BANK NAME: ">
+                                    <Label prefHeight="17.0" prefWidth="126.0" text="BANK NAME: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
                                     </Label>
-                           <ChoiceBox fx:id="mBankName" prefHeight="25.0" prefWidth="208.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
+                           <ChoiceBox fx:id="mBankName" prefHeight="30.0" prefWidth="222.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
                                 </children>
                             </HBox>
-                            <HBox layoutX="394.0" layoutY="1064.0" prefHeight="35.0" prefWidth="214.0">
+                            <HBox layoutX="386.0" layoutY="1094.0" prefHeight="35.0" prefWidth="321.0">
                                 <children>
                                     <Label text="DEBIT ORDER DATE: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
                                     </Label>
-                                    <ChoiceBox fx:id="mDebitOrderDate" prefHeight="25.0" prefWidth="90.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
+                                    <ChoiceBox fx:id="mDebitOrderDate" prefHeight="30.0" prefWidth="133.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
                                 </children>
                             </HBox>
-                            <Label layoutX="613.0" layoutY="1034.0" prefHeight="21.0" prefWidth="483.0" text="PAYER DETAILS (Account holder, if payer is different from member">
+                            <Label layoutX="13.0" layoutY="1201.0" prefHeight="21.0" prefWidth="483.0" text="PAYER DETAILS (Account holder, if payer is different from member">
                                 <font>
                                     <Font name="System Bold" size="15.0" />
                                 </font>
                             </Label>
-                            <Line endX="12.0" endY="100.0" layoutX="596.0" layoutY="1063.0" startX="12.0" startY="2.0" />
-                            <HBox layoutX="614.0" layoutY="1064.0" prefHeight="35.0" prefWidth="267.0">
+                            <HBox layoutX="13.0" layoutY="1234.0" prefHeight="35.0" prefWidth="205.0">
                                 <children>
                                     <Label text="PAYER DETAILS: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="mPayerDetails" prefHeight="25.0" prefWidth="171.0" />
+                                    <TextField fx:id="mPayerDetails" prefHeight="30.0" prefWidth="104.0" />
                                 </children>
                             </HBox>
-                            <HBox layoutX="885.0" layoutY="1064.0" prefHeight="35.0" prefWidth="197.0">
+                            <HBox layoutX="215.0" layoutY="1234.0" prefHeight="35.0" prefWidth="188.0">
                                 <children>
                                     <Label text="PAYER ID NR: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="mPayerIdNum" prefHeight="25.0" prefWidth="111.0" />
+                                    <TextField fx:id="mPayerIdNum" prefHeight="30.0" prefWidth="105.0" />
                                 </children>
                             </HBox>
-                            <HBox layoutX="619.0" layoutY="1108.0" prefHeight="35.0" prefWidth="225.0">
+                            <HBox layoutX="405.0" layoutY="1234.0" prefHeight="35.0" prefWidth="196.0">
                                 <children>
                                     <Label text="PAYER CELL NR: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="mPayerCellNum" prefHeight="25.0" prefWidth="123.0" />
+                                    <TextField fx:id="mPayerCellNum" prefHeight="30.0" prefWidth="101.0" />
                                 </children>
                             </HBox>
-                            <HBox layoutX="871.0" layoutY="1108.0" prefHeight="35.0" prefWidth="211.0">
+                            <HBox layoutX="602.0" layoutY="1234.0" prefHeight="35.0" prefWidth="223.0">
                                 <children>
                                     <Label text="PAYER EMAIL: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="mPayerEmail" prefHeight="25.0" prefWidth="121.0" />
+                                    <TextField fx:id="mPayerEmail" prefHeight="30.0" prefWidth="138.0" />
                                 </children>
                             </HBox>
-                            <HBox layoutX="19.0" layoutY="1108.0" prefHeight="35.0" prefWidth="281.0">
+                            <HBox layoutX="10.0" layoutY="1137.0" prefHeight="35.0" prefWidth="238.0">
                                 <children>
                                     <Label text="ACCOUNT NUMBER: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="mBankAccNumber" prefHeight="25.0" prefWidth="160.0" />
+                                    <TextField fx:id="mBankAccNumber" prefHeight="30.0" prefWidth="112.0" />
                                 </children>
                             </HBox>
-                            <HBox layoutX="363.0" layoutY="1108.0" prefHeight="35.0" prefWidth="239.0">
+                            <HBox layoutX="386.0" layoutY="1137.0" prefHeight="35.0" prefWidth="302.0">
                                 <children>
-                                    <Label text="ACCOUNT TYPE: ">
+                                    <Label prefHeight="17.0" prefWidth="100.0" text="ACCOUNT TYPE: ">
                                         <font>
                                             <Font name="System Bold" size="12.0" />
                                         </font>
                                     </Label>
-                           <ChoiceBox fx:id="mBankAccType" prefHeight="25.0" prefWidth="137.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
+                           <ChoiceBox fx:id="mBankAccType" prefHeight="30.0" prefWidth="154.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
                                 </children>
                             </HBox>
-                            <VBox layoutX="6.0" layoutY="1204.0" prefHeight="57.0" prefWidth="1093.0">
+                            <VBox layoutX="11.0" layoutY="1275.0" prefHeight="67.0" prefWidth="815.0">
                                 <children>
-                                    <Label fx:id="mDeclaration" text="I hereby instruct and authorise Xressions Wellness Centre to draw from my bank account the amount stipulated for the membership. I request, instruct and authorise Xpressions Wellness Centre to ">
+                                    <Label fx:id="mDeclaration" prefHeight="16.0" prefWidth="810.0" text="I hereby instruct and authorise Xressions Wellness Centre to draw from my bank account the amount stipulated for the membership. I request, instruct and">
                                         <font>
                                             <Font name="System Bold" size="11.0" />
                                         </font>
                                     </Label>
-                                    <Label prefHeight="16.0" prefWidth="1075.0" text="re-submit my debit order at a date set by the company in  the event the debit order returns unpaid. The debit order will commence on the days agreed upon by Xpressions Wellness Centre.">
+                                    <Label prefHeight="16.0" prefWidth="1075.0" text=" authorise Xpressions Wellness Centre to re-submit my debit order at a date set by the company in  the event the debit order returns unpaid. The debit order">
                                         <font>
                                             <Font name="System Bold" size="11.0" />
                                         </font>
                                     </Label>
-                                    <Label prefHeight="16.0" prefWidth="1075.0" text=" I agree to pay any bank charges related to this debit order instructions. ">
+                                    <Label prefHeight="16.0" prefWidth="1075.0" text="  will commence on the days agreed upon by Xpressions Wellness Centre. I agree to pay any bank charges related to this debit order instructions. ">
                                         <font>
                                             <Font name="System Bold" size="11.0" />
                                         </font>
                                     </Label>
+                           <Label prefHeight="16.0" prefWidth="1075.0" text=" I agree to pay any bank charges related to this debit order instructions. ">
+                              <font>
+                                 <Font name="System Bold" size="11.0" />
+                              </font>
+                           </Label>
                                 </children>
                             </VBox>
                             <HBox layoutX="300.0" layoutY="853.0" prefHeight="35.0" prefWidth="128.0">
@@ -641,11 +645,11 @@
                                     </Label>-->
                                 </children>
                             </HBox>
-                            <HBox layoutX="543.0" layoutY="795.0" prefHeight="35.0" prefWidth="536.0">
+                            <HBox layoutX="404.0" layoutY="793.0" prefHeight="35.0" prefWidth="456.0">
                         <children>
                                   <HBox prefHeight="30.0" prefWidth="544.0">
                                       <children>
-                                          <Label prefHeight="20.0" prefWidth="83.0" text="IDENTITY 2: ">
+                                          <Label prefHeight="20.0" prefWidth="72.0" text="IDENTITY 2: ">
                                               <font>
                                                   <Font name="System Bold" size="12.0" />
                                               </font>
@@ -653,12 +657,12 @@
                                                   <Insets right="5.0" />
                                               </HBox.margin>
                                           </Label>
-                                          <TextField fx:id="mMember2Id" prefHeight="25.0" prefWidth="165.0">
+                                          <TextField fx:id="mMember2Id" prefHeight="30.0" prefWidth="123.0">
                                               <HBox.margin>
                                                   <Insets right="5.0" />
                                               </HBox.margin>
                                           </TextField>
-                                          <Label prefHeight="20.0" prefWidth="88.0" text="CARD NR 2: ">
+                                          <Label prefHeight="20.0" prefWidth="74.0" text="CARD NR 2: ">
                                               <font>
                                                   <Font name="System Bold" size="12.0" />
                                               </font>
@@ -666,7 +670,7 @@
                                                   <Insets right="5.0" />
                                               </HBox.margin>
                                           </Label>
-                                          <TextField fx:id="mMemberCardNum2" editable="false" prefHeight="25.0" prefWidth="183.0">
+                                          <TextField fx:id="mMemberCardNum2" editable="false" prefHeight="30.0" prefWidth="167.0">
                                               <padding>
                                                   <Insets right="5.0" />
                                               </padding>
@@ -675,8 +679,7 @@
                                   </HBox>
                         </children>
                             </HBox>
-                            <Line endX="143.0" layoutX="842.0" layoutY="1298.0" startX="-177.0" />
-                            <HBox layoutX="19.0" layoutY="1271.0" prefHeight="27.0" prefWidth="484.0">
+                            <HBox layoutX="8.0" layoutY="1342.0" prefHeight="27.0" prefWidth="484.0">
                                 <children>
                                     <Label fx:id="mTermsAndCs" prefHeight="17.0" prefWidth="461.0" text="TERMS AND CONDITIONS APPLY (SEE BACKSIDE FOR TERM AND CONDITIONS)" underline="true">
                                         <font>
@@ -685,19 +688,19 @@
                                     </Label>
                                 </children>
                             </HBox>
-                            <Button fx:id="mSaveBtn" layoutX="119.0" layoutY="1309.0" mnemonicParsing="false" onAction="#saveMemberDetails" prefHeight="48.0" prefWidth="278.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="SAVE CONTRACT">
+                            <Button fx:id="mSaveBtn" layoutX="12.0" layoutY="1369.0" mnemonicParsing="false" onAction="#saveMemberDetails" prefHeight="48.0" prefWidth="278.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="SAVE CONTRACT">
                                 <font>
                                     <Font name="System Bold" size="18.0" />
                                 </font>
                             </Button>
-                     <HBox layoutX="812.0" layoutY="903.0" prefHeight="35.0" prefWidth="266.0">
+                     <HBox layoutX="302.0" layoutY="952.0" prefHeight="35.0" prefWidth="257.0">
                         <children>
-                           <Label prefHeight="17.0" prefWidth="136.0" text="PAYMENT METHOD">
+                           <Label prefHeight="17.0" prefWidth="116.0" text="PAYMENT METHOD">
                               <font>
                                  <Font name="System Bold" size="12.0" />
                               </font>
                            </Label>
-                           <ChoiceBox fx:id="mPaymentMethods" prefHeight="25.0" prefWidth="113.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
+                           <ChoiceBox fx:id="mPaymentMethods" prefHeight="30.0" prefWidth="140.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
                         </children>
                      </HBox>
                      <Label layoutX="96.0" layoutY="536.0" text="MEMBER 1">
@@ -713,17 +716,17 @@
                      <Rectangle fx:id="mRectPic" arcHeight="15.0" arcWidth="15.0" fill="#ffffff00" height="150.0" layoutX="34.0" layoutY="168.0" stroke="#005b96" strokeType="INSIDE" strokeWidth="4.0" width="220.0" />
                      <Rectangle fx:id="mRectPic2" arcHeight="15.0" arcWidth="15.0" fill="#ffffff00" height="150.0" layoutX="562.0" layoutY="567.0" stroke="#005b96" strokeType="INSIDE" strokeWidth="4.0" width="220.0" />
                      <Rectangle fx:id="mRectPic1" arcHeight="15.0" arcWidth="15.0" fill="#ffffff00" height="150.0" layoutX="40.0" layoutY="567.0" stroke="#005b96" strokeType="INSIDE" strokeWidth="4.0" width="220.0" />
-                     <HBox layoutX="846.0" layoutY="948.0" prefHeight="35.0" prefWidth="216.0">
+                     <HBox layoutX="590.0" layoutY="952.0" prefHeight="35.0" prefWidth="246.0">
                         <children>
                            <Label prefHeight="17.0" prefWidth="136.0" text="PAYMENT TYPE">
                               <font>
                                  <Font name="System Bold" size="12.0" />
                               </font>
                            </Label>
-                           <ChoiceBox fx:id="mPaymentType" prefHeight="25.0" prefWidth="130.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
+                           <ChoiceBox fx:id="mPaymentType" prefHeight="30.0" prefWidth="130.0" styleClass="dropdown_secondary" stylesheets="@../../css/style.css" />
                         </children>
                      </HBox>
-                     <Button fx:id="mPrintContractBtn" layoutX="746.0" layoutY="1309.0" mnemonicParsing="false" onAction="#printContract" prefHeight="48.0" prefWidth="278.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="PRINT CONTRACT">
+                     <Button fx:id="mPrintContractBtn" layoutX="549.0" layoutY="1369.0" mnemonicParsing="false" onAction="#printContract" prefHeight="48.0" prefWidth="278.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="PRINT CONTRACT">
                         <font>
                            <Font name="System Bold" size="18.0" />
                         </font>
@@ -745,33 +748,33 @@
           <AnchorPane prefHeight="669.0" prefWidth="1100.0" styleClass="tables" stylesheets="@../../css/style.css">
                <children>
 
-                   <HBox layoutX="29.0" layoutY="82.0" prefHeight="40.0" prefWidth="901.0">
+                   <HBox layoutX="14.0" layoutY="35.0" prefHeight="40.0" prefWidth="625.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="40.0" prefWidth="118.0" text="PACKAGE NAME" textFill="#005b96">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="mPackageName" prefHeight="38.0" prefWidth="228.0" styleClass="dropdown" stylesheets="@../../css/style.css" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="208.0" text="MONTHLY PRIMARY FEES" textFill="#005b96">
+                        <TextField fx:id="mPackageName" prefHeight="38.0" prefWidth="162.0" styleClass="dropdown" stylesheets="@../../css/style.css" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="174.0" text="MONTHLY PRIMARY FEES" textFill="#005b96">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="mAmount" prefHeight="38.0" prefWidth="131.0" styleClass="dropdown" stylesheets="@../../css/style.css" />
+                        <TextField fx:id="mAmount" prefHeight="38.0" prefWidth="164.0" styleClass="dropdown" stylesheets="@../../css/style.css" />
                      </children>
                   </HBox>
-                  <Button fx:id="mSavePackage" layoutX="799.0" layoutY="141.0" mnemonicParsing="false" onAction="#saveMembershipPackage" prefHeight="45.0" prefWidth="162.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="ADD PACKAGE" textFill="#005b96">
+                  <Button fx:id="mSavePackage" layoutX="558.0" layoutY="127.0" mnemonicParsing="false" onAction="#saveMembershipPackage" prefHeight="45.0" prefWidth="162.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="ADD PACKAGE" textFill="#005b96">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="mDeletePackage" layoutX="672.0" layoutY="309.0" mnemonicParsing="false" onAction="#deleteMembershipPackage" prefHeight="45.0" prefWidth="116.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="DELETE" textFill="#005b96">
+                  <Button fx:id="mDeletePackage" layoutX="600.0" layoutY="259.0" mnemonicParsing="false" onAction="#deleteMembershipPackage" prefHeight="45.0" prefWidth="116.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="DELETE" textFill="#005b96">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <ScrollPane layoutX="22.0" layoutY="222.0" prefHeight="396.0" prefWidth="577.0" styleClass="tables" stylesheets="@../../css/style.css">
+                  <ScrollPane layoutX="23.0" layoutY="191.0" prefHeight="396.0" prefWidth="577.0" styleClass="tables" stylesheets="@../../css/style.css">
                      <content>
                         <TableView fx:id="mPackagesTable" maxHeight="1.7976931348623157E308" prefHeight="450.0" prefWidth="561.0">
                           <columns>
@@ -783,7 +786,7 @@
                         </TableView>
                      </content>
                   </ScrollPane>
-                  <HBox fx:id="mSecondaryFeesHBox" layoutX="14.0" layoutY="140.0" prefHeight="40.0" prefWidth="759.0">
+                  <HBox fx:id="mSecondaryFeesHBox" layoutX="14.0" layoutY="81.0" prefHeight="40.0" prefWidth="712.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="40.0" prefWidth="231.0" text="MONTHLY SECONDARY FEE 1" textFill="#005b96">
                            <font>
@@ -799,7 +802,7 @@
                         <TextField fx:id="mAmount2" prefHeight="40.0" prefWidth="130.0" styleClass="dropdown" stylesheets="@../../css/style.css" />
                      </children>
                   </HBox>
-                  <Button fx:id="mRefreshPackages" layoutX="672.0" layoutY="237.0" mnemonicParsing="false" onAction="#mRefreshPackagesnClear" prefHeight="45.0" prefWidth="118.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="REFRESH" textFill="#005b96">
+                  <Button fx:id="mRefreshPackages" layoutX="599.0" layoutY="191.0" mnemonicParsing="false" onAction="#mRefreshPackagesnClear" prefHeight="45.0" prefWidth="118.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="REFRESH" textFill="#005b96">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -815,17 +818,17 @@
                     <content>
                         <AnchorPane prefHeight="1344.0" prefWidth="1089.0" styleClass="tables" stylesheets="@../../css/style.css">
                             <children>
-                                <ImageView fx:id="mDocumentsLogo" fitHeight="150.0" fitWidth="200.0" layoutX="800.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="mDocumentsLogo" fitHeight="150.0" fitWidth="200.0" layoutX="553.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../../logo.png" />
                                     </image>
                                 </ImageView>
-                                <Label layoutX="399.0" layoutY="340.0" text="INDEMNITY FORM" textFill="#005b96">
+                                <Label layoutX="293.0" layoutY="265.0" text="INDEMNITY FORM" textFill="#005b96">
                                     <font>
                                         <Font name="System Bold" size="24.0" />
                                     </font>
                                 </Label>
-                                <HBox layoutX="23.0" layoutY="604.0" prefHeight="26.0" prefWidth="262.0">
+                                <HBox layoutX="16.0" layoutY="483.0" prefHeight="26.0" prefWidth="262.0">
                                     <children>
                                         <Label text="NAME: ">
                                             <font>
@@ -838,7 +841,7 @@
                                  </font></TextField>
                                     </children>
                                 </HBox>
-                                <HBox layoutX="285.0" layoutY="604.0" prefHeight="26.0" prefWidth="303.0">
+                                <HBox layoutX="289.0" layoutY="483.0" prefHeight="26.0" prefWidth="303.0">
                                     <children>
                                         <Label text="SURNAME: ">
                                             <font>
@@ -851,7 +854,7 @@
                                  </font></TextField>
                                     </children>
                                 </HBox>
-                                <HBox layoutX="552.0" layoutY="604.0" prefHeight="26.0" prefWidth="193.0">
+                                <HBox layoutX="16.0" layoutY="528.0" prefHeight="26.0" prefWidth="193.0">
                                     <children>
                                         <Label text="CELLNR: ">
                                             <font>
@@ -864,7 +867,7 @@
                                  </font></TextField>
                                     </children>
                                 </HBox>
-                                <HBox layoutX="754.0" layoutY="604.0" prefHeight="26.0" prefWidth="251.0">
+                                <HBox layoutX="293.0" layoutY="528.0" prefHeight="26.0" prefWidth="251.0">
                                     <children>
                                         <Label text="DATE: ">
                                             <font>
@@ -874,30 +877,35 @@
                                         <DatePicker fx:id="mDocumentsDate" style="-fx-font-size: 14;" />
                                     </children>
                                 </HBox>
-                                <Line endX="799.0" layoutX="224.0" layoutY="655.0" startX="-207.0" />
-                                <VBox layoutX="15.0" layoutY="663.0" prefHeight="167.0" prefWidth="1075.0">
+                                <Line endX="487.0" layoutX="223.0" layoutY="583.0" startX="-207.0" />
+                                <VBox layoutX="15.0" layoutY="663.0" prefHeight="199.0" prefWidth="1075.0">
                                     <children>
-                                        <Label prefHeight="20.0" prefWidth="1065.0" text="I acknowledge that I am entering XPRESSIONS WELLNESS CENTRE facilities on my own accord and I agree and acknowledge that XPRESSIONS WELLNESS">
+                                        <Label prefHeight="20.0" prefWidth="1065.0" text="I acknowledge that I am entering XPRESSIONS WELLNESS CENTRE facilities on my own accord and I agree">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label prefHeight="20.0" prefWidth="1065.0" text="CENTRE will not be held liable for any loss or death suffered by me whatsoever including gross negligence while viewing the facilities.">
+                                        <Label prefHeight="20.0" prefWidth="1065.0" text=" and acknowledge that XPRESSIONS WELLNESS CENTRE will not be held liable for any loss or death suffered">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label prefHeight="20.0" prefWidth="1075.0" text="I acknowledge that I am in good health to participate in the use of the facilities, equipment and any other activity that E-XPRESSIONS WELLNESS CENTRE has to ">
+                                        <Label prefHeight="20.0" prefWidth="1075.0" text=" by me whatsoever including gross negligence while viewing the facilities. I acknowledge that I am in good ">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label prefHeight="20.0" prefWidth="1075.0" text="offer. ">
+                                        <Label prefHeight="20.0" prefWidth="1075.0" text="health to participate in the use of the facilities, equipment and any other activity that E-XPRESSIONS ">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
                                         </Label>
-                                        <Label prefHeight="20.0" prefWidth="1075.0" text="I acknowledge the risk of physical injuries to myself and other gym users if I have not gone through the proper introduction of the facilities.">
+                                        <Label prefHeight="20.0" prefWidth="1075.0" text="WELLNESS CENTRE has to  offer. ">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Label prefHeight="20.0" prefWidth="1075.0" text="I acknowledge the risk of physical injuries to myself and other gym users if I have not gone through">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
@@ -905,7 +913,12 @@
                                                 <Insets top="10.0" />
                                             </padding>
                                         </Label>
-                                        <Label prefHeight="20.0" prefWidth="1075.0" text="I agree to be accompanied by  the sales consultant when viewing  the facilities. I agree and adhere to  the rules and regulations set out by XPRESSIONS WELLNESS">
+                              <Label prefHeight="20.0" prefWidth="1075.0" text=" the proper introduction of the facilities.">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                                        <Label prefHeight="20.0" prefWidth="1075.0" text="I agree to be accompanied by  the sales consultant when viewing  the facilities. I agree and adhere to ">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
@@ -913,14 +926,19 @@
                                                 <Insets top="10.0" />
                                             </padding>
                                         </Label>
-                                        <Label prefHeight="20.0" prefWidth="1075.0" text="CENTRE.">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                        </Label>
+                              <Label prefHeight="20.0" prefWidth="1075.0" text=" the rules and regulations set out by XPRESSIONS WELLNESS CENTRE.">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="20.0" prefWidth="1075.0">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
                                     </children>
                                 </VBox>
-                                <Button fx:id="mDowloadIndemnity" layoutX="777.0" layoutY="852.0" mnemonicParsing="false" onAction="#generateIndemnityForm" prefHeight="60.0" prefWidth="250.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="PRINT INDEMNITY">
+                                <Button fx:id="mDowloadIndemnity" layoutX="428.0" layoutY="883.0" mnemonicParsing="false" onAction="#generateIndemnityForm" prefHeight="60.0" prefWidth="250.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="PRINT INDEMNITY">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -930,7 +948,7 @@
                                         <Image url="@../resources/malecardbarcode.png" />
                                     </image>
                                 </ImageView>-->
-                                <Label layoutX="399.0" layoutY="963.0" text="MEMBERSHIP CARDS">
+                                <Label layoutX="307.0" layoutY="979.0" text="MEMBERSHIP CARDS">
                                     <font>
                                         <Font name="System Bold" size="24.0" />
                                     </font>
@@ -940,79 +958,79 @@
                                         <Image url="@../resources/femalecardbarcode.png" />
                                     </image>
                                 </ImageView>-->
-                                <Button fx:id="mDownloadMembershipCard" layoutX="777.0" layoutY="1182.0" mnemonicParsing="false" onAction="#generateMembershipCard" prefHeight="60.0" prefWidth="250.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="PRINT CARD">
+                                <Button fx:id="mDownloadMembershipCard" layoutX="441.0" layoutY="1063.0" mnemonicParsing="false" onAction="#generateMembershipCard" prefHeight="60.0" prefWidth="250.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="PRINT CARD">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font></Button>
-                        <HBox layoutX="37.0" layoutY="1067.0" prefHeight="27.0" prefWidth="273.0">
+                        <HBox layoutX="11.0" layoutY="1014.0" prefHeight="30.0" prefWidth="213.0">
                            <children>
                               <Label prefHeight="23.0" prefWidth="68.0" text="NAME:">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="mMembershipCardName" prefHeight="25.0" prefWidth="204.0">
+                              <TextField fx:id="mMembershipCardName" prefHeight="30.0" prefWidth="142.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font></TextField>
                            </children>
                         </HBox>
-                        <HBox layoutX="709.0" layoutY="1067.0" prefHeight="27.0" prefWidth="315.0">
+                        <HBox layoutX="441.0" layoutY="1014.0" prefHeight="30.0" prefWidth="250.0">
                            <children>
                               <Label prefHeight="23.0" prefWidth="126.0" text="ACCOUNT NUMBER: ">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="mMembershipCardAccount" prefHeight="25.0" prefWidth="174.0">
+                              <TextField fx:id="mMembershipCardAccount" prefHeight="30.0" prefWidth="119.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font></TextField>
                            </children>
                         </HBox>
-                        <HBox layoutX="369.0" layoutY="1067.0" prefHeight="27.0" prefWidth="272.0">
+                        <HBox layoutX="227.0" layoutY="1014.0" prefHeight="30.0" prefWidth="212.0">
                            <children>
                               <Label prefHeight="23.0" prefWidth="85.0" text="SURNAME: ">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="mMembershipCardSurname" prefHeight="25.0" prefWidth="190.0">
+                              <TextField fx:id="mMembershipCardSurname" prefHeight="30.0" prefWidth="120.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font></TextField>
                            </children>
                         </HBox>
-                        <ChoiceBox fx:id="mIndemnitySelector" layoutX="77.0" layoutY="24.0" prefHeight="40.0" prefWidth="200.0" styleClass="dropdown" stylesheets="@../../css/style.css" />
-                        <CheckBox fx:id="mMaleCheckBox" layoutX="100.0" layoutY="1135.0" mnemonicParsing="false" onAction="#assignMaleGender" text="MALE ">
+                        <ChoiceBox fx:id="mIndemnitySelector" layoutX="78.0" layoutY="14.0" prefHeight="40.0" prefWidth="164.0" styleClass="dropdown" stylesheets="@../../css/style.css" />
+                        <CheckBox fx:id="mMaleCheckBox" layoutX="15.0" layoutY="1059.0" mnemonicParsing="false" onAction="#assignMaleGender" text="MALE ">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox fx:id="mFemaleCheckBox" layoutX="100.0" layoutY="1182.0" mnemonicParsing="false" onAction="#assignFemaleGender" text="FEMALE">
+                        <CheckBox fx:id="mFemaleCheckBox" layoutX="16.0" layoutY="1093.0" mnemonicParsing="false" onAction="#assignFemaleGender" text="FEMALE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </CheckBox>
-                        <Label layoutX="399.0" layoutY="74.0" text="PROFILE IMAGES" textFill="#005b96">
+                        <Label layoutX="303.0" layoutY="63.0" text="PROFILE IMAGES" textFill="#005b96">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Button fx:id="mUploadProfieImage" layoutX="369.0" layoutY="181.0" mnemonicParsing="false" onAction="#uploadProfileImage" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="UPLOAD" textFill="#005b96">
+                        <Button fx:id="mUploadProfieImage" layoutX="289.0" layoutY="114.0" mnemonicParsing="false" onAction="#uploadProfileImage" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="UPLOAD" textFill="#005b96">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font></Button>
-                        <Button fx:id="mCaptureProfileImage" layoutX="553.0" layoutY="181.0" mnemonicParsing="false" onAction="#captureProfileImage" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="CAPTURE" textFill="#005b96">
+                        <Button fx:id="mCaptureProfileImage" layoutX="440.0" layoutY="114.0" mnemonicParsing="false" onAction="#captureProfileImage" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="CAPTURE" textFill="#005b96">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font></Button>
-                        <Button fx:id="mSaveProfileImage" layoutX="736.0" layoutY="181.0" mnemonicParsing="false" onAction="#saveProfileImage" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="SAVE" textFill="#005b96">
+                        <Button fx:id="mSaveProfileImage" layoutX="586.0" layoutY="114.0" mnemonicParsing="false" onAction="#saveProfileImage" prefHeight="40.0" prefWidth="110.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="SAVE" textFill="#005b96">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font></Button>
-                        <Rectangle fx:id="mProfileImageRectangle" arcHeight="15.0" arcWidth="15.0" fill="#ffffff00" height="150.0" layoutX="67.0" layoutY="109.0" stroke="#005b96" strokeType="INSIDE" strokeWidth="4.0" width="220.0" />
-                        <Rectangle fx:id="mDocumentsProfilePic" arcHeight="15.0" arcWidth="15.0" fill="#ffffff00" height="150.0" layoutX="64.0" layoutY="392.0" stroke="#005b96" strokeType="INSIDE" strokeWidth="4.0" width="220.0" />
+                        <Rectangle fx:id="mProfileImageRectangle" arcHeight="15.0" arcWidth="15.0" fill="#ffffff00" height="150.0" layoutX="37.0" layoutY="92.0" stroke="#005b96" strokeType="INSIDE" strokeWidth="4.0" width="220.0" />
+                        <Rectangle fx:id="mDocumentsProfilePic" arcHeight="15.0" arcWidth="15.0" fill="#ffffff00" height="150.0" layoutX="37.0" layoutY="300.0" stroke="#005b96" strokeType="INSIDE" strokeWidth="4.0" width="220.0" />
                             </children>
                         </AnchorPane>
                     </content>
