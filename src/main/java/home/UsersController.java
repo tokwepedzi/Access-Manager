@@ -47,7 +47,7 @@ public class UsersController implements Initializable {
     private Button mSaveBtn, mUploadProfilePic, mCaptureImage;
     @FXML
     private TextField mFullname, mCellnumber, mIdnumber, mAddress,
-            mEmail, mPassword, mConfirmpassword;
+            mEmail, mPassword;
     @FXML
     private DatePicker mDob;
     @FXML
@@ -384,7 +384,7 @@ public class UsersController implements Initializable {
         mEmail.setText(row.getItem().getEmail());
         mAuthlevel.setValue(row.getItem().getAuthlevel());
         mPassword.setText(row.getItem().getPassword());
-        mConfirmpassword.setText(row.getItem().getPassword());
+
         try {
             //getting Profile picture of the selected user from  the database and update ui
             preparedStatement1 = connection.prepareStatement(query1);
@@ -440,7 +440,7 @@ public class UsersController implements Initializable {
         }
         if (!validateFullNameInput() | !validateCellNumberInput() | !validateIdNumberInput() | !validateDobInput()
                 | !validateAddressInput() | !validateGenderInput() | !validateEmaiInput() | !validateAuthLevelInput()
-                | !validatePasswordInput() | !validatePasswordConfirmInput()) {
+                | !validatePasswordInput()) {
             return;
         } else if (isEditing == false && uidSelectedforEdit == null) {
             // Save new User details
@@ -608,7 +608,6 @@ public class UsersController implements Initializable {
         mEmail.setText("");
         mAuthlevel.setValue("");
         mPassword.setText("");
-        mConfirmpassword.setText("");
         mUserPicRec.setFill(Color.TRANSPARENT);
 
     }
@@ -954,17 +953,5 @@ public class UsersController implements Initializable {
         }
     }
 
-    private boolean validatePasswordConfirmInput() {
-        String val = mConfirmpassword.getText().toString();
-        if (val.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Input fields empty");
-            alert.setContentText("Password confirmation field cannot be empty");
-            alert.showAndWait();
-            return false;
-        } else {
-            return true;
-        }
-    }
 
 }
