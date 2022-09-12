@@ -8,6 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import static home.Constants.SUBSCRIPTIONS_TABLE;
 
@@ -97,29 +100,35 @@ public class AlterSubscriberTask extends Task<SubscriptionModel> {
 
         Connection connection = new DatabaseConnection().getDatabaseLinkConnection();
         PreparedStatement preparedStatement;
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         try {
-            String query = "UPDATE " + SUBSCRIPTIONS_TABLE + " " +
-                    "SET accountname = " + "'" + subscriptionModel1.getAccountname() + "' " + "," +
-                    "cellnum = " + "'" + subscriptionModel1.getCellnum() + "' " + "," +
-                    "idnumber = " + "'" + subscriptionModel1.getIdnumber() + "' " + "," +
-                    "idnumber1 = " + "'" + subscriptionModel1.getIdnumber1() + "' " + "," +
-                    "idnumber2 = " + "'" + subscriptionModel1.getIdnumber2() + "' " + "," +
-                    "packagename = " + "'" + subscriptionModel1.getPackagename() + "' " + "," +
-                    "subscriptionfee = " + "'" + subscriptionModel1.getSubscriptionfee() + "' " + "," +
-                    "subscriptionfee1 = " + "'" + subscriptionModel1.getSubscriptionfee1() + "' " + "," +
-                    "subscriptionfee2 = " + "'" + subscriptionModel1.getSubscriptionfee2() + "' " + "," +
-                    "paymethod = " + "'" + subscriptionModel1.getPaymethod() + "' " + "," +
-                    "dueday = " + "'" + subscriptionModel1.getDueday() + "' " + "," +
-                    "startdate =" + "'" + subscriptionModel1.getStartdate() + "' " + "," +
-                    "enddate = " + "'" + subscriptionModel1.getEnddate() + "' " + "," +
-                    "daysleft = " + "'" + subscriptionModel1.getDaysleft() + "' " + "," +
-                    "debitorderday = " + "'" + subscriptionModel1.getDebitorderday() + "' " + "," +
-                    "nextduedate = " + "'" + subscriptionModel1.getNextduedate() + "' " + "," +
-                    "accountbalance = " + "'" + exixstingSubscriptionModel.getAccountbalance() + "' " + "," +
-                    "adjustmentdate = " + "'" + exixstingSubscriptionModel.getAdjustmentdate() + "' " + "," +
-                    "monthsduration = " + "'" + subscriptionModel1.getMonthsduration() + "' " + "," +
-                    "accountstatus = " + "'" + exixstingSubscriptionModel.getAccountstatus() + "' " +
-                    "WHERE memberuid = " + subscriptionModel1.getMemberuid() + ";";
+            String query = null;
+            try {
+                query = "UPDATE " + SUBSCRIPTIONS_TABLE + " " +
+                        "SET accountname = " + "'" + subscriptionModel1.getAccountname() + "' " + "," +
+                        "cellnum = " + "'" + subscriptionModel1.getCellnum() + "' " + "," +
+                        "idnumber = " + "'" + subscriptionModel1.getIdnumber() + "' " + "," +
+                        "idnumber1 = " + "'" + subscriptionModel1.getIdnumber1() + "' " + "," +
+                        "idnumber2 = " + "'" + subscriptionModel1.getIdnumber2() + "' " + "," +
+                        "packagename = " + "'" + subscriptionModel1.getPackagename() + "' " + "," +
+                        "subscriptionfee = " + "'" + subscriptionModel1.getSubscriptionfee() + "' " + "," +
+                        "subscriptionfee1 = " + "'" + subscriptionModel1.getSubscriptionfee1() + "' " + "," +
+                        "subscriptionfee2 = " + "'" + subscriptionModel1.getSubscriptionfee2() + "' " + "," +
+                        "paymethod = " + "'" + subscriptionModel1.getPaymethod() + "' " + "," +
+                        "dueday = " + "'" + subscriptionModel1.getDueday() + "' " + "," +
+                        "startdate =" + "'" + dateFormat.parse(subscriptionModel1.getStartdate()) + "' " + "," +
+                        "enddate = " + "'" + dateFormat.parse( subscriptionModel1.getEnddate()) + "' " + "," +
+                        "daysleft = " + "'" + subscriptionModel1.getDaysleft() + "' " + "," +
+                        "debitorderday = " + "'" + subscriptionModel1.getDebitorderday() + "' " + "," +
+                        "nextduedate = " + "'" + dateFormat.parse(subscriptionModel1.getNextduedate() )+ "' " + "," +
+                        "accountbalance = " + "'" + exixstingSubscriptionModel.getAccountbalance() + "' " + "," +
+                        "adjustmentdate = " + "'" + dateFormat.parse(exixstingSubscriptionModel.getAdjustmentdate()) + "' " + "," +
+                        "monthsduration = " + "'" + subscriptionModel1.getMonthsduration() + "' " + "," +
+                        "accountstatus = " + "'" + exixstingSubscriptionModel.getAccountstatus() + "' " +
+                        "WHERE memberuid = " + subscriptionModel1.getMemberuid() + ";";
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
 
 
             preparedStatement = connection.prepareStatement(query);

@@ -2,14 +2,19 @@ package home;
 
 import com.github.sarxos.webcam.*;
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.borders.SolidBorder;
+import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.properties.AreaBreakType;
+import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
 import home.BackgroundTasks.SaveWeeklyMemberTask;
 import home.BackgroundTasks.UpdateProfilePicTask;
@@ -694,7 +699,7 @@ public class MembershipController extends Window implements Initializable {
         }
     }
 
-    public void getMembershipPackage( ) {
+    public void getMembershipPackage() {
         String packagename = mMembershipDesc.getValue().toString();
         String query = "SELECT * FROM " + PACKAGES_TABLE + " WHERE packagename = " + "'" + packagename + "'";
         try {
@@ -722,7 +727,7 @@ public class MembershipController extends Window implements Initializable {
             alert.setContentText("ERROR! 10" + e.getMessage());
             alert.showAndWait();
         }
-       // return selectedPackage;
+        // return selectedPackage;
     }
 
     public void rfreshAccountsTable() {
@@ -2049,20 +2054,15 @@ public class MembershipController extends Window implements Initializable {
         }
     }
 
-    private void createMembershipPdfForm(int memberId) { //todo add Member1 and Member2 Images to contract
-
+    private void createMembershipPdfForm(int memberId) {
         String pdfquery = "SELECT * FROM " + MEMBERSHIP_TABLE + " WHERE memberuid = " + "'" + memberId + "'" + " ORDER BY 43";//changed from 41
         preparedStatement = null;
         resultSet = null;
 
         MembershipModel membershipModelObject = null;
-
         membershipModelObject = getMembershipObject(pdfquery, preparedStatement, resultSet);
-        //  System.out.println("For PDF :" + membershipModelObject.getMemberuid());
-        // System.out.println("For PDF :" + membershipModelObject.getName());
 
         //create pdf document and Folder (New Directory)
-
         String membershipPdfDocPath = "C:\\Gym Proctor\\Membership Contracts\\" + membershipModelObject.getMemberaccountnumber()
                 + " " + membershipModelObject.getName() + " " + membershipModelObject.getSurname() + ".pdf";
         String gymProctorFoldersPath = "C:\\Gym Proctor\\Membership Contracts";
@@ -2072,12 +2072,11 @@ public class MembershipController extends Window implements Initializable {
                 file.mkdirs();
             } catch (Exception e) {
                 e.printStackTrace();
-                // System.out.println("Error creating Directory: " + e.getMessage());
             }
         }
 
         try {
-            // Get local project comapany logo Image and add to pdf
+            // Get local project company logo Image and add to pdf
             // String defaultLogoImagepath = "src\\main\\resources\\logo_placeholder.png"; //todo make this a global variable
             String defaultLogoImagepath = "logo_placeholder.png";
             // String localImagepath = "src\\main\\resources\\logo.png";
@@ -2101,18 +2100,34 @@ public class MembershipController extends Window implements Initializable {
             Table membershipTypeAndFessTable = new Table(membTypeAndFeesColumnWidth);
             membershipTypeAndFessTable.setBorder(new SolidBorder(1));
 
+            //Backside tables
+            float allTheLegalStuffColumnWidth[] = {900};
+            Table allTheLegalStuffTable = new Table(allTheLegalStuffColumnWidth);
+            allTheLegalStuffTable.setBackgroundColor(ColorConstants.LIGHT_GRAY);
+
             // Table membershipTypeAndFessTableHolder = new Table(540);
             //membershipTypeAndFessTableHolder.addCell(new Cell(1, 1).add(membershipTypeAndFessTable).setBorder(Border.NO_BORDER));
             //ColumnWidth for signatures table
             float siganturetableColumnWidth[] = {100, 180, 100, 180};
             Table signaturesTable = new Table(siganturetableColumnWidth);
+
             //ColumnWidth for Ts and Cs table
             float termsAndConditionsColumnWidth[] = {560};
             Table termsAndConditionsTable = new Table(termsAndConditionsColumnWidth);
 
+            //ColumnWidth for rules and regulations table
+            Table rulesAndRegulationsTable = new Table(termsAndConditionsColumnWidth);
+            rulesAndRegulationsTable.setBackgroundColor(ColorConstants.LIGHT_GRAY);
+
+            //ColumnWidth for Signatories
+            float signatoriesColumnWidth[] = {116,116,116,116,116,116};
+            Table signatoriesTable = new Table(signatoriesColumnWidth);
+            signatoriesTable.setBackgroundColor(ColorConstants.LIGHT_GRAY);
+            signatoriesTable.setBorder(new SolidBorder(1));
+
             //add cells to table
             //ROW 1 headingTable
-            headingTable.addCell(new Cell().add(new Paragraph(MEMBERSHIP_FORM_MAIN_HEADING_a + " X-PRESSIONS WELLNESS CENTRE " + MEMBERSHIP_FORM_MAIN_HEADING_b).setBold().setFontSize(8)).setBorder(Border.NO_BORDER));
+            headingTable.addCell(new Cell().add(new Paragraph(MEMBERSHIP_FORM_MAIN_HEADING_a + " XPRESSIONS WELLNESS CENTRE " + MEMBERSHIP_FORM_MAIN_HEADING_b).setBold().setFontSize(8)).setBorder(Border.NO_BORDER));
             headingTable.addCell(new Cell(4, 1).add(image.setAutoScale(true))).setBorder(Border.NO_BORDER);
             headingTable.addCell(new Cell(1, 1).add(new Paragraph("NEXT OF KIN: " + membershipModelObject.getNextofkin())).setBorder(Border.NO_BORDER)).setFontSize(7);
             headingTable.addCell(new Cell(1, 1).add(new Paragraph("CONTRACT NR: " + membershipModelObject.getContractnumber())).setBorder(Border.NO_BORDER)).setFontSize(7);
@@ -2168,7 +2183,7 @@ public class MembershipController extends Window implements Initializable {
             membersTable.addCell(new Cell().add(new Paragraph("ID NUMBER :")).setFontSize(7).setBorder(Border.NO_BORDER).setBold());
             membersTable.addCell(new Cell().add(new Paragraph(membershipModelObject.getIdnumber())).setFontSize(7).setBorder(Border.NO_BORDER));
             membersTable.addCell(new Cell().add(new Paragraph("")).setBorder(Border.NO_BORDER));
-            membersTable.addCell(new Cell().add(new Paragraph("MEMBER 2 FULLNAME:")).setFontSize(7).setBorder(Border.NO_BORDER).setBold());
+            membersTable.addCell(new Cell().add(new Paragraph("MEMBER 2 FULL NAME:")).setFontSize(7).setBorder(Border.NO_BORDER).setBold());
             membersTable.addCell(new Cell().add(new Paragraph(membershipModelObject.getMember1idnumber())).setFontSize(7).setBorder(Border.NO_BORDER));
             //ROW 7 membersTable
             membersTable.addCell(new Cell().add(new Paragraph("ADDRESS :")).setFontSize(7).setBorder(Border.NO_BORDER).setBold());
@@ -2279,8 +2294,6 @@ public class MembershipController extends Window implements Initializable {
             signaturesTable.addCell(new Cell().add(new Paragraph("Payer's signature")).setFontSize(7).setBorder(Border.NO_BORDER).setBold());
             signaturesTable.addCell(new Cell().add(new Paragraph("_____________________________________________")).setFontSize(7).setBorder(Border.NO_BORDER).setUnderline());
 
-            Paragraph allTheLegalStaffHeading = new Paragraph("\n\n\n\nALL THE LEGAL STAFF YOU NEED TO KNOW\n").setBold().setFontSize(8);
-
 
             //ROW terms and conditions Table
             termsAndConditionsTable.addCell(new Cell(1, 1).add(new Paragraph("TERMS AND CONDITIONS APPLY\n")).setFontSize(7).setBorder(Border.NO_BORDER).setBold());
@@ -2291,14 +2304,126 @@ public class MembershipController extends Window implements Initializable {
             document.add(membershipTypeAndFessTable);
             document.add(declaractionParagraph);
             document.add(signaturesTable);
-            document.add(allTheLegalStaffHeading);
-            document.add(termsAndConditionsTable);
 
-            // Define a PdfCanvas instance
-            // PdfCanvas canvas = new PdfCanvas(pdfDocument.getFirstPage());
-            // Add a rectangle
-            //canvas.rectangle(20, 20, 560 - 40, 600 - 40);
-            //canvas.stroke();
+            //Backside, Terms and conditions and Rules and Regulations
+            document.add(termsAndConditionsTable);
+            document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
+            Paragraph allTheLegalStaffHeading = new Paragraph("ALL THE LEGAL STAFF YOU NEED TO KNOW\nTerms and conditions\n ").setBold().setFontSize(8);
+
+            Paragraph allTheLegalStuffParagraph = new Paragraph(ALL_THE_LEGAL_STUFF_PARAGRAPH).setFontSize(7);
+            allTheLegalStuffTable.addCell(new Cell().add(allTheLegalStaffHeading)).setBorder(Border.NO_BORDER);
+            allTheLegalStuffTable.addCell(new Cell().add(allTheLegalStuffParagraph)).setBorder(Border.NO_BORDER);
+            allTheLegalStuffTable.addCell(new Cell().add(new Paragraph("Signature :  __________________________\n\n"))
+                    .setBorder(Border.NO_BORDER).setBackgroundColor(ColorConstants.WHITE)
+                    .setHorizontalAlignment(HorizontalAlignment.CENTER));
+            document.add(allTheLegalStuffTable);
+
+            Paragraph rulesAndRegulationsHeading = new Paragraph("RULES AND REGULATIONS").setFontSize(7);
+            Paragraph rulesAndRegulationsParagraph = new Paragraph(RULES_AND_REGULATIONS_PARAGRAPH).setFontSize(7);
+            rulesAndRegulationsTable.addCell(new Cell().add(rulesAndRegulationsHeading)).setBorder(Border.NO_BORDER);
+            rulesAndRegulationsTable.addCell(new Cell().add(rulesAndRegulationsParagraph)).setBorder(Border.NO_BORDER);
+            rulesAndRegulationsTable.addCell(new Cell().add(new Paragraph("Signature :  __________________________\n\n"))
+                    .setBorder(Border.NO_BORDER).setBackgroundColor(ColorConstants.WHITE)
+                    .setHorizontalAlignment(HorizontalAlignment.CENTER));
+
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+
+            signatoriesTable.addCell(new Cell().add(new Paragraph("MEMBER SIGNATURE: ")).setBorder(Border.NO_BORDER).setFontSize(7));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("CONSULTANT: ")).setBorder(Border.NO_BORDER).setFontSize(7).setTextAlignment(TextAlignment.RIGHT));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("DATE: ")).setBorder(Border.NO_BORDER).setFontSize(7).setTextAlignment(TextAlignment.RIGHT));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7));
+
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+
+
+            signatoriesTable.addCell(new Cell().add(new Paragraph("LEGAL GUARDIAN: ")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("CAPACITY: ")).setFontSize(7).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("IDENTITY NO: ")).setFontSize(7).setBorder(Border.NO_BORDER).setTextAlignment(TextAlignment.RIGHT));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7));
+
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+
+
+            signatoriesTable.addCell(new Cell().add(new Paragraph("DATE: ")).setBorder(Border.NO_BORDER).setFontSize(7));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+
+
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+
+
+            signatoriesTable.addCell(new Cell().add(new Paragraph("SALES MANAGER: ")).setBorder(Border.NO_BORDER).setFontSize(7));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("SIGNATURE: ")).setBorder(Border.NO_BORDER).setFontSize(7).setTextAlignment(TextAlignment.RIGHT));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("DATE: ")).setBorder(Border.NO_BORDER).setFontSize(7).setTextAlignment(TextAlignment.RIGHT));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7));
+
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+            signatoriesTable.addCell(new Cell().add(new Paragraph("")).setFontSize(7).setBorder(Border.NO_BORDER));
+
+
+            document.add(rulesAndRegulationsTable);
+            document.add(signatoriesTable);
 
             document.close();
 
@@ -2309,9 +2434,9 @@ public class MembershipController extends Window implements Initializable {
             alert.showAndWait();
 
             openPdf(membershipPdfDocPath);
-           // if (isEditingContract == false) {
-                startAddSubscriberService(membershipModelObject);
-           // }
+            // if (isEditingContract == false) {
+            startAddSubscriberService(membershipModelObject);
+            // }
 
 
         } catch (Exception e) {
@@ -2321,7 +2446,7 @@ public class MembershipController extends Window implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("PDF error might  have occurred, " + e.getMessage());
             alert.showAndWait();
-            // System.out.println("ITEXT ERROR: " + e.getMessage());
+
         }
 
         //Open document from path
@@ -2348,13 +2473,6 @@ public class MembershipController extends Window implements Initializable {
 
     private void startAddSubscriberService(MembershipModel memberlist) {
         System.out.println("Add subscriber service started!");
-        // todo calculate the following and set them on the Subscriptio model
-        //  todo before entering the new Subscriber in table
-        //Dueday, Enddate,Days left, Next due date
-        //Dueday = membershipModel.getDebitorderdate
-        //startDate = membershipModel.getStartDate
-        //Enddate - membershipModel.getStartdate + membershipModel.getMinDuration(months)
-        //Daysleft = endDate - startDate
 
         getMembershipPackage();
 
@@ -2363,9 +2481,9 @@ public class MembershipController extends Window implements Initializable {
         Long daysLeft = Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays();
         LocalDate nowDate = LocalDate.now();
         LocalDate nextDueDate = nthDayOfFollowingMonth(Integer.parseInt(memberlist.getDebitorderdate()), nowDate);
-        //account balance = cardfee + joining fee + upfrontPayment +
-        //  float accbalance = (((Float.parseFloat(memberlist.getCardfee())) + Float.parseFloat(memberlist.getJoiningfee()))
-        //  - Float.parseFloat(memberlist.getUpfrontpayment()));
+        /*accountbalance = cardfee + joining fee + upfrontPayment +
+        float accbalance = (((Float.parseFloat(memberlist.getCardfee())) + Float.parseFloat(memberlist.getJoiningfee()))
+                - Float.parseFloat(memberlist.getUpfrontpayment()));*/
 
 
         SubscriptionModel newSubscriber = new SubscriptionModel(memberlist.getMemberuid(),
@@ -2388,12 +2506,6 @@ public class MembershipController extends Window implements Initializable {
 
     }
 
-   /* public static LocalDate nthDayOfFollowingMonth(
-            int desiredDayOfMonth, LocalDate currentDate) {
-        return YearMonth.from(currentDate)
-                .plusMonths(1)
-                .atDay(desiredDayOfMonth);
-    }*/
 
     private void openPdf(String membershipPdfDocPath) {
 
@@ -2413,15 +2525,10 @@ public class MembershipController extends Window implements Initializable {
                 ex.printStackTrace();
             }
         }
-
-
     }
-
-    //TODO change this method getMembershipObject to return a single Java object not a list
 
     private MembershipModel getMembershipObject(String query, PreparedStatement preparedStatement, ResultSet resultSet) {
         MembershipModel membershipModel = null;
-        //list.clear();
         try {
             preparedStatement = connection.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
