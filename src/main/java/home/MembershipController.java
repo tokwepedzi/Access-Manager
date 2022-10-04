@@ -61,6 +61,8 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -1033,6 +1035,7 @@ public class MembershipController extends Window implements Initializable {
 
     public void updateMembershipDocumentsFields(ActionEvent event) {
 
+
         if (isEditingContract == false) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Selection Error:");
@@ -1041,6 +1044,12 @@ public class MembershipController extends Window implements Initializable {
             alert.showAndWait();
             return;
         } else if (isEditingContract == true) {
+
+            //Set date to today's
+            Date input = new Date();
+            LocalDate localDate = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            mDocumentsDate.setValue(localDate);
+
             String member = mIndemnitySelector.getValue().toString();
 
             switch (member) {
@@ -2120,7 +2129,7 @@ public class MembershipController extends Window implements Initializable {
             rulesAndRegulationsTable.setBackgroundColor(ColorConstants.LIGHT_GRAY);
 
             //ColumnWidth for Signatories
-            float signatoriesColumnWidth[] = {116,116,116,116,116,116};
+            float signatoriesColumnWidth[] = {116, 116, 116, 116, 116, 116};
             Table signatoriesTable = new Table(signatoriesColumnWidth);
             signatoriesTable.setBackgroundColor(ColorConstants.LIGHT_GRAY);
             signatoriesTable.setBorder(new SolidBorder(1));
@@ -2625,17 +2634,12 @@ public class MembershipController extends Window implements Initializable {
         }
 
         try {
-            // Get local project company logo Image and add to pdf
-            // String defaultLogoImagepath = "src\\main\\resources\\logo_placeholder.png";
             String defaultLogoImagepath = "logo_placeholder.png";
-            //String defaultProfilePicImagepath = "src\\main\\resources\\user_icon.png";
             String defaultProfilePicImagepath = "user_icon.png";
-            //String localImagepath = "src\\home\\resources\\logo.png";// todo change this to path to company logo stored in database
-            //String localImagepath = "src\\main\\resources\\logo.png";
             String localImagepath = "logo.png";
             com.itextpdf.layout.element.Image image;
             com.itextpdf.layout.element.Image memberImage = null;
-            //try using local image, if its null use default place holders
+            //try using local image, if its null use default to place holders
             try {
                 image = new com.itextpdf.layout.element.Image(ImageDataFactory.create(localImagepath));
             } catch (NullPointerException e) {
@@ -2647,16 +2651,35 @@ public class MembershipController extends Window implements Initializable {
                 String memberClass = mIndemnitySelector.getValue().toString();
                 switch (memberClass) {
                     case "MAIN MEMBER":
-                        memberImage = new com.itextpdf.layout.element.Image(ImageDataFactory.create(globalVarProfPicImage.getUrl()));
+                        try {
+                            memberImage = new com.itextpdf.layout.element.Image(ImageDataFactory.create("C:\\Gym Proctor\\Profile pictures\\" + globalVarOfSelcetectedMember.getMemberaccountnumber()
+                                    + "_pic" + ".png"));
+                        } catch (Exception e) {
+                            memberImage = new com.itextpdf.layout.element.Image(ImageDataFactory.create(defaultProfilePicImagepath));
+
+                        }
                         break;
                     case "MEMBER 1":
-                        memberImage = new com.itextpdf.layout.element.Image(ImageDataFactory.create(globalVarProfPicImage1.getUrl()));
+                        try {
+                            memberImage = new com.itextpdf.layout.element.Image(ImageDataFactory.create("C:\\Gym Proctor\\Profile pictures\\" + globalVarOfSelcetectedMember.getMember1accountnumber()
+                                    + "_pic" + ".png"));
+                        } catch (Exception e) {
+                            memberImage = new com.itextpdf.layout.element.Image(ImageDataFactory.create(defaultProfilePicImagepath));
+
+                        }
                         break;
                     case "MEMBER 2":
-                        memberImage = new com.itextpdf.layout.element.Image(ImageDataFactory.create(globalVarProfPicImage2.getUrl()));
+                        try {
+                            memberImage = new com.itextpdf.layout.element.Image(ImageDataFactory.create("C:\\Gym Proctor\\Profile pictures\\" + globalVarOfSelcetectedMember.getMember2accountnumber()
+                                    + "_pic" + ".png"));
+                        } catch (Exception e) {
+                            memberImage = new com.itextpdf.layout.element.Image(ImageDataFactory.create(defaultProfilePicImagepath));
+
+                        }
                         break;
                     default:
                         // System.out.println("No Image found on the indemnity form!");
+                        memberImage = new com.itextpdf.layout.element.Image(ImageDataFactory.create(defaultProfilePicImagepath));
                         break;
                 }
 
