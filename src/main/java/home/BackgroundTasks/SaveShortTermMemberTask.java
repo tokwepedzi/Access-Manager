@@ -1,9 +1,8 @@
 package home.BackgroundTasks;
 
 import home.DatabaseConnection;
-import home.Models.WeeklyMemberModel;
+import home.Models.ShortTermMembershipModel;
 import javafx.concurrent.Task;
-import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,16 +10,16 @@ import java.sql.SQLException;
 
 import static home.Constants.WEEKLY_MEMBERSHIP_TABLE;
 
-public class SaveWeeklyMemberTask extends Task<WeeklyMemberModel> {
+public class SaveShortTermMemberTask extends Task<ShortTermMembershipModel> {
 
-    private final WeeklyMemberModel weeklyMemberModel;
+    private final ShortTermMembershipModel shortTermMembershipModel;
 
-    public SaveWeeklyMemberTask(WeeklyMemberModel weeklyMemberModel) {
-        this.weeklyMemberModel = weeklyMemberModel;
+    public SaveShortTermMemberTask(ShortTermMembershipModel shortTermMembershipModel) {
+        this.shortTermMembershipModel = shortTermMembershipModel;
     }
 
     @Override
-    protected WeeklyMemberModel call() throws Exception {
+    protected ShortTermMembershipModel call() throws Exception {
         System.out.println("Save 7 day Member Task started successfully in background");
 
         String query = " INSERT INTO " + WEEKLY_MEMBERSHIP_TABLE + " (fullname,idnum,cellnum,startdate,enddate) " +
@@ -30,11 +29,11 @@ public class SaveWeeklyMemberTask extends Task<WeeklyMemberModel> {
             PreparedStatement preparedStatement = null;
 
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, weeklyMemberModel.getFullname());
-            preparedStatement.setString(2, weeklyMemberModel.getIdnum());
-            preparedStatement.setString(3, weeklyMemberModel.getCellnum());
-            preparedStatement.setString(4, weeklyMemberModel.getStartdate());
-            preparedStatement.setString(5, weeklyMemberModel.getEnddate());
+            preparedStatement.setString(1, shortTermMembershipModel.getFullname());
+            preparedStatement.setString(2, shortTermMembershipModel.getIdnum());
+            preparedStatement.setString(3, shortTermMembershipModel.getCellnum());
+            preparedStatement.setString(4, shortTermMembershipModel.getStartdate());
+            preparedStatement.setString(5, shortTermMembershipModel.getEnddate());
 
             preparedStatement.execute();
             preparedStatement.close();

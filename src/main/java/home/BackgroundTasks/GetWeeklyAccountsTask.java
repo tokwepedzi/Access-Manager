@@ -1,7 +1,7 @@
 package home.BackgroundTasks;
 
 import home.DatabaseConnection;
-import home.Models.WeeklyMemberModel;
+import home.Models.ShortTermMembershipModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -13,12 +13,12 @@ import java.sql.Statement;
 
 import static home.Constants.WEEKLY_MEMBERSHIP_TABLE;
 
-public class GetWeeklyAccountsTask extends Task<ObservableList<WeeklyMemberModel>> {
+public class GetWeeklyAccountsTask extends Task<ObservableList<ShortTermMembershipModel>> {
 
 
     @Override
-    protected ObservableList<WeeklyMemberModel> call() {
-        ObservableList<WeeklyMemberModel> observableList = FXCollections.observableArrayList();
+    protected ObservableList<ShortTermMembershipModel> call() {
+        ObservableList<ShortTermMembershipModel> observableList = FXCollections.observableArrayList();
         try{
         System.out.println("STARTED REFRESH WEEKLY ACCOUNTS IN BACKGROUND TASK");
         String query = "SELECT COUNT(*) AS mycount FROM " + WEEKLY_MEMBERSHIP_TABLE + " ;";
@@ -48,7 +48,7 @@ public class GetWeeklyAccountsTask extends Task<ObservableList<WeeklyMemberModel
                 String cellnum = resultSet1.getString("cellnum");
                 String startdate = resultSet1.getString("startdate");
                 String enddate = resultSet1.getString("enddate");
-                observableList.add(new WeeklyMemberModel(fullanme, idnum, cellnum, startdate, enddate));
+                observableList.add(new ShortTermMembershipModel(fullanme, idnum, cellnum, startdate, enddate));
                 updateProgress(observableList.size(), count);
                 updateValue(observableList);
             }

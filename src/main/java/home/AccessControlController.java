@@ -6,7 +6,7 @@ import home.BackgroundTasks.LogSecurityEventTask;
 import home.Models.SecurityClearanceEventModel;
 import home.Models.SubscriptionModel;
 import home.Models.SystemUser;
-import home.Models.WeeklyMemberModel;
+import home.Models.ShortTermMembershipModel;
 import home.Services.UpdateSubscriptionsService;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -15,12 +15,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -80,15 +77,15 @@ public class AccessControlController implements Initializable {
     @FXML
     private TextField m7SearchAccount;
     @FXML
-    private TableView<WeeklyMemberModel> weeklyMemberModelTableView;
+    private TableView<ShortTermMembershipModel> weeklyMemberModelTableView;
     @FXML
-    private TableColumn<WeeklyMemberModel, String> m7NameColumn;
+    private TableColumn<ShortTermMembershipModel, String> m7NameColumn;
     @FXML
-    private TableColumn<WeeklyMemberModel, String> m7CellColumn;
+    private TableColumn<ShortTermMembershipModel, String> m7CellColumn;
     @FXML
-    private TableColumn<WeeklyMemberModel, String> m7StarDateColumn;
+    private TableColumn<ShortTermMembershipModel, String> m7StarDateColumn;
     @FXML
-    private TableColumn<WeeklyMemberModel, String> m7EndDateColumn;
+    private TableColumn<ShortTermMembershipModel, String> m7EndDateColumn;
     @FXML
     private Button m7RfershAccountsBtn;
     @FXML
@@ -99,13 +96,13 @@ public class AccessControlController implements Initializable {
     private Label m7OutputMsgLabel;
 
     private ObservableList<SubscriptionModel> subscriptionModelObservableList = FXCollections.observableArrayList();
-    private ObservableList<WeeklyMemberModel> weeklyMemberModelObservableList = FXCollections.observableArrayList();
+    private ObservableList<ShortTermMembershipModel> shortTermMembershipModelObservableList = FXCollections.observableArrayList();
     private boolean isAllowedToCheckIn = false;
 
     private int memberIdentifier = 0;
     private SystemUser user;
-    private WeeklyMemberModel globalWeeklyMemberModel;
-    private TableRow<WeeklyMemberModel> globalRow;
+    private ShortTermMembershipModel globalShortTermMembershipModel;
+    private TableRow<ShortTermMembershipModel> globalRow;
 
     private Parent root;
     private Stage stage;
@@ -636,10 +633,10 @@ public class AccessControlController implements Initializable {
         mWeeklyAccTableProgress.progressProperty().bind(task.progressProperty());
         mWeeklyAccTableProgress.visibleProperty().bind(task.runningProperty());
 
-        task.valueProperty().addListener(new ChangeListener<ObservableList<WeeklyMemberModel>>() {
+        task.valueProperty().addListener(new ChangeListener<ObservableList<ShortTermMembershipModel>>() {
             @Override
-            public void changed(ObservableValue<? extends ObservableList<WeeklyMemberModel>> observableValue, ObservableList<WeeklyMemberModel> oldValue, ObservableList<WeeklyMemberModel> newValue) {
-                weeklyMemberModelObservableList = newValue;
+            public void changed(ObservableValue<? extends ObservableList<ShortTermMembershipModel>> observableValue, ObservableList<ShortTermMembershipModel> oldValue, ObservableList<ShortTermMembershipModel> newValue) {
+                shortTermMembershipModelObservableList = newValue;
                 weeklyMemberModelTableView.setItems(newValue);
             }
         });
@@ -649,7 +646,7 @@ public class AccessControlController implements Initializable {
         thread.start();
 
 
-        FilteredList<WeeklyMemberModel> filteredList = new FilteredList<>(weeklyMemberModelObservableList, b -> true);
+        FilteredList<ShortTermMembershipModel> filteredList = new FilteredList<>(shortTermMembershipModelObservableList, b -> true);
         m7SearchAccount.textProperty().addListener((observable, oldValue, newvalue) -> {
             filteredList.setPredicate(weeklyMemberModel -> {
                 //If there is no search value, display all  the members
@@ -666,7 +663,7 @@ public class AccessControlController implements Initializable {
             });
 
             //Sort the filtered data
-            SortedList<WeeklyMemberModel> sortedList = new SortedList<>(filteredList);
+            SortedList<ShortTermMembershipModel> sortedList = new SortedList<>(filteredList);
             //Bind sorted result with TableView
             sortedList.comparatorProperty().bind(weeklyMemberModelTableView.comparatorProperty());
             //Apply filtered and sorted data t o the tableVIew
@@ -677,7 +674,7 @@ public class AccessControlController implements Initializable {
 
         //Set Table Row Item Click Listener
         weeklyMemberModelTableView.setRowFactory(tv -> {
-            TableRow<WeeklyMemberModel> row = new TableRow<>();
+            TableRow<ShortTermMembershipModel> row = new TableRow<>();
             row.setOnMouseClicked(event1 -> {
                 if (event1.getClickCount() == 1 && (!row.isEmpty())) {
                     String rowData = row.getItem().getFullname().toString();
@@ -692,8 +689,8 @@ public class AccessControlController implements Initializable {
 
     }
 
-    private void setSelectedMember(TableRow<WeeklyMemberModel> row) {
-        globalWeeklyMemberModel = row.getItem();
+    private void setSelectedMember(TableRow<ShortTermMembershipModel> row) {
+        globalShortTermMembershipModel = row.getItem();
         globalRow = row;
         // System.out.println("SELECTED 7 DAY ACCOUNT FOR " + globalWeeklyMemberModel.getFullname());
         m7SearchAccount.setText(row.getItem().getFullname());
@@ -705,8 +702,8 @@ public class AccessControlController implements Initializable {
 
         // System.out.println("CHECKING IN WEEKLY MEMBER ");
         LocalDate todayDate = LocalDate.parse(GlobalMethods.getTodaysDateAsStringFromDb());
-        LocalDate startDate = LocalDate.parse(globalWeeklyMemberModel.getStartdate());
-        LocalDate endDate = LocalDate.parse(globalWeeklyMemberModel.getEnddate());
+        LocalDate startDate = LocalDate.parse(globalShortTermMembershipModel.getStartdate());
+        LocalDate endDate = LocalDate.parse(globalShortTermMembershipModel.getEnddate());
 
         if ((todayDate.isEqual(todayDate) || todayDate.isAfter(startDate)) && (todayDate.isBefore(endDate) || todayDate.isEqual(endDate))) {
             // System.out.println("MEMBER QUALIFIES ......CHECKING IN WEEKLY MEMBER ");
@@ -715,7 +712,7 @@ public class AccessControlController implements Initializable {
 
             //  System.out.println("THE USER IS :" + systemUser.getFullname());
             SecurityClearanceEventModel securityClearanceEventModel = new SecurityClearanceEventModel(
-                    "Access Control Checkin", systemUser.getFullname(), globalWeeklyMemberModel.getFullname().toString()
+                    "Access Control Checkin", systemUser.getFullname(), globalShortTermMembershipModel.getFullname().toString()
                     , "", "", "7 Day account", "System allowed");
 
                     /*AccessCounterTask counterTask = new AccessCounterTask(accountnumber, memberIdentifier);
@@ -772,7 +769,7 @@ public class AccessControlController implements Initializable {
             SystemUser systemUser = UserSession.getUserSessionInstance(null).getSystemUser();
             //set SecurityClearanceEventModel to pass to the override stage
             SecurityClearanceEventModel securityClearanceEventModel = new SecurityClearanceEventModel(
-                    "Access Control Override ", systemUser.getFullname(), globalWeeklyMemberModel.getFullname().toString()
+                    "Access Control Override ", systemUser.getFullname(), globalShortTermMembershipModel.getFullname().toString()
                     , "", "", "7 Day account", "");
            // Node node = (Node) event.getSource();
           //create new stage and open override window
@@ -806,14 +803,14 @@ public class AccessControlController implements Initializable {
     public void deleteWeeklyMemberAccount() {
         //todo implement method
         PreparedStatement preparedStatement = null;
-        if (globalWeeklyMemberModel == null) {
+        if (globalShortTermMembershipModel == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Info:");
             alert.setHeaderText(null);
             alert.setContentText("No member selected for deletion. Please select a member you want to delete");
             alert.showAndWait();
             return;
-        } else if (globalWeeklyMemberModel != null) {
+        } else if (globalShortTermMembershipModel != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm?");
             alert.setHeaderText(null);
@@ -821,7 +818,7 @@ public class AccessControlController implements Initializable {
             Optional<ButtonType> action = alert.showAndWait();
             if (action.get() == ButtonType.OK) {
                 try {
-                    String query = "DELETE FROM " + WEEKLY_MEMBERSHIP_TABLE + " WHERE idnum = " + "'" + globalWeeklyMemberModel.getIdnum() + "'" + ";";
+                    String query = "DELETE FROM " + WEEKLY_MEMBERSHIP_TABLE + " WHERE idnum = " + "'" + globalShortTermMembershipModel.getIdnum() + "'" + ";";
                     Connection connection = new DatabaseConnection().getDatabaseLinkConnection();
                     preparedStatement = connection.prepareStatement(query);
                     preparedStatement.execute();

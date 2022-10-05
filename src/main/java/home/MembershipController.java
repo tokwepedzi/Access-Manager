@@ -2,7 +2,6 @@ package home;
 
 import com.github.sarxos.webcam.*;
 import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -16,7 +15,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.AreaBreakType;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
-import home.BackgroundTasks.SaveWeeklyMemberTask;
+import home.BackgroundTasks.SaveShortTermMemberTask;
 import home.BackgroundTasks.UpdateProfilePicTask;
 import home.Models.*;
 import home.Services.AddSubscriberService;
@@ -62,7 +61,6 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -1868,14 +1866,15 @@ public class MembershipController extends Window implements Initializable {
 
     public void setHintFields(ActionEvent event) {
 
-        String shorttermpackagename = mShortTermPckgSelector.getValue();
+        String shorttermpackagename = mShortTermPckgSelector.getValue().toString();
         String query = "SELECT * FROM " + SHORT_TERM_PACKAGES_TABLE + " WHERE packagename = " + "'" + shorttermpackagename + "'";
         try {
             //Run query to fetch membership packages
-            connection = myDatabaseConnection.getDatabaseLinkConnection();
-            preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement1 = null;
             ResultSet resultSet = null;
-            resultSet = preparedStatement.executeQuery();
+            connection = myDatabaseConnection.getDatabaseLinkConnection();
+            preparedStatement1 = connection.prepareStatement(query);
+            resultSet = preparedStatement1.executeQuery();
             while (resultSet.next()) {
                 selectedShortTermPackage = (new ShortTermPackageModel(
                         resultSet.getString("packageid"),
@@ -1895,10 +1894,10 @@ public class MembershipController extends Window implements Initializable {
 
     public void save7DayMembership() {
         // System.out.println("Saving 7 Day membership to DB");
-        WeeklyMemberModel weeklyMemberModel = new WeeklyMemberModel(m7Fullaname.getText(), m7IdNUm.getText(),
+        ShortTermMembershipModel shortTermMembershipModel = new ShortTermMembershipModel(m7Fullaname.getText(), m7IdNUm.getText(),
                 m7CellNum.getText(), m7DatePicker.getValue().toString(), m7EndDate.getText());
-        final SaveWeeklyMemberTask saveWeeklyMemberTask = new SaveWeeklyMemberTask(weeklyMemberModel);
-        Thread thread = new Thread(saveWeeklyMemberTask);
+        final SaveShortTermMemberTask saveShortTermMemberTask = new SaveShortTermMemberTask(shortTermMembershipModel);
+        Thread thread = new Thread(saveShortTermMemberTask);
         thread.setDaemon(true);
         thread.start();
 
@@ -3304,6 +3303,10 @@ public class MembershipController extends Window implements Initializable {
     }
 
     public void authenticateUserInShortTCandPackages() {
+        //automatically set the date picker to today's date
+        Date input = new Date();
+        LocalDate localDate = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        m7DatePicker.setValue(localDate);
         if (mShortTermContractsTab.isSelected()) {
             try {
                 if (authlevel.equals("3")) {

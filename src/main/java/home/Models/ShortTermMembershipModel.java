@@ -1,6 +1,6 @@
 package home.Models;
 
-public class WeeklyMemberModel {
+public class ShortTermMembershipModel {
     private String fullname,idnum,cellnum,startdate,enddate;
 
     public String getFullname() {
@@ -43,7 +43,7 @@ public class WeeklyMemberModel {
         this.enddate = enddate;
     }
 
-    public WeeklyMemberModel(String fullname, String idnum, String cellnum, String startdate, String enddate) {
+    public ShortTermMembershipModel(String fullname, String idnum, String cellnum, String startdate, String enddate) {
         this.fullname = fullname;
         this.idnum = idnum;
         this.cellnum = cellnum;

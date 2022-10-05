@@ -1076,16 +1076,16 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label layoutX="12.0" layoutY="314.0" prefHeight="27.0" prefWidth="79.0" text="END DATE">
+                  <Label layoutX="12.0" layoutY="314.0" prefHeight="27.0" prefWidth="79.0" text="END DATE" textFill="TRANSPARENT">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Label fx:id="m7EndDate" layoutX="100.0" layoutY="314.0" prefHeight="27.0" prefWidth="121.0" text="DD-MM-YYYY" textFill="#bfbbbb">
+                 <!-- <Label fx:id="m7EndDate" layoutX="100.0" layoutY="314.0" prefHeight="27.0" prefWidth="121.0" text="DD-MM-YYYY" textFill="#bfbbbb">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
-                  </Label>
+                  </Label>-->
                   <Label layoutX="14.0" layoutY="203.0" prefHeight="30.0" prefWidth="68.0" text="PACKAGE">
                      <font>
                         <Font name="System Bold" size="12.0" />
