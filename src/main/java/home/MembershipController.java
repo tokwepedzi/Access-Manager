@@ -216,7 +216,7 @@ public class MembershipController extends Window implements Initializable {
     @FXML
     private Label m7EndDate, mShortFeesHint, mShortDaysHint;
     @FXML
-    private Button m7SaveBtn;
+    private Button m7SaveBtn, mDeleteShortTermPckgEntry, mRefreshShortTermPckgTblBtn;
     @FXML
     private StackPane contentArea;
     @FXML
@@ -388,7 +388,10 @@ public class MembershipController extends Window implements Initializable {
                 for (int i = 0; i < shortTermPackageList.size(); i++) {
                     mShortTermPckgSelector.getItems().add(shortTermPackageList.get(i).getPackagename());
                 }
-                mShortTermPckgSelector.setValue(shortTermPackageList.get(0).getPackagename());
+
+                //Initially set the Short term package drop down selector to null s o that when it's clicked on
+                // selection it will trigger the calculation ot the end date
+                mShortTermPckgSelector.setValue(null);
                 // Close connections to database for this query
                 connection.close();
                 preparedStatement.close();
@@ -1893,9 +1896,11 @@ public class MembershipController extends Window implements Initializable {
     }
 
     public void save7DayMembership() {
-        // System.out.println("Saving 7 Day membership to DB");
+        // Calculate the short term membership end date by adding the days duration to the start date
+        LocalDate startDate = LocalDate.parse(m7DatePicker.getValue().toString());
+        LocalDate endDate = startDate.plusDays(Long.parseLong(mShortDaysHint.getText()));
         ShortTermMembershipModel shortTermMembershipModel = new ShortTermMembershipModel(m7Fullaname.getText(), m7IdNUm.getText(),
-                m7CellNum.getText(), m7DatePicker.getValue().toString(), m7EndDate.getText());
+                m7CellNum.getText(), m7DatePicker.getValue().toString(), endDate.toString());
         final SaveShortTermMemberTask saveShortTermMemberTask = new SaveShortTermMemberTask(shortTermMembershipModel);
         Thread thread = new Thread(saveShortTermMemberTask);
         thread.setDaemon(true);
@@ -3312,6 +3317,8 @@ public class MembershipController extends Window implements Initializable {
                 if (authlevel.equals("3")) {
 
                     mManageSTPackagesPane.setVisible(false);
+                    mRefreshShortTermPckgTblBtn.setVisible(false);
+                    mDeleteShortTermPckgEntry.setVisible(false);
 
                 }
             } catch (NullPointerException e) {

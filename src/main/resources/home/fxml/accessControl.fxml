@@ -33,7 +33,7 @@
                             <children>
                                 <Pane fx:id="mParentBg" layoutX="25.0" layoutY="105.0" prefHeight="195.0" prefWidth="239.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="468.0" AnchorPane.rightAnchor="760.0">
                                     <children>
-                                        <ImageView fx:id="mSubscribermImage" fitHeight="100.0" fitWidth="100.0" layoutX="80.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fx:id="mSubscribermImage" fitHeight="100.0" fitWidth="100.0" layoutX="70.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
                                                 <Image url="@../../user_icon.png" />
                                             </image>
@@ -41,7 +41,7 @@
                                         <Rectangle fx:id="mSubscriberImageRectangle" arcHeight="15.0" arcWidth="15.0" fill="#ffffff00" height="166.0" layoutX="21.0" layoutY="15.0" stroke="#fafafab3" strokeType="INSIDE" strokeWidth="4.0" width="198.0" />
                                     </children>
                                 </Pane>
-                                <Pane layoutX="283.0" layoutY="50.0" prefHeight="450.0" prefWidth="550.0" style="-fx-background-color: #d4f7f6; -fx-border-radius: 10; -fx-background-radius: 10;" AnchorPane.bottomAnchor="348.0" AnchorPane.rightAnchor="191.0" AnchorPane.topAnchor="25.0">
+                                <Pane layoutX="283.0" layoutY="65.0" prefHeight="395.0" prefWidth="550.0" style="-fx-background-color: #d4f7f6; -fx-border-radius: 10; -fx-background-radius: 10;" AnchorPane.bottomAnchor="328.0" AnchorPane.rightAnchor="191.0" AnchorPane.topAnchor="25.0">
                                     <children>
                                         <Pane layoutX="4.0" layoutY="39.0" prefHeight="38.0" prefWidth="546.0">
                                             <children>
@@ -123,6 +123,11 @@
                                                 <Separator layoutX="-2.0" layoutY="28.0" prefHeight="12.0" prefWidth="547.0" />
                                             </children>
                                         </Pane>
+                              <Button fx:id="mReceivePaymentBtn" layoutX="346.0" layoutY="343.0" mnemonicParsing="false" onAction="#receivePayment" prefHeight="45.0" prefWidth="196.0" style="-fx-background-radius: 10;" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="RECEIVE PAYMENT" textFill="#60abd6">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Button>
                                     </children>
                                 </Pane>
                                 <Label layoutX="25.0" layoutY="4.0" prefHeight="20.0" prefWidth="178.0" text="SCAN/SEARCH ACCOUNT" textFill="WHITE">

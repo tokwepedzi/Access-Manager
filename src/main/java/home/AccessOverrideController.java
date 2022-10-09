@@ -83,7 +83,7 @@ public class AccessOverrideController implements Initializable {
 
     }
 
-    public void submitoverrideandgobacktoaccesscontroller(ActionEvent event) throws IOException {
+    public void submitOverride(ActionEvent event) throws IOException {
         stage = (Stage) mSubmitOverrideBtn.getScene().getWindow();
         try {
             if (event.getTarget() == mSubmitOverrideBtn && !mOverrideReason.getValue().isEmpty()) {

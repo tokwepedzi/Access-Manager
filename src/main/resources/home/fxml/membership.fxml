@@ -301,7 +301,6 @@
                                     </TextField>
                                 </children>
                             </HBox>
-                            <TextField layoutX="731.0" layoutY="12.0" prefHeight="98.0" prefWidth="123.0" style="-fx-background-color: #696969;" />
                             <HBox layoutX="648.0" layoutY="364.0" prefHeight="30.0" prefWidth="217.0">
                                 <children>
                                     <Label prefHeight="20.0" prefWidth="115.0" text="NEXT OF KIN CELL: ">

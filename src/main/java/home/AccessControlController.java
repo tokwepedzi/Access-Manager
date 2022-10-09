@@ -34,6 +34,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
@@ -67,6 +68,8 @@ public class AccessControlController implements Initializable {
     @FXML
     private Button mOverrideBtn;
     @FXML
+    private Button mReceivePaymentBtn;
+    @FXML
     private ImageView mDeleteIcon;
 
 
@@ -89,7 +92,7 @@ public class AccessControlController implements Initializable {
     @FXML
     private Button m7RfershAccountsBtn;
     @FXML
-    private Button m7CheckinBtn,m7OverrideBtn;
+    private Button m7CheckinBtn, m7OverrideBtn;
     @FXML
     private Button m7DeleteBtn;
     @FXML
@@ -106,16 +109,21 @@ public class AccessControlController implements Initializable {
 
     private Parent root;
     private Stage stage;
-    private Scene scene;
+    private Stage receivePaymentstage;
+    //private Scene scene;
+    //private Scene receivePaymentsScene;
     private SystemUser systemUser;
     private String authlevel = "";
+    private SubscriptionModel selectedSubscriberAccount;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // startUpdatingSubscriptions();
         systemUser = UserSession.getSystemUser();
         authlevel = systemUser.getAuthlevel();
-        if(!authlevel.equals("1")){
+        //hide "receive payments button"
+        mReceivePaymentBtn.setVisible(false);
+        if (!authlevel.equals("1")) {
             m7DeleteBtn.setVisible(false);
             mDeleteIcon.setVisible(false);
 
@@ -160,7 +168,7 @@ public class AccessControlController implements Initializable {
         clearFileds();
         refreshWeeklyAccountsTable();
 
-        mSearchAccount.setTextFormatter(new TextFormatter<>((change )-> {
+        mSearchAccount.setTextFormatter(new TextFormatter<>((change) -> {
             change.setText(change.getText().toUpperCase());
             return change;
 
@@ -168,7 +176,6 @@ public class AccessControlController implements Initializable {
 
 
     }
-
 
 
     public void searchForAccount() {
@@ -186,6 +193,7 @@ public class AccessControlController implements Initializable {
                         subscriptionModel.getSubaccount1().toLowerCase().matches(searchKeyWord) ||
                         subscriptionModel.getSubaccount2().toLowerCase().matches(searchKeyWord)) {
                     // System.out.println(subscriptionModel.getAccountname() + " " + subscriptionModel.getAccountnum());
+                    selectedSubscriberAccount = subscriptionModel;
                     setFields(subscriptionModel);
                     return true; //Means a match has been found in account number field
                 } else if ((subscriptionModel.getAccountnum().toLowerCase().matches(searchKeyWord) ||
@@ -222,6 +230,7 @@ public class AccessControlController implements Initializable {
     }
 
     public void checkInSubscriber() {
+        mReceivePaymentBtn.setVisible(false);
         if (isAllowedToCheckIn) {
             // System.out.println("Checking In Subscriber");
             String accountnumber = mSearchAccount.getText().toString();
@@ -297,6 +306,7 @@ public class AccessControlController implements Initializable {
 
     public void overrideAction() {
         // System.out.println("Override Action on Subscriber");
+        mReceivePaymentBtn.setVisible(false);
         if (!isAllowedToCheckIn) {
             try {
 
@@ -327,19 +337,19 @@ public class AccessControlController implements Initializable {
                 stage.showAndWait();
                 clearFileds();
                 //refreshWeeklyAccountsTable();
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.initModality(Modality.APPLICATION_MODAL);
                 alert.setTitle("WARNING!");
                 alert.setHeaderText(null);
-                alert.setContentText("Null selection: "+e.getMessage());
+                alert.setContentText("Null selection: " + e.getMessage());
                 alert.showAndWait();
-            }catch (Exception e){
+            } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.initModality(Modality.APPLICATION_MODAL);
                 alert.setTitle("WARNING!");
                 alert.setHeaderText(null);
-                alert.setContentText("Error: "+e.getMessage());
+                alert.setContentText("Error: " + e.getMessage());
                 alert.showAndWait();
                 e.printStackTrace();
             }
@@ -354,6 +364,31 @@ public class AccessControlController implements Initializable {
         }
 
         memberIdentifier = 0;
+    }
+
+    public void receivePayment() {
+        System.out.println("Receive payment button invoked");
+        mReceivePaymentBtn.setVisible(false);
+        receivePaymentstage = new Stage();
+        receivePaymentstage.setResizable(false);
+        receivePaymentstage.initStyle(StageStyle.DECORATED);
+        receivePaymentstage.setUserData(selectedSubscriberAccount);
+        Parent root = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home/fxml/payments.fxml"));
+        try {
+            root = FXMLLoader.load(getClass().getResource("/home/fxml/payments.fxml"));
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        PaymentsController paymentsController = new PaymentsController();
+        paymentsController.getAccount(selectedSubscriberAccount);
+        Scene receivePaymentsScene = new Scene(root, 600, 500);
+        receivePaymentstage.setScene(receivePaymentsScene);
+        receivePaymentstage.initModality(Modality.APPLICATION_MODAL);
+        receivePaymentstage.initOwner(m7OverrideBtn.getScene().getWindow());
+        receivePaymentstage.showAndWait();
+        clearFileds();
     }
 
     public void handleKeyPressed(KeyEvent event) {
@@ -464,7 +499,7 @@ public class AccessControlController implements Initializable {
         }
 
         mSubscriberImageRectangle.setFill(new ImagePattern(new Image(url.toExternalForm())));
-        if((new Image(url.toExternalForm()).isError())){
+        if ((new Image(url.toExternalForm()).isError())) {
             picfile = new File(DEFAULT_USER_PIC.toString());
             url = picfile.toURI().toURL();
             mSubscriberImageRectangle.setFill(new ImagePattern(new Image(url.toExternalForm())));
@@ -511,7 +546,7 @@ public class AccessControlController implements Initializable {
         }
 
         mSubscriberImageRectangle.setFill(new ImagePattern(new Image(url.toExternalForm())));
-        if((new Image(url.toExternalForm()).isError())){
+        if ((new Image(url.toExternalForm()).isError())) {
             picfile = new File(DEFAULT_USER_PIC.toString());
             url = picfile.toURI().toURL();
             mSubscriberImageRectangle.setFill(new ImagePattern(new Image(url.toExternalForm())));
@@ -523,7 +558,8 @@ public class AccessControlController implements Initializable {
     private void updateUiForMainMember(SubscriptionModel subscriptionModel) throws MalformedURLException {
         //isMainMember = true;
         memberIdentifier = 1;
-
+        //set "receive payments button visible"
+        mReceivePaymentBtn.setVisible(true);
         LocalDate todaysDate = LocalDate.parse(getTodaysDateAsStringFromDb());
         LocalDate nextdueDate = LocalDate.parse(subscriptionModel.getNextduedate());
         mNameField.setText("NAME: " + subscriptionModel.getAccountname());
@@ -536,7 +572,7 @@ public class AccessControlController implements Initializable {
         mDueDateField.setText("NEXT DUE DATE IS ON :" + subscriptionModel.getNextduedate());
         //f account balance is greater than zero and  the next due date has passed
         // if ((Float.parseFloat(subscriptionModel.getAccountbalance())) > (Float.parseFloat(subscriptionModel.getSubscriptionfee())) && nextdueDate.isBefore(todaysDate)) {
-       // if ((Float.parseFloat(subscriptionModel.getAccountbalance())) > (Float.parseFloat(subscriptionModel.getSubscriptionfee()))) {
+        // if ((Float.parseFloat(subscriptionModel.getAccountbalance())) > (Float.parseFloat(subscriptionModel.getSubscriptionfee()))) {
         if ((Float.parseFloat(subscriptionModel.getAccountbalance())) > 0) {
 
             mParentBg.setStyle("-fx-background-color: #C80815;" + "-fx-background-radius: 20;");
@@ -577,7 +613,7 @@ public class AccessControlController implements Initializable {
         }
 
         mSubscriberImageRectangle.setFill(new ImagePattern(new Image(url.toExternalForm())));
-        if((new Image(url.toExternalForm()).isError())){
+        if ((new Image(url.toExternalForm()).isError())) {
             picfile = new File(DEFAULT_USER_PIC.toString());
             url = picfile.toURI().toURL();
             mSubscriberImageRectangle.setFill(new ImagePattern(new Image(url.toExternalForm())));
@@ -700,69 +736,69 @@ public class AccessControlController implements Initializable {
         try {
 
 
-        // System.out.println("CHECKING IN WEEKLY MEMBER ");
-        LocalDate todayDate = LocalDate.parse(GlobalMethods.getTodaysDateAsStringFromDb());
-        LocalDate startDate = LocalDate.parse(globalShortTermMembershipModel.getStartdate());
-        LocalDate endDate = LocalDate.parse(globalShortTermMembershipModel.getEnddate());
+            // System.out.println("CHECKING IN WEEKLY MEMBER ");
+            LocalDate todayDate = LocalDate.parse(GlobalMethods.getTodaysDateAsStringFromDb());
+            LocalDate startDate = LocalDate.parse(globalShortTermMembershipModel.getStartdate());
+            LocalDate endDate = LocalDate.parse(globalShortTermMembershipModel.getEnddate());
 
-        if ((todayDate.isEqual(todayDate) || todayDate.isAfter(startDate)) && (todayDate.isBefore(endDate) || todayDate.isEqual(endDate))) {
-            // System.out.println("MEMBER QUALIFIES ......CHECKING IN WEEKLY MEMBER ");
-            // System.out.println("Logging reason");
-            SystemUser systemUser = UserSession.getUserSessionInstance(null).getSystemUser();
+            if ((todayDate.isEqual(todayDate) || todayDate.isAfter(startDate)) && (todayDate.isBefore(endDate) || todayDate.isEqual(endDate))) {
+                // System.out.println("MEMBER QUALIFIES ......CHECKING IN WEEKLY MEMBER ");
+                // System.out.println("Logging reason");
+                SystemUser systemUser = UserSession.getUserSessionInstance(null).getSystemUser();
 
-            //  System.out.println("THE USER IS :" + systemUser.getFullname());
-            SecurityClearanceEventModel securityClearanceEventModel = new SecurityClearanceEventModel(
-                    "Access Control Checkin", systemUser.getFullname(), globalShortTermMembershipModel.getFullname().toString()
-                    , "", "", "7 Day account", "System allowed");
+                //  System.out.println("THE USER IS :" + systemUser.getFullname());
+                SecurityClearanceEventModel securityClearanceEventModel = new SecurityClearanceEventModel(
+                        "Access Control Checkin", systemUser.getFullname(), globalShortTermMembershipModel.getFullname().toString()
+                        , "", "", "7 Day account", "System allowed");
 
                     /*AccessCounterTask counterTask = new AccessCounterTask(accountnumber, memberIdentifier);
                     Thread thread = new Thread(counterTask);
                     thread.setDaemon(true);
                     thread.start();*/
 
-            LogSecurityEventTask logSecurityEventTask = new LogSecurityEventTask(securityClearanceEventModel);
-            Thread thread = new Thread(logSecurityEventTask);
-            thread.setDaemon(true);
-            thread.start();
-            m7OutputMsgLabel.setText("Check in successful");
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setTitle("Info:");
-            alert.setHeaderText(null);
-            alert.setContentText("Check in Successful!");
-            alert.showAndWait();
+                LogSecurityEventTask logSecurityEventTask = new LogSecurityEventTask(securityClearanceEventModel);
+                Thread thread = new Thread(logSecurityEventTask);
+                thread.setDaemon(true);
+                thread.start();
+                m7OutputMsgLabel.setText("Check in successful");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.initModality(Modality.APPLICATION_MODAL);
+                alert.setTitle("Info:");
+                alert.setHeaderText(null);
+                alert.setContentText("Check in Successful!");
+                alert.showAndWait();
 
-            //todo delay seconds
-            GlobalMethods.delayWithSeconds(2);
-            refreshWeeklyAccountsTable();
-            m7SearchAccount.clear();
+                //todo delay seconds
+                GlobalMethods.delayWithSeconds(2);
+                refreshWeeklyAccountsTable();
+                m7SearchAccount.clear();
 
-        } else {
-            // System.out.println("MEMBER DOES NOT QUALIFY ABANDONING ");
-           // globalRow.setStyle("-fx-background-color: red ;");
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initModality(Modality.APPLICATION_MODAL);
-            alert.setTitle("WARNING!");
-            alert.setHeaderText(null);
-            alert.setContentText("The selected account holder does not qualify for access. Expired access");
-            alert.showAndWait();
-            return;
-           // overrideWeekelyMember(null);
+            } else {
+                // System.out.println("MEMBER DOES NOT QUALIFY ABANDONING ");
+                // globalRow.setStyle("-fx-background-color: red ;");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.initModality(Modality.APPLICATION_MODAL);
+                alert.setTitle("WARNING!");
+                alert.setHeaderText(null);
+                alert.setContentText("The selected account holder does not qualify for access. Expired access");
+                alert.showAndWait();
+                return;
+                // overrideWeekelyMember(null);
 
 
-        }
-        }catch (NullPointerException e){
+            }
+        } catch (NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setTitle("ERROR!");
             alert.setHeaderText(null);
-            alert.setContentText("Null selection: "+e.getMessage());
+            alert.setContentText("Null selection: " + e.getMessage());
             alert.showAndWait();
 
         }
     }
 
-//Override short term account member
+    //Override short term account member
     public void overrideWeekelyMember(ActionEvent event) {
         try {
 
@@ -771,28 +807,28 @@ public class AccessControlController implements Initializable {
             SecurityClearanceEventModel securityClearanceEventModel = new SecurityClearanceEventModel(
                     "Access Control Override ", systemUser.getFullname(), globalShortTermMembershipModel.getFullname().toString()
                     , "", "", "7 Day account", "");
-           // Node node = (Node) event.getSource();
-          //create new stage and open override window
-           stage = new Stage();
+            // Node node = (Node) event.getSource();
+            //create new stage and open override window
+            stage = new Stage();
             stage.setResizable(false);
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setUserData(securityClearanceEventModel);
             Parent root = FXMLLoader.load(getClass().getResource("/home/fxml/accessOverride.fxml"));
-            Scene scene1 = new Scene(root,450,420);
+            Scene scene1 = new Scene(root, 450, 420);
             stage.setScene(scene1);
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(m7OverrideBtn.getScene().getWindow());
             stage.showAndWait();
             refreshWeeklyAccountsTable();
 
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initModality(Modality.APPLICATION_MODAL);
             alert.setTitle("WARNING!");
             alert.setHeaderText(null);
-            alert.setContentText("Null selection: "+e.getMessage());
+            alert.setContentText("Null selection: " + e.getMessage());
             alert.showAndWait();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

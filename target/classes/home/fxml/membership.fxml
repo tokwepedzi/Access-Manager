@@ -301,7 +301,6 @@
                                     </TextField>
                                 </children>
                             </HBox>
-                            <TextField layoutX="731.0" layoutY="12.0" prefHeight="98.0" prefWidth="123.0" style="-fx-background-color: #696969;" />
                             <HBox layoutX="648.0" layoutY="364.0" prefHeight="30.0" prefWidth="217.0">
                                 <children>
                                     <Label prefHeight="20.0" prefWidth="115.0" text="NEXT OF KIN CELL: ">
@@ -1180,7 +1179,7 @@
                          </ScrollPane>
                      </children>
                   </Pane>
-            <Button fx:id="m7SaveBtn" layoutX="247.0" layoutY="509.0" mnemonicParsing="false" onAction="#save7DayMembership" prefHeight="45.0" prefWidth="152.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="SAVE">
+            <Button fx:id="m7SaveBtn" layoutX="120.0" layoutY="509.0" mnemonicParsing="false" onAction="#save7DayMembership" prefHeight="45.0" prefWidth="152.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="SAVE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
