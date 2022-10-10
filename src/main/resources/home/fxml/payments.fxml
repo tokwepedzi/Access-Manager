@@ -8,12 +8,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.PaymentsController">
    <children>
       <Pane layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" style="-fx-background-radius: 15; -fx-background-color: #d4f7f6; -fx-border-color: #005b96; -fx-border-radius: 7; -fx-border-width: 3;">
          <children>
-            <Button id="b" fx:id="mTenderBtn" layoutX="171.0" layoutY="412.0" mnemonicParsing="false" onAction="#tender" prefHeight="41.0" prefWidth="258.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="TENDER" />
+            <Button id="b" fx:id="mTenderBtn" layoutX="171.0" layoutY="412.0" mnemonicParsing="false" onAction="#submitTender" prefHeight="41.0" prefWidth="258.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="TENDER" />
             <Label layoutX="46.0" layoutY="339.0" text="PAYMENT AMOUNT" textFill="#005b96">
                <font>
                   <Font name="System Bold" size="18.0" />
@@ -59,7 +58,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="mPaymentDescription" layoutX="281.0" layoutY="258.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="210.0" />
+            <ChoiceBox fx:id="mPaymentDescription" layoutX="281.0" layoutY="258.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="210.0" styleClass="body_description_labels_txt" stylesheets="@../../css/style.css" />
          </children>
       </Pane>
    </children>

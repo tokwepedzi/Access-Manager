@@ -373,17 +373,23 @@ public class AccessControlController implements Initializable {
         receivePaymentstage.setResizable(false);
         receivePaymentstage.initStyle(StageStyle.DECORATED);
         receivePaymentstage.setUserData(selectedSubscriberAccount);
+
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/home/fxml/payments.fxml"));
         Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/home/fxml/payments.fxml"));
         try {
-            root = FXMLLoader.load(getClass().getResource("/home/fxml/payments.fxml"));
+            root = fxmlLoader.load();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        PaymentsController paymentsController = new PaymentsController();
-        paymentsController.getAccount(selectedSubscriberAccount);
+       // PaymentsController paymentsController = new PaymentsController();
+        //paymentsController.getAccount(selectedSubscriberAccount);
         Scene receivePaymentsScene = new Scene(root, 600, 500);
+
+        //Access the controller and call a method
+        PaymentsController  paymentsController = fxmlLoader.getController();
+        paymentsController.getAccount(selectedSubscriberAccount);
         receivePaymentstage.setScene(receivePaymentsScene);
         receivePaymentstage.initModality(Modality.APPLICATION_MODAL);
         receivePaymentstage.initOwner(m7OverrideBtn.getScene().getWindow());

@@ -80,3 +80,10 @@
 -fx-font-weight : bold;
 -fx-font-size : 15;
 }
+
+.body_description_labels_txt{
+.modules_pane_heading_txt{
+-fx-text-fill : #005b96;
+-fx-font-weight : bold;
+-fx-font-size : 18;
+}}
