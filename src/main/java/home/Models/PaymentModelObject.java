@@ -3,13 +3,17 @@ package home.Models;
 public class PaymentModelObject {
     private String transactionid, paymentdate, paymentmothdate, paymentamount, monthlypayablesubscriptionssum,
             accountname, accountnum, bankaccountnum, idnum, packagename, startdate, enddate, monthsduration, monthselapsed,
-            payableelapsed, amountpaidtodate, contractvalue, accountbalance;
+            payableelapsed, amountpaidtodate, contractvalue, accountbalancebefore,accountbalanceafter, description;
+
+    public PaymentModelObject() {
+    }
 
     public PaymentModelObject(String transactionid, String paymentdate, String paymentmothdate, String paymentamount,
                               String monthlypayablesubscriptionssum, String accountname, String accountnum,
                               String bankaccountnum, String idnum, String packagename, String startdate,
                               String enddate, String monthsduration, String monthselapsed, String payableelapsed,
-                              String amountpaidtodate, String contractvalue, String accountbalance) {
+                              String amountpaidtodate, String contractvalue, String accountbalancebefore,
+                              String accountbalanceafter, String description) {
         this.transactionid = transactionid;
         this.paymentdate = paymentdate;
         this.paymentmothdate = paymentmothdate;
@@ -27,7 +31,9 @@ public class PaymentModelObject {
         this.payableelapsed = payableelapsed;
         this.amountpaidtodate = amountpaidtodate;
         this.contractvalue = contractvalue;
-        this.accountbalance = accountbalance;
+        this.accountbalancebefore = accountbalancebefore;
+        this.accountbalanceafter = accountbalanceafter;
+        this.description = description;
     }
 
     public String getTransactionid() {
@@ -166,14 +172,26 @@ public class PaymentModelObject {
         this.contractvalue = contractvalue;
     }
 
-    public String getAccountbalance() {
-        return accountbalance;
+    public String getAccountbalancebefore() {
+        return accountbalancebefore;
     }
 
-    public void setAccountbalance(String accountbalance) {
-        this.accountbalance = accountbalance;
+    public void setAccountbalancebefore(String accountbalancebefore) {
+        this.accountbalancebefore = accountbalancebefore;
+    }
+    public String getAccountbalanceafter() {
+        return accountbalanceafter;
     }
 
-    public PaymentModelObject() {
+    public void setAccountbalanceafter(String accountbalanceafter) {
+        this.accountbalanceafter = accountbalanceafter;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

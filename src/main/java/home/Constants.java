@@ -6,6 +6,7 @@ public class Constants {
     public static String USERS_TABLE = "users_tb";
     public static String MEMBERSHIP_TABLE ="membership_tb";
     public static String PACKAGES_TABLE ="packages_tb";
+    public  static  String PAYMENTS_TABLE = "payments_tb";
 
     public static String SHORT_TERM_PACKAGES_TABLE ="shorttermpackages_tb";
 
