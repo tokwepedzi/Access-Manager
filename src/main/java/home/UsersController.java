@@ -169,8 +169,8 @@ public class UsersController implements Initializable {
         try {
             mAuthlevel.getItems().addAll(AuthLevelList);
             mAuthlevel.setValue(AuthLevelList[0]);
-            mGender.getItems().addAll(GenderList);
-            mGender.setValue(GenderList[0]);
+            //mGender.getItems().addAll(GenderList);
+           // mGender.setValue(GenderList[0]);
 
             //Initialize Table Columns for Users accounts table
             mUidColumn.setCellValueFactory(new PropertyValueFactory<>("uid"));
@@ -377,11 +377,11 @@ public class UsersController implements Initializable {
         InputStream inputStream = null;
         mFullname.setText(row.getItem().getFullname());
         mCellnumber.setText(row.getItem().getCellnumber());
-        mIdnumber.setText(row.getItem().getIdnumber());
-        mDob.setValue(LocalDate.parse(row.getItem().getDob()));
-        mAddress.setText(row.getItem().getAddress());
-        mGender.setValue(row.getItem().getGender());
-        mEmail.setText(row.getItem().getEmail());
+       // mIdnumber.setText(row.getItem().getIdnumber());
+       // mDob.setValue(LocalDate.parse(row.getItem().getDob()));
+       // mAddress.setText(row.getItem().getAddress());
+       // mGender.setValue(row.getItem().getGender());
+       // mEmail.setText(row.getItem().getEmail());
         mAuthlevel.setValue(row.getItem().getAuthlevel());
         mPassword.setText(row.getItem().getPassword());
 
@@ -438,8 +438,7 @@ public class UsersController implements Initializable {
         } else if (mAuthlevel.getValue().equals("ATTENDANT")) {
             authlevelint = 3;
         }
-        if (!validateFullNameInput() | !validateCellNumberInput() | !validateIdNumberInput() | !validateDobInput()
-                | !validateAddressInput() | !validateGenderInput() | !validateEmaiInput() | !validateAuthLevelInput()
+        if (!validateFullNameInput() | !validateCellNumberInput() | !validateAuthLevelInput()
                 | !validatePasswordInput()) {
             return;
         } else if (isEditing == false && uidSelectedforEdit == null) {
@@ -451,11 +450,11 @@ public class UsersController implements Initializable {
                 preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, mFullname.getText());
                 preparedStatement.setString(2, mCellnumber.getText());
-                preparedStatement.setString(3, mIdnumber.getText());
-                preparedStatement.setString(4, mDob.getValue().toString());
-                preparedStatement.setString(5, mAddress.getText());
-                preparedStatement.setString(6, mGender.getValue().toString());
-                preparedStatement.setString(7, mEmail.getText());
+                preparedStatement.setString(3, "IDNUM");
+                preparedStatement.setString(4, "01-01-2000");
+                preparedStatement.setString(5, "ADDRESS");
+                preparedStatement.setString(6, "GENDER");
+                preparedStatement.setString(7, "EMAIL");
                 if (mAuthlevel.getValue().equals("ADMINISTRATOR")) {
                     preparedStatement.setString(8, "1");
                 } else if (mAuthlevel.getValue().equals("SUPERVISOR")) {
@@ -514,11 +513,11 @@ public class UsersController implements Initializable {
                 String query = "UPDATE " + USERS_TABLE + " " +
                         "SET fullname = " + "'" + mFullname.getText() + "' " + "," +
                         "cellnumber = " + "'" + mCellnumber.getText() + "' " + "," +
-                        "idnumber = " + "'" + mIdnumber.getText() + "' " + "," +
-                        "dob = " + "'" + mDob.getValue() + "' " + "," +
-                        "address = " + "'" + mAddress.getText() + "' " + "," +
-                        "gender = " + "'" + mGender.getValue() + "' " + "," +
-                        "email = " + "'" + mEmail.getText() + "' " + "," +
+                        "idnumber = " + "'" + "IDNUM" + "' " + "," +
+                        "dob = " + "'" + "01-01-2000"+ "' " + "," +
+                        "address = " + "'" + "ADDRESS" + "' " + "," +
+                        "gender = " + "'" + "GENDER" + "' " + "," +
+                        "email = " + "'" + "EMAIL" + "' " + "," +
                         "authlevel = " + "'" + authlevelint + "' " + "," +
                         "password = " + "'" + mPassword.getText() + "' " +
                         "WHERE uid = " + uidSelectedforEdit + ";";
@@ -527,11 +526,11 @@ public class UsersController implements Initializable {
                 String query2 = "UPDATE " + USERS_TABLE + " " +
                         "SET fullname = " + "'" + mFullname.getText() + "' " + "," +
                         "cellnumber = " + "'" + mCellnumber.getText() + "' " + "," +
-                        "idnumber = " + "'" + mIdnumber.getText() + "' " + "," +
-                        "dob = " + "'" + mDob.getValue() + "' " + "," +
-                        "address = " + "'" + mAddress.getText() + "' " + "," +
-                        "gender = " + "'" + mGender.getValue() + "' " + "," +
-                        "email = " + "'" + mEmail.getText() + "' " + "," +
+                        "idnumber = " + "'" + "IDNUM" + "' " + "," +
+                        "dob = " + "'" + "01-01-2000"+ "' " + "," +
+                        "address = " + "'" + "ADDRESS" + "' " + "," +
+                        "gender = " + "'" + "GENDER" + "' " + "," +
+                        "email = " + "'" + "EMAIL" + "' " + "," +
                         "authlevel = " + "'" + authlevelint + "' " + "," +
                         "profilepicture = " + "?" + "," +
                         "password = " + "'" + mPassword.getText() + "' " +
@@ -601,11 +600,11 @@ public class UsersController implements Initializable {
     private void clearFields() {
         mFullname.setText("");
         mCellnumber.setText("");
-        mIdnumber.setText("");
-        mDob.setValue(null);
-        mAddress.setText("");
-        mGender.setValue("");
-        mEmail.setText("");
+        //mIdnumber.setText("");
+       // mDob.setValue(null);
+       // mAddress.setText("");
+       // mGender.setValue("");
+       // mEmail.setText("");
         mAuthlevel.setValue("");
         mPassword.setText("");
         mUserPicRec.setFill(Color.TRANSPARENT);
@@ -704,7 +703,7 @@ public class UsersController implements Initializable {
 
         ObservableList<SystemUser> UsersList = FXCollections.observableArrayList();
         UsersList.clear();
-        query = "SELECT * FROM " + USERS_TABLE + " ORDER BY 11";
+        query = "SELECT * FROM " + USERS_TABLE ;
         try {
             connection = myDatabaseConnection.getDatabaseLinkConnection();
             preparedStatement = connection.prepareStatement(query);
@@ -860,7 +859,33 @@ public class UsersController implements Initializable {
         }
     }
 
-    private boolean validateIdNumberInput() {
+    private boolean validateAuthLevelInput() {
+        String val = mAuthlevel.getValue().toString();
+        if (val.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Input fields empty");
+            alert.setContentText("An Access level is required");
+            alert.showAndWait();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean validatePasswordInput() {
+        String val = mPassword.getText().toString();
+        if (val.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Input fields empty");
+            alert.setContentText("Password cannot be empty");
+            alert.showAndWait();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /*private boolean validateIdNumberInput() {
         String val = mIdnumber.getText().toString();
         if (val.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -925,33 +950,9 @@ public class UsersController implements Initializable {
         } else {
             return true;
         }
-    }
+    }*/
 
-    private boolean validateAuthLevelInput() {
-        String val = mAuthlevel.getValue().toString();
-        if (val.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Input fields empty");
-            alert.setContentText("An Access level is required");
-            alert.showAndWait();
-            return false;
-        } else {
-            return true;
-        }
-    }
 
-    private boolean validatePasswordInput() {
-        String val = mPassword.getText().toString();
-        if (val.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Input fields empty");
-            alert.setContentText("Password cannot be empty");
-            alert.showAndWait();
-            return false;
-        } else {
-            return true;
-        }
-    }
 
 
 }
