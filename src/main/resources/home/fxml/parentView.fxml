@@ -119,14 +119,14 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="dashboardBtn" fx:id="systemBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openSystemModule" prefHeight="50.0" prefWidth="200.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="SYSTEM" textAlignment="CENTER" textFill="WHITE">
+            <Button id="dashboardBtn" fx:id="systemBtn" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#openSystemModule" prefHeight="50.0" prefWidth="200.0" styleClass="menu_bar_button" stylesheets="@../../css/style.css" text="ACCOUNTS" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../system.png" />
+                        <Image url="@../../accounting.png" />
                      </image>
                   </ImageView>
                </graphic>

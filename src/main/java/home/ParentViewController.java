@@ -241,20 +241,19 @@ public class ParentViewController implements Initializable {
         /*--------------------- SHOW ALERT DIALOG FOR NOW TILL CODE BELOW CAN BE IMPLEMENTE WHE THE FUNCTIONALIYT */
         //HAS BBEN FINALIZED
 
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+       /* Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Info:");
         alert.setHeaderText(null);
         alert.setContentText("Access denied! You do not have user rights to access this module");
         alert.showAndWait();
-        return;
+        return;*/
 
 
-/*
 
         try {
             //Check User rights
-            if (authlevel.equals("1")) {
-                Parent fxmlparent = FXMLLoader.load(getClass().getResource("/home/fxml/system.fxml"));
+         if (authlevel.equals("1") || authlevel.equals("2")) {
+                Parent fxmlparent = FXMLLoader.load(getClass().getResource("/home/fxml/accounts.fxml"));
                 contentArea.getChildren().removeAll();
                 contentArea.getChildren().setAll(fxmlparent);
                 moduleHeadingLabel.setText("SYSTEM");
@@ -269,7 +268,6 @@ public class ParentViewController implements Initializable {
             }
         } catch (NullPointerException e) {
             e.printStackTrace();
-            logOutUser(event);
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Info:");
@@ -277,7 +275,6 @@ public class ParentViewController implements Initializable {
             alert.setContentText("ERROR! "+e.getMessage());
             alert.showAndWait();
         }
-*/
 
 
 
