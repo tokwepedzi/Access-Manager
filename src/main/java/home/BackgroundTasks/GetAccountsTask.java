@@ -2,6 +2,7 @@ package home.BackgroundTasks;
 
 import home.DatabaseConnection;
 import home.Models.MemberSearchModel;
+import home.Services.GetAccountsService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -14,6 +15,8 @@ import java.sql.Statement;
 import static home.Constants.MEMBERSHIP_TABLE;
 
 public class GetAccountsTask extends Task<ObservableList<MemberSearchModel>> {
+
+
     @Override
     protected ObservableList<MemberSearchModel> call() throws Exception {
         Connection getAccconnection = new DatabaseConnection().getDatabaseLinkConnection();
@@ -22,6 +25,7 @@ public class GetAccountsTask extends Task<ObservableList<MemberSearchModel>> {
         Statement getAccstatement = getAccconnection.createStatement();
         ResultSet countResultset = getAccstatement.executeQuery(getAccountsQuery);
         int count = 0;
+
 
         if (countResultset.next()) {
              count = countResultset.getInt("mycount");

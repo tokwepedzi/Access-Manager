@@ -1,14 +1,14 @@
 package home.Models;
 
 public class PaymentModelObject {
-    private String transactionid, paymentdate, paymentmothdate, paymentamount, monthlypayablesubscriptionssum,
+    private String transactionid, paymentdate, paymentmonthdate, paymentamount, monthlypayablesubscriptionssum,
             accountname, accountnum, bankaccountnum, idnum, packagename, startdate, enddate, monthsduration, monthselapsed,
             payableelapsed, amountpaidtodate, contractvalue, accountbalancebefore,accountbalanceafter, description;
 
     public PaymentModelObject() {
     }
 
-    public PaymentModelObject(String transactionid, String paymentdate, String paymentmothdate, String paymentamount,
+    public PaymentModelObject(String transactionid, String paymentdate, String paymentmonthdate, String paymentamount,
                               String monthlypayablesubscriptionssum, String accountname, String accountnum,
                               String bankaccountnum, String idnum, String packagename, String startdate,
                               String enddate, String monthsduration, String monthselapsed, String payableelapsed,
@@ -16,7 +16,7 @@ public class PaymentModelObject {
                               String accountbalanceafter, String description) {
         this.transactionid = transactionid;
         this.paymentdate = paymentdate;
-        this.paymentmothdate = paymentmothdate;
+        this.paymentmonthdate = paymentmonthdate;
         this.paymentamount = paymentamount;
         this.monthlypayablesubscriptionssum = monthlypayablesubscriptionssum;
         this.accountname = accountname;
@@ -48,17 +48,21 @@ public class PaymentModelObject {
         return paymentdate;
     }
 
+    public String getPaymentmonthdate() {
+        return paymentmonthdate;
+    }
+
+    public void setPaymentmonthdate(String paymentmonthdate) {
+        this.paymentmonthdate = paymentmonthdate;
+    }
+
     public void setPaymentdate(String paymentdate) {
         this.paymentdate = paymentdate;
     }
 
-    public String getPaymentmothdate() {
-        return paymentmothdate;
-    }
 
-    public void setPaymentmothdate(String paymentmothdate) {
-        this.paymentmothdate = paymentmothdate;
-    }
+
+
 
     public String getPaymentamount() {
         return paymentamount;

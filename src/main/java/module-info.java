@@ -13,6 +13,8 @@ module home.javafx{
     requires layout;
     requires barcode4j;
     requires java.desktop;
+    requires poi.ooxml;
+    requires poi.ooxml.schemas;
 
     opens home to javafx.fxml;
     opens home.Models to javafx.fxml;

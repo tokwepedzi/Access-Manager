@@ -410,7 +410,7 @@ public class MembershipController extends Window implements Initializable {
 
             try {
 
-                // map account search table colums to titles
+                // map account search table columns to titles
                 mTitleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
                 mNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
                 mSurnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
@@ -737,7 +737,8 @@ public class MembershipController extends Window implements Initializable {
         try {
 
             // System.out.println("Load table click");
-            final GetAccountsService service = new GetAccountsService();// this service takes the the heavy task of fetchiching the account fromdb to a backgroung thread
+            GetAccountsService service = new GetAccountsService();// this service takes the the heavy task of fetchiching the account fromdb to a backgroung thread
+
             //can use this to programaticall add progressbar to anchorpane
             // ProgressIndicator p = new ProgressIndicator();
             //p.setMaxSize(140,140);

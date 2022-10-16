@@ -125,7 +125,7 @@ public class PaymentsController implements Initializable {
         //get individual subscription fees
         double primaryFee = Double.parseDouble(selectedSubscriberAccount.getSubscriptionfee());
         double secondaryFee1 = Double.parseDouble(selectedSubscriberAccount.getSubscriptionfee1());
-        double secondaryFee2 = Double.parseDouble(selectedSubscriberAccount.getSubaccount2());
+        double secondaryFee2 = Double.parseDouble(selectedSubscriberAccount.getSubscriptionfee2());
         double total = primaryFee+secondaryFee1+secondaryFee2;
 
 
@@ -160,7 +160,7 @@ public class PaymentsController implements Initializable {
             System.out.print("Submission started");
             preparedStatement1 = connection.prepareStatement(queryToInsert);
             preparedStatement1.setString(1, paymentModelObject.getPaymentdate());
-            preparedStatement1.setString(2, paymentModelObject.getPaymentmothdate());
+            preparedStatement1.setString(2, paymentModelObject.getPaymentmonthdate());
             preparedStatement1.setDouble(3, Double.parseDouble(paymentModelObject.getPaymentamount()));
             preparedStatement1.setDouble(4, Double.parseDouble(paymentModelObject.getMonthlypayablesubscriptionssum()));
             preparedStatement1.setString(5, paymentModelObject.getAccountname());

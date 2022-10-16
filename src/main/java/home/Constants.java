@@ -14,6 +14,7 @@ public class Constants {
     public static String SECURITY_LOGS_TABLE ="securitylogs_tb";
     public static String OVERRIDE_REASONS_TABLE = "overridereasons_tb";
     public static String WEEKLY_MEMBERSHIP_TABLE ="weeklymembership_tb";
+    public static String IMPORTED_PAYMENTS_TABLE ="importedpayments_tb";
     public static String ACC_STATUS_ACTIVE ="ACTIVE";
     public static String ACC_STATUS_PAUSED ="PAUSED";
     public static String ACC_STATUS_SUSPENDED ="SUSPENDED";
