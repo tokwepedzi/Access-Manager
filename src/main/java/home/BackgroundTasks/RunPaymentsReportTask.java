@@ -2,6 +2,8 @@ package home.BackgroundTasks;
 
 import home.DatabaseConnection;
 import home.Models.PaymentModelObject;
+import home.Models.SecurityClearanceEventModel;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 
@@ -25,6 +27,7 @@ public RunPaymentsReportTask(boolean isGettingAll){
         //Use case switch statement to decide filter Logic???----CHECK ACCESS COUNTER TASK FOR EXAMPLE
         boolean getAllUnFiltered = isGettingAllPayments;
         PaymentModelObject paymentModelObject = null;
+        ObservableList<PaymentModelObject> paymentModelObjectObservableList = FXCollections.observableArrayList();
         Connection connection = new DatabaseConnection().getDatabaseLinkConnection();
         String getAllQuery = "SELECT*FROM "+PAYMENTS_TABLE;
         Statement statement = connection.createStatement();
@@ -42,8 +45,11 @@ public RunPaymentsReportTask(boolean isGettingAll){
                     resultSet.getString("contractvalue"),resultSet.getString("accountbalancebefore"),
                     resultSet.getString("accountbalanceafter"),resultSet.getString("description")
             ));
+            paymentModelObjectObservableList.add(paymentModelObject);
+
+
 
         }
-        return null;
+        return paymentModelObjectObservableList;
     }
 }

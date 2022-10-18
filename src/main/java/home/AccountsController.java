@@ -1,6 +1,6 @@
 package home;
 
-import home.Models.MemberSearchModel;
+import home.BackgroundTasks.RunPaymentsReportTask;
 import home.Models.PaymentModelObject;
 import home.Services.UploadPaymentsService;
 import javafx.beans.value.ChangeListener;
@@ -14,8 +14,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.io.File;
-import java.io.FilenameFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -82,6 +89,8 @@ public class AccountsController implements Initializable {
     private RadioButton mFilterRadioButton;
     @FXML
     private RadioButton mFilterRadioButton1;
+    @FXML
+    private Button mReadBtn;
     private ObservableList<PaymentModelObject> paymentModelObjectObservableList = FXCollections.observableArrayList();
 
 
@@ -120,14 +129,14 @@ public class AccountsController implements Initializable {
 
     }
 
-    public void importPaymentsfromExcel(ActionEvent actionEvent){
+    public void importPaymentsFromExcel(ActionEvent actionEvent){
         System.out.println("Import button Clicked!");
         try{
             FileChooser fileChooser = new FileChooser();
             selectedFile = fileChooser.showOpenDialog(null);
 
             //get file URL
-            URL url = selectedFile.toURI().toURL();
+            URL url = selectedFile.getAbsoluteFile().toURI().toURL();
             System.out.println("FILE URL: "+url+" NAME:"+selectedFile.getName());
             mImportNotes.setText(selectedFile.getPath());
            // if(FilenameUtils.getExtension(selectedFile))
@@ -150,10 +159,25 @@ public class AccountsController implements Initializable {
                 }
             });
             service.setPath(url+"");
+
             service.setLastRowNum(Integer.parseInt(mLastColumnNum.getText())-1);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("NOTIFICATION:");
+            alert.setHeaderText(null);
+            alert.setContentText("Service is about to start");
+            alert.showAndWait();
+
             service.start();
 
         }catch (Exception e){
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("ERROR P2:");
+            alert.setHeaderText(null);
+            alert.setContentText("ERROR: "+e.getMessage()+" TRACE: "+e.getStackTrace());
+            alert.showAndWait();
+            e.printStackTrace();
+            throw new RuntimeException(e);
 
         }
 
@@ -161,7 +185,68 @@ public class AccountsController implements Initializable {
 
     }
 
+    public void readAlert(ActionEvent event) throws FileNotFoundException {
+
+        String path = "C:\\Gym Proctor\\debit.xlsx";
+       // C:\Gym Proctor
+        FileInputStream fileInputStream = new FileInputStream(new File(path));
+        XSSFWorkbook xssfWorkbook = null;
+        try {
+            xssfWorkbook = new XSSFWorkbook(fileInputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(0);
+        XSSFRow row = null;
+        XSSFCell xssfCell = null;
+        row = xssfSheet.getRow(1);
+       // xssfCell = row.getCell(0);
+        String information = row.getCell(0).getStringCellValue();
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("INFORMATION :");
+        alert.setHeaderText("INFORMATION :"+information);
+
+        alert.showAndWait();
+
+        try {
+            xssfWorkbook.close();
+            fileInputStream.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+
+
+    }
+
     public void mRunPaymentsReportBtn(ActionEvent actionEvent){
+        try{
         System.out.println("RUN reports BTN Clicked");
+        boolean getAllPayments = true;
+        final RunPaymentsReportTask runPaymentsReportTask = new RunPaymentsReportTask(getAllPayments);
+        runPaymentsReportTask.valueProperty().addListener(new ChangeListener<ObservableList<PaymentModelObject>>() {
+            @Override
+            public void changed(ObservableValue<? extends ObservableList<PaymentModelObject>> observableValue, ObservableList<PaymentModelObject> paymentModelObjects, ObservableList<PaymentModelObject> newValue) {
+                paymentModelObjectObservableList = newValue;
+                mPaymentsTableView.setItems(newValue);
+
+            }
+        });
+
+        Thread thread = new Thread(runPaymentsReportTask);
+        thread.setDaemon(true);
+        thread.start();}
+        catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("ERROR P2:");
+            alert.setHeaderText(null);
+            alert.setContentText("ERROR: "+e.getMessage()+" TRACE: "+e.getStackTrace());
+            alert.showAndWait();
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

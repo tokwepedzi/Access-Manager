@@ -7,7 +7,6 @@
       </element>
       <element id="library" level="project" name="Maven: org.kordamp.ikonli:ikonli-core:12.2.0" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-web:win:15.0.1" />
-      <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.69" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:win:15.0.1" />
       <element id="library" level="project" name="Maven: net.synedra:validatorfx:0.1.13" />
       <element id="library" level="project" name="Maven: org.controlsfx:controlsfx:11.1.0" />
@@ -15,18 +14,14 @@
       <element id="library" level="project" name="Maven: com.microsoft.sqlserver:mssql-jdbc:11.1.1.jre18-preview" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:win:15.0.1" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-web:15.0.1" />
-      <element id="library" level="project" name="Maven: com.github.sarxos:webcam-capture:0.3.12" />
-      <element id="library" level="project" name="Maven: eu.agno3.jcifs:jcifs-ng:2.1.7" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-media:15.0.1" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-media:win:15.0.1" />
-      <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.2" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-base:15.0.1" />
       <element id="library" level="project" name="Maven: org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:win:15.0.1" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-fxml:15.0.1" />
       <element id="library" level="project" name="Maven: org.kordamp.ikonli:ikonli-javafx:12.2.0" />
       <element id="library" level="project" name="Maven: eu.hansolo:tilesfx:11.48" />
-      <element id="library" level="project" name="Maven: com.nativelibs4java:bridj:0.7.0" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-controls:15.0.1" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-base:win:15.0.1" />
       <element id="library" level="project" name="Maven: org.openjfx:javafx-graphics:15.0.1" />
@@ -76,6 +71,20 @@
       <element id="library" level="project" name="tilesfx-11.48" />
       <element id="library" level="project" name="validatorfx-0.1.13" />
       <element id="library" level="project" name="webcam-capture-0.3.12" />
+      <element id="library" level="project" name="Maven: com.github.virtuald:curvesapi:1.06" />
+      <element id="library" level="project" name="Maven: com.zaxxer:SparseBitSet:1.2" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-math3:3.6.1" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-collections4:4.4" />
+      <element id="library" level="project" name="Maven: org.apiguardian:apiguardian-api:1.1.2" />
+      <element id="library" level="project" name="JAVAFX" />
+      <element id="library" level="project" name="Maven: org.apache.xmlbeans:xmlbeans:5.0.3" />
+      <element id="library" level="project" name="Maven: org.apache.poi:poi:5.2.0" />
+      <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml:5.2.0" />
+      <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml-lite:5.2.0" />
+      <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.17.1" />
+      <element id="library" level="project" name="Maven: org.apache.commons:commons-compress:1.21" />
+      <element id="library" level="project" name="Maven: commons-io:commons-io:2.11.0" />
+      <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.15" />
     </root>
   </artifact>
 </component>

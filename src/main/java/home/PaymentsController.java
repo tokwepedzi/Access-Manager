@@ -6,10 +6,7 @@ import home.Models.PaymentModelObject;
 import home.Models.SubscriptionModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -106,6 +103,11 @@ public class PaymentsController implements Initializable {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("ERROR P1:");
+            alert.setHeaderText(null);
+            alert.setContentText("ERROR: "+throwables.getMessage()+" TRACE: "+throwables.getStackTrace());
+            alert.showAndWait();
         }
 
         try {
@@ -113,7 +115,14 @@ public class PaymentsController implements Initializable {
             preparedStatement.close();
             //resultSet.close();
         } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("ERROR P2:");
+            alert.setHeaderText(null);
+            alert.setContentText("ERROR: "+e.getMessage()+" TRACE: "+e.getStackTrace());
+            alert.showAndWait();
             throw new RuntimeException(e);
+
         }
 
 
@@ -183,7 +192,14 @@ public class PaymentsController implements Initializable {
             System.out.println("Submission completed");
 
         } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("ERROR P3:");
+            alert.setHeaderText(null);
+            alert.setContentText("ERROR: "+e.getMessage()+" TRACE: "+e.getStackTrace());
+            alert.showAndWait();
             throw new RuntimeException(e);
+
         }
 
         try {
@@ -191,6 +207,13 @@ public class PaymentsController implements Initializable {
             //preparedStatement1.close();
 
         } catch (SQLException e) {
+
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("ERROR P4:");
+            alert.setHeaderText(null);
+            alert.setContentText("ERROR: "+e.getMessage()+" TRACE: "+e.getStackTrace());
+            alert.showAndWait();
             throw new RuntimeException(e);
         }
         System.out.println("End submit");
@@ -207,6 +230,12 @@ public class PaymentsController implements Initializable {
             preparedStatement1.execute();
             System.out.print("Update ended");
         } catch (SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("ERROR P5:");
+            alert.setHeaderText(null);
+            alert.setContentText("ERROR: "+e.getMessage()+" TRACE: "+e.getStackTrace());
+            alert.showAndWait();
             throw new RuntimeException(e);
         }
 

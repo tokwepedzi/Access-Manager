@@ -32,15 +32,15 @@
                            </children>
                         </HBox>
                         <ProgressBar fx:id="mImportProgressBar" layoutX="7.0" layoutY="36.0" prefHeight="21.0" prefWidth="953.0" progress="0.0" />
-                        <Button fx:id="mImportBtn" layoutX="845.0" layoutY="66.0" mnemonicParsing="false" onAction="#importPaymentsfromExcel" prefHeight="45.0" prefWidth="108.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="IMPORT" />
-                        <Label fx:id="mImportNotes" layoutX="101.0" layoutY="77.0" prefHeight="23.0" prefWidth="624.0" text="SOME NOTES" />
+                        <Button fx:id="mImportBtn" layoutX="845.0" layoutY="66.0" mnemonicParsing="false" onAction="#importPaymentsFromExcel" prefHeight="45.0" prefWidth="108.0" styleClass="modules_buttons" stylesheets="@../../css/style.css" text="IMPORT" />
+                        <Label fx:id="mImportNotes" layoutX="101.0" layoutY="77.0" prefHeight="23.0" prefWidth="624.0" />
                         <ImageView fx:id="mExcelIcon" fitHeight="48.0" fitWidth="48.0" layoutX="25.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../excel.png" />
                            </image>
                         </ImageView>
                         <TextField fx:id="mLastColumnNum" layoutX="743.0" layoutY="85.0" prefHeight="31.0" prefWidth="73.0" />
-                        <Label layoutX="742.0" layoutY="67.0" prefHeight="20.0" prefWidth="75.0" text="last column#">
+                        <Label layoutX="742.0" layoutY="67.0" prefHeight="20.0" prefWidth="75.0" text="last row#">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -85,6 +85,7 @@
                         </AnchorPane>
                     </content>
                   </ScrollPane>
+                  <Button fx:id="mReadBtn" layoutX="755.0" layoutY="181.0" mnemonicParsing="false" onAction="#readAlert" text="Read" />
                </children></AnchorPane>
       </content>
     </Tab>
