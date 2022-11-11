@@ -53,9 +53,10 @@ public class UploadPaymentsTask extends Task<ObservableList<PaymentModelObject>>
 
 
                 //read columns from the excel file
-                URL url = new URL(path);
-                File file = new File(url.getFile());
-                FileInputStream fileInputStream = new FileInputStream(new File(file.getAbsolutePath()));
+               // URL url = new URL(path);
+                //File file = new File(url.getFile());
+               // FileInputStream fileInputStream = new FileInputStream(new File(file.getAbsolutePath()));
+                FileInputStream fileInputStream = new FileInputStream(new File(path));
                 XSSFWorkbook xssfWorkbook = new XSSFWorkbook(fileInputStream);
                 XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(0);
                 XSSFRow row = null;

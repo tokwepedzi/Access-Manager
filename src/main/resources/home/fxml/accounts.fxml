@@ -85,7 +85,6 @@
                         </AnchorPane>
                     </content>
                   </ScrollPane>
-                  <Button fx:id="mReadBtn" layoutX="755.0" layoutY="181.0" mnemonicParsing="false" onAction="#readAlert" text="Read" />
                </children></AnchorPane>
       </content>
     </Tab>

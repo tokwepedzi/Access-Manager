@@ -14,15 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -89,8 +81,6 @@ public class AccountsController implements Initializable {
     private RadioButton mFilterRadioButton;
     @FXML
     private RadioButton mFilterRadioButton1;
-    @FXML
-    private Button mReadBtn;
     private ObservableList<PaymentModelObject> paymentModelObjectObservableList = FXCollections.observableArrayList();
 
 
@@ -136,12 +126,13 @@ public class AccountsController implements Initializable {
             selectedFile = fileChooser.showOpenDialog(null);
 
             //get file URL
-            URL url = selectedFile.getAbsoluteFile().toURI().toURL();
-            System.out.println("FILE URL: "+url+" NAME:"+selectedFile.getName());
+            //URL url = selectedFile.getAbsoluteFile().toURI().toURL();
+           // System.out.println("FILE URL: "+url+" NAME:"+selectedFile.getName());
             mImportNotes.setText(selectedFile.getPath());
            // if(FilenameUtils.getExtension(selectedFile))
             mExcelIcon.setVisible(true);
             mImportProgressBar.setVisible(true);
+            String path = "C:\\Gym Proctor\\Webcam Images\\debit.xlsx";
 
             //start upload payments service and pass the path to excel sheet to the service
             UploadPaymentsService service = new UploadPaymentsService();
@@ -158,7 +149,8 @@ public class AccountsController implements Initializable {
 
                 }
             });
-            service.setPath(url+"");
+           // service.setPath(url+"");
+            service.setPath(path);
 
             service.setLastRowNum(Integer.parseInt(mLastColumnNum.getText())-1);
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -180,43 +172,6 @@ public class AccountsController implements Initializable {
             throw new RuntimeException(e);
 
         }
-
-
-
-    }
-
-    public void readAlert(ActionEvent event) throws FileNotFoundException {
-
-        String path = "C:\\Gym Proctor\\debit.xlsx";
-       // C:\Gym Proctor
-        FileInputStream fileInputStream = new FileInputStream(new File(path));
-        XSSFWorkbook xssfWorkbook = null;
-        try {
-            xssfWorkbook = new XSSFWorkbook(fileInputStream);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(0);
-        XSSFRow row = null;
-        XSSFCell xssfCell = null;
-        row = xssfSheet.getRow(1);
-       // xssfCell = row.getCell(0);
-        String information = row.getCell(0).getStringCellValue();
-
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("INFORMATION :");
-        alert.setHeaderText("INFORMATION :"+information);
-
-        alert.showAndWait();
-
-        try {
-            xssfWorkbook.close();
-            fileInputStream.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
 
 
 

@@ -59,6 +59,8 @@ public class PaymentsController implements Initializable {
 
 
     public void submitTender() {
+
+        paymentsStage = (Stage) mTenderBtn.getScene().getWindow();
         //Get the Member the membership object from the database (membership table)
         String query = "SELECT * FROM " + MEMBERSHIP_TABLE + " WHERE memberaccountnumber = " + "'" + selectedSubscriberAccount.getAccountnum() + "'";
         DatabaseConnection databaseConnection = new DatabaseConnection();
@@ -72,7 +74,7 @@ public class PaymentsController implements Initializable {
             resultSet = preparedStatement.executeQuery();
             MembershipModel membershipModel = null;
             while (resultSet.next()) {
-                        membershipModel = new MembershipModel(
+                membershipModel = new MembershipModel(
                         resultSet.getString("memberuid"),
                         resultSet.getString("title"), resultSet.getString("name"),
                         resultSet.getString("surname"), resultSet.getString("idnumber"),
@@ -97,7 +99,7 @@ public class PaymentsController implements Initializable {
                         resultSet.getString("pic1"), resultSet.getString("pic2"), resultSet.getString("paymenttype")
                 );
             }
-            System.out.println(membershipModel.getName()+"TTTTTT");
+            System.out.println(membershipModel.getName() + "TTTTTT");
             selectedMembershipModel = membershipModel;
 
 
@@ -106,7 +108,7 @@ public class PaymentsController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("ERROR P1:");
             alert.setHeaderText(null);
-            alert.setContentText("ERROR: "+throwables.getMessage()+" TRACE: "+throwables.getStackTrace());
+            alert.setContentText("ERROR: " + throwables.getMessage() + " TRACE: " + throwables.getStackTrace());
             alert.showAndWait();
         }
 
@@ -119,7 +121,7 @@ public class PaymentsController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("ERROR P2:");
             alert.setHeaderText(null);
-            alert.setContentText("ERROR: "+e.getMessage()+" TRACE: "+e.getStackTrace());
+            alert.setContentText("ERROR: " + e.getMessage() + " TRACE: " + e.getStackTrace());
             alert.showAndWait();
             throw new RuntimeException(e);
 
@@ -135,7 +137,7 @@ public class PaymentsController implements Initializable {
         double primaryFee = Double.parseDouble(selectedSubscriberAccount.getSubscriptionfee());
         double secondaryFee1 = Double.parseDouble(selectedSubscriberAccount.getSubscriptionfee1());
         double secondaryFee2 = Double.parseDouble(selectedSubscriberAccount.getSubscriptionfee2());
-        double total = primaryFee+secondaryFee1+secondaryFee2;
+        double total = primaryFee + secondaryFee1 + secondaryFee2;
 
 
         PaymentModelObject paymentModelObject = new PaymentModelObject("", date, month + " " + year,
@@ -144,8 +146,8 @@ public class PaymentsController implements Initializable {
                 selectedSubscriberAccount.getPackagename(), selectedSubscriberAccount.getStartdate(),
                 selectedSubscriberAccount.getEnddate(), selectedSubscriberAccount.getMonthsduration(),
                 selectedSubscriberAccount.getMonthselapsed(), selectedSubscriberAccount.getElapsedamount(),
-                Double.toString(Double.parseDouble(selectedSubscriberAccount.getTotalpaid())+Double.parseDouble(mPaymentAmount.getText().toString())), selectedSubscriberAccount.getContractvalue(),
-                selectedSubscriberAccount.getAccountbalance(),Double.toString(Double.parseDouble(selectedSubscriberAccount.getAccountbalance())-Double.parseDouble(mPaymentAmount.getText())),
+                Double.toString(Double.parseDouble(selectedSubscriberAccount.getTotalpaid()) + Double.parseDouble(mPaymentAmount.getText().toString())), selectedSubscriberAccount.getContractvalue(),
+                selectedSubscriberAccount.getAccountbalance(), Double.toString(Double.parseDouble(selectedSubscriberAccount.getAccountbalance()) - Double.parseDouble(mPaymentAmount.getText())),
                 mPaymentDescription.getValue().toString()
 
         );
@@ -164,7 +166,7 @@ public class PaymentsController implements Initializable {
 
         try {
             DatabaseConnection databaseConnection1 = new DatabaseConnection();
-             connection = databaseConnection1.getDatabaseLinkConnection();
+            connection = databaseConnection1.getDatabaseLinkConnection();
             PreparedStatement preparedStatement1 = null;
             System.out.print("Submission started");
             preparedStatement1 = connection.prepareStatement(queryToInsert);
@@ -180,13 +182,13 @@ public class PaymentsController implements Initializable {
             preparedStatement1.setString(10, paymentModelObject.getStartdate());
             preparedStatement1.setString(11, paymentModelObject.getEnddate());
             preparedStatement1.setInt(12, Integer.parseInt(paymentModelObject.getMonthsduration()));
-            preparedStatement1.setInt(13,Integer.parseInt(paymentModelObject.getMonthselapsed()) );
+            preparedStatement1.setInt(13, Integer.parseInt(paymentModelObject.getMonthselapsed()));
             preparedStatement1.setDouble(14, Double.parseDouble(paymentModelObject.getPayableelapsed()));
-            preparedStatement1.setDouble(15,Double.parseDouble(paymentModelObject.getAmountpaidtodate()) );
+            preparedStatement1.setDouble(15, Double.parseDouble(paymentModelObject.getAmountpaidtodate()));
             preparedStatement1.setDouble(16, Double.parseDouble(paymentModelObject.getContractvalue()));
-            preparedStatement1.setDouble(17,Double.parseDouble(paymentModelObject.getAccountbalancebefore()));
-            preparedStatement1.setDouble(18,Double.parseDouble(paymentModelObject.getAccountbalanceafter()));
-            preparedStatement1.setString(19,paymentModelObject.getDescription());
+            preparedStatement1.setDouble(17, Double.parseDouble(paymentModelObject.getAccountbalancebefore()));
+            preparedStatement1.setDouble(18, Double.parseDouble(paymentModelObject.getAccountbalanceafter()));
+            preparedStatement1.setString(19, paymentModelObject.getDescription());
             preparedStatement1.execute();
 
             System.out.println("Submission completed");
@@ -196,7 +198,7 @@ public class PaymentsController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("ERROR P3:");
             alert.setHeaderText(null);
-            alert.setContentText("ERROR: "+e.getMessage()+" TRACE: "+e.getStackTrace());
+            alert.setContentText("ERROR: " + e.getMessage() + " TRACE: " + e.getStackTrace());
             alert.showAndWait();
             throw new RuntimeException(e);
 
@@ -212,15 +214,15 @@ public class PaymentsController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("ERROR P4:");
             alert.setHeaderText(null);
-            alert.setContentText("ERROR: "+e.getMessage()+" TRACE: "+e.getStackTrace());
+            alert.setContentText("ERROR: " + e.getMessage() + " TRACE: " + e.getStackTrace());
             alert.showAndWait();
             throw new RuntimeException(e);
         }
         System.out.println("End submit");
 
         //Update Subscriptions_tb with new total paid (and new account balance)? if the subscriptions service doe not auto calc balance using
-         String newTotalPaidSoFar = Double.toString(Double.parseDouble(selectedSubscriberAccount.getTotalpaid())+Double.parseDouble(mPaymentAmount.getText().toString()));
-            String query2 = "UPDATE "+SUBSCRIPTIONS_TABLE+" SET totalpaid = "+ "'" +newTotalPaidSoFar+"'"+ "WHERE accountnum = "+selectedSubscriberAccount.getAccountnum()+ ";";
+        String newTotalPaidSoFar = Double.toString(Double.parseDouble(selectedSubscriberAccount.getTotalpaid()) + Double.parseDouble(mPaymentAmount.getText().toString()));
+        String query2 = "UPDATE " + SUBSCRIPTIONS_TABLE + " SET totalpaid = " + "'" + newTotalPaidSoFar + "'" + "WHERE accountnum = " + selectedSubscriberAccount.getAccountnum() + ";";
         DatabaseConnection databaseConnection1 = new DatabaseConnection();
         connection = databaseConnection1.getDatabaseLinkConnection();
         PreparedStatement preparedStatement1 = null;
@@ -234,10 +236,10 @@ public class PaymentsController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("ERROR P5:");
             alert.setHeaderText(null);
-            alert.setContentText("ERROR: "+e.getMessage()+" TRACE: "+e.getStackTrace());
+            alert.setContentText("ERROR: " + e.getMessage() + " TRACE: " + e.getStackTrace());
             alert.showAndWait();
             throw new RuntimeException(e);
         }
-
+        paymentsStage.close();
     }
 }
