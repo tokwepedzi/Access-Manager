@@ -45,7 +45,7 @@ public class UploadPaymentsTask extends Task<ObservableList<PaymentModelObject>>
     protected ObservableList<PaymentModelObject> call() {
         try {
             try {
-                // System.out.println("PRINTING THE PATH FROM TASK: " + path);
+                 System.out.println("PRINTING THE PATH FROM TASK: " + path+"  LAST ROW NUM IS "+lastRowNum);
                 paymentModelObjects.clear();
                 String query = "INSERT INTO " + IMPORTED_PAYMENTS_TABLE + " (paymentdate,idnum,paymentamount) " +
                         "VALUES (?,?,?);";
@@ -101,7 +101,8 @@ public class UploadPaymentsTask extends Task<ObservableList<PaymentModelObject>>
                 e.printStackTrace();
                 e.getMessage();
             }
-            System.out.println("LAST ROWN NUMBER IS  " + lastRowNum);
+            System.out.println("LAST ROW NUMBER IS  " + lastRowNum);
+            //TODO Log event??
             // System.out.println("TASK DONE DONE! " + path);
 
             String importedPaymentsQuery = "SELECT*FROM " + IMPORTED_PAYMENTS_TABLE;
@@ -276,6 +277,7 @@ public class UploadPaymentsTask extends Task<ObservableList<PaymentModelObject>>
                             paymentsPreparedStatement.setString(19, paymentModelObject.getDescription());
                             paymentsPreparedStatement.execute();
 
+                            //Todo Log event??
                             System.out.println("Submission completed");
                             paymentModelObjects.add(paymentModelObject);
 
