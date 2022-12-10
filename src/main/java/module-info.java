@@ -15,6 +15,7 @@ module home.javafx{
     requires java.desktop;
     requires org.apache.poi.ooxml;
 
+
     opens home to javafx.fxml;
     opens home.Models to javafx.fxml;
     //opens home.Models.MemberSearchModel to javafx.fxml;

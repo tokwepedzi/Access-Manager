@@ -56,12 +56,16 @@ public class UploadPaymentsTask extends Task<ObservableList<PaymentModelObject>>
                // URL url = new URL(path);
                 //File file = new File(url.getFile());
                // FileInputStream fileInputStream = new FileInputStream(new File(file.getAbsolutePath()));
-                FileInputStream fileInputStream = new FileInputStream(new File(path));
+
+                String path1 = "C:\\Gym Proctor\\Webcam Images\\debit.xlsx";
+                System.out.println("Stage 1: "+path1);
+                FileInputStream fileInputStream = new FileInputStream(path1);
                 XSSFWorkbook xssfWorkbook = new XSSFWorkbook(fileInputStream);
                 XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(0);
                 XSSFRow row = null;
                 XSSFCell xssfCell = null;
                 // start i from 1, column 0 is the headings
+                System.out.println("Stage 2: ");
                 for (int i = 1; i <= lastRowNum; i++) {
                     row = xssfSheet.getRow(i);
                     xssfCell = row.getCell(0);
@@ -72,35 +76,36 @@ public class UploadPaymentsTask extends Task<ObservableList<PaymentModelObject>>
                         preparedStatement.execute();
                     }
                 }
+                System.out.println("Stage 3: ");
                 xssfWorkbook.close();
                 fileInputStream.close();
                 preparedStatement.close();
                 connection.close();
             } catch (FileNotFoundException e) {
                 System.out.println("Exception : 1");
-                Platform.runLater(() -> {
+             /*   Platform.runLater(() -> {
                     Alert dialog = new Alert(Alert.AlertType.ERROR, "Error 1: " + e.getMessage(), ButtonType.OK);
                     dialog.show();
-                });
+                });*/
                 e.printStackTrace();
                 e.getMessage();
             } catch (SQLException e) {
                 System.out.println("Exception : 2");
-                Platform.runLater(() -> {
+              /*  Platform.runLater(() -> {
                     Alert dialog = new Alert(Alert.AlertType.ERROR, "Error 2: " + e.getMessage(), ButtonType.OK);
                     dialog.show();
-                });
+                });*/
                 e.printStackTrace();
                 e.getMessage();
-            } catch (Exception e) {
+            } /*catch (Exception e) {
                 System.out.println("Exception : 3");
-                Platform.runLater(() -> {
+               *//* Platform.runLater(() -> {
                     Alert dialog = new Alert(Alert.AlertType.ERROR, "Error 3: " + e.getMessage(), ButtonType.OK);
                     dialog.show();
-                });
+                });*//*
                 e.printStackTrace();
-                e.getMessage();
-            }
+               // e.getMessage();
+            }*/
             System.out.println("LAST ROW NUMBER IS  " + lastRowNum);
             //TODO Log event??
             // System.out.println("TASK DONE DONE! " + path);
@@ -205,10 +210,10 @@ public class UploadPaymentsTask extends Task<ObservableList<PaymentModelObject>>
 
                         } catch (SQLException throwables) {
                             System.out.println("Exception : 4");
-                            Platform.runLater(() -> {
+                          /*  Platform.runLater(() -> {
                                 Alert dialog = new Alert(Alert.AlertType.ERROR, "Error 4: " + throwables.getMessage(), ButtonType.OK);
                                 dialog.show();
-                            });
+                            });*/
                             throwables.printStackTrace();
 
                         }
@@ -283,10 +288,10 @@ public class UploadPaymentsTask extends Task<ObservableList<PaymentModelObject>>
 
                         } catch (SQLException e) {
                             System.out.println("Exception : 5");
-                            Platform.runLater(() -> {
+                          /*  Platform.runLater(() -> {
                                 Alert dialog = new Alert(Alert.AlertType.ERROR, "Error 5: " + e.getMessage(), ButtonType.OK);
                                 dialog.show();
-                            });
+                            });*/
                             e.printStackTrace();
                             throw new RuntimeException(e);
                         }
@@ -313,10 +318,10 @@ public class UploadPaymentsTask extends Task<ObservableList<PaymentModelObject>>
                             System.out.print("Update ended");
                         } catch (SQLException e) {
                             System.out.println("Exception : 6");
-                            Platform.runLater(() -> {
+                           /* Platform.runLater(() -> {
                                 Alert dialog = new Alert(Alert.AlertType.ERROR, "Error 6: " + e.getMessage(), ButtonType.OK);
                                 dialog.show();
-                            });
+                            });*/
                             e.printStackTrace();
                             throw new RuntimeException(e);
                         }
@@ -324,10 +329,10 @@ public class UploadPaymentsTask extends Task<ObservableList<PaymentModelObject>>
 
                     } catch (SQLException throwables) {
                         System.out.println("Exception : 7");
-                        Platform.runLater(() -> {
+                      /*  Platform.runLater(() -> {
                             Alert dialog = new Alert(Alert.AlertType.ERROR, "Error 7: " + throwables.getMessage(), ButtonType.OK);
                             dialog.show();
-                        });
+                        });*/
                         throwables.printStackTrace();
                         throw new RuntimeException(throwables);
                     }
@@ -346,18 +351,18 @@ public class UploadPaymentsTask extends Task<ObservableList<PaymentModelObject>>
                 }
             } catch (SQLException e) {
                 System.out.println("Exception : 8");
-                Platform.runLater(() -> {
+              /*  Platform.runLater(() -> {
                     Alert dialog = new Alert(Alert.AlertType.ERROR, "Error 8 : " + e.getMessage(), ButtonType.OK);
                     dialog.show();
-                });
+                });*/
                 e.printStackTrace();
                 throw new RuntimeException(e);
             } catch (Exception e) {
                 System.out.println("Exception : 9");
-                Platform.runLater(() -> {
+               /* Platform.runLater(() -> {
                     Alert dialog = new Alert(Alert.AlertType.ERROR, "Error 9: " + e.getMessage(), ButtonType.OK);
                     dialog.show();
-                });
+                });*/
             }
             System.out.println("DONE 2 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
@@ -370,27 +375,27 @@ public class UploadPaymentsTask extends Task<ObservableList<PaymentModelObject>>
                 System.out.println("IMPORTED PAYMENTS TABLE DELETED");
             } catch (SQLException e) {
                 System.out.println("Exception : 10");
-                Platform.runLater(() -> {
+              /*  Platform.runLater(() -> {
                     Alert dialog = new Alert(Alert.AlertType.ERROR, "Error 10: " + e.getMessage(), ButtonType.OK);
                     dialog.show();
-                });
+                });*/
                 e.printStackTrace();
                 throw new RuntimeException(e);
             } catch (Exception e) {
                 System.out.println("Exception : 11");
-                Platform.runLater(() -> {
+              /*  Platform.runLater(() -> {
                     Alert dialog = new Alert(Alert.AlertType.ERROR, "Error 11: " + e.getMessage(), ButtonType.OK);
                     dialog.show();
-                });
+                });*/
             }
             //return observableList;
 
         }catch (Exception e){
             System.out.println("Exception : 12");
-            Platform.runLater(() -> {
+           /* Platform.runLater(() -> {
                 Alert dialog = new Alert(Alert.AlertType.ERROR, "Error 12: " + e.getMessage(), ButtonType.OK);
                 dialog.show();
-            });
+            });*/
 
         }
             return paymentModelObjects;
